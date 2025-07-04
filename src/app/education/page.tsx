@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
+
+
 const t = (key: any) => translations.es[key as any] || key;
 
 export default function EducationPage() {

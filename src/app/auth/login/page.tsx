@@ -45,6 +45,7 @@ export default function LoginPage() {
     login({
         email: values.email,
         displayName: userName,
+        photoURL: 'https://placehold.co/100x100.png',
     });
     
     toast({
