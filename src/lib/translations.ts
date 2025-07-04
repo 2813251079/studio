@@ -1,6 +1,6 @@
 export const translations = {
   es: {
-    'app.title': 'Open Music Academy Frecuency',
+    'app.title': 'Open Music Academy',
     'app.description': 'Frecuencias Sanadoras y Curativas',
     
     'landing.header.features': 'Características',

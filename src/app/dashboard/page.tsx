@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Waves, Wind, Video, Puzzle, SlidersHorizontal } from "lucide-react";
 import { translations } from "@/lib/translations";
 
@@ -40,41 +39,35 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 md:p-6">
-      <div className="w-full max-w-4xl space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('dashboard.home.title')}</h1>
-          <p className="mt-2 text-muted-foreground">{t('dashboard.home.subtitle')}</p>
-        </div>
+    <div className="w-full max-w-4xl mx-auto space-y-12 p-4 md:p-6">
+      <div className="text-center">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('dashboard.home.title')}</h1>
+        <p className="mt-4 text-foreground/80 text-lg">{t('dashboard.home.subtitle')}</p>
+      </div>
 
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle>{t('dashboard.home.features_title')}</CardTitle>
-            <CardDescription>{t('dashboard.home.features_subtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4">
-              {features.map((feature, index) => (
-                <li key={index}>
-                  <Link 
-                    href={feature.href} 
-                    className="group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg transition-colors hover:bg-secondary/50"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="flex-shrink-0 bg-secondary rounded-full p-3">
-                        {feature.icon}
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold">{feature.title}</h3>
-                        <p className="text-muted-foreground text-sm mt-1">{feature.description}</p>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+      <div className="w-full space-y-6">
+        <div>
+          <h2 className="text-3xl font-bold">{t('dashboard.home.features_title')}</h2>
+          <p className="mt-2 text-foreground/80 text-base">{t('dashboard.home.features_subtitle')}</p>
+        </div>
+        <ul className="space-y-8">
+          {features.map((feature) => (
+            <li key={feature.href}>
+              <Link 
+                href={feature.href} 
+                className="group flex items-center gap-6 p-2 rounded-lg transition-colors -mx-2 hover:bg-secondary/50"
+              >
+                <div className="flex-shrink-0 bg-secondary rounded-full p-4">
+                  {feature.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-semibold">{feature.title}</h3>
+                  <p className="text-foreground/80 text-base mt-1">{feature.description}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
