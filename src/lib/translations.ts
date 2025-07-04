@@ -129,7 +129,7 @@ export const translations = {
     'video_harmonizer.subtitle': 'Convierte tus ideas en una experiencia audiovisual. Describe una escena y la IA generará una imagen y una banda sonora.',
     'video_harmonizer.form.title': 'Describe tu Escena',
     'video_harmonizer.form.description': 'Escribe una idea, un sentimiento o un lugar, y la IA lo convertirá en arte.',
-    'video_harmonizer.form.scene_label': 'Descripción de la Escena',
+    'video_harmonizer.form.scene_label': 'Describe tu escena',
     'video_harmonizer.form.scene_placeholder': 'Ej: "Un bosque lluvioso al anochecer con neblina", "La calma de un océano espacial con nebulosas de colores"...',
     'video_harmonizer.form.submit_button': 'Crear Escena',
     'video_harmonizer.form.submit_button.loading': 'Creando...',
