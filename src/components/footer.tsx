@@ -22,15 +22,21 @@ export default function Footer() {
       <div className="container flex flex-col items-center justify-between gap-6 py-10 md:h-24 md:flex-row md:py-0">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-4 md:px-0">
           <Link href="/">
-            <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
+            <Image src={logoUrl} width={80} height={80} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
           </Link>
-          <div className="flex flex-col text-center md:text-left">
+          <div className="flex flex-col gap-2 text-center md:text-left">
             <p className="text-sm leading-loose text-muted-foreground">
-              © 2025 Todos los derechos reservados. Elo Diaz Allende. Open Music Academy.
+              {t('footer.rights_reserved')}
             </p>
-            <Link href="/education" className="text-sm text-primary hover:underline">
-              {t('footer.education_link')}
-            </Link>
+             <div className="flex gap-2 justify-center md:justify-start">
+                <Link href="/terms" className="text-sm text-primary hover:underline">
+                  {t('footer.terms')}
+                </Link>
+                 <span className="text-sm text-muted-foreground">|</span>
+                 <Link href="/privacy" className="text-sm text-primary hover:underline">
+                  {t('footer.privacy')}
+                </Link>
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-4">

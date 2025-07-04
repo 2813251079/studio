@@ -2,7 +2,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { translations } from "@/lib/translations";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BrainCircuit, Combine, Layers, Waves, HeartHand, Accessibility, Star } from "lucide-react";
+import { BrainCircuit, Combine, Layers, Waves, HeartHandshake, Accessibility, Star } from "lucide-react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -34,7 +34,7 @@ export default function EducationPage() {
     {
       title: t('education.benefits.healing.title'),
       description: t('education.benefits.healing.description'),
-      icon: <HeartHand className="h-8 w-8 text-accent" />
+      icon: <HeartHandshake className="h-8 w-8 text-accent" />
     },
     {
       title: t('education.benefits.regulatory.title'),
