@@ -229,7 +229,7 @@ export const translations = {
     'circle_of_fifths.no_key': 'Selecciona una tonalidad',
 
     'tuner.title': 'Afinador Cromático de Precisión',
-    'tuner.subtitle': 'Afina cualquier instrumento con precisión. Selecciona una frecuencia de referencia y acerca tu instrumento al micrófono.',
+    'tuner.subtitle': 'Afina cualquier instrumento con precisión. Activa el micrófono y acerca tu instrumento.',
     'tuner.start': 'Activar Micrófono',
     'tuner.stop': 'Detener Afinador',
     'tuner.reference_a': 'Referencia A4',
@@ -244,6 +244,7 @@ export const translations = {
     'footer.education_link': 'Open Music',
     'footer.terms': 'Términos y Condiciones',
     'footer.privacy': 'Privacidad y Seguridad',
+    'footer.disclaimer': 'Esta herramienta está diseñada para el bienestar y la exploración personal, no como un sustituto de consejo médico profesional. Los resultados generados por la IA son para fines creativos y de entretenimiento.',
 
     'education.title': '¿Qué son las Frecuencias Sanadoras?',
     'education.subtitle': 'Sumérgete en el conocimiento detrás de la música sanadora. Descubre cómo las vibraciones pueden transformar tu bienestar físico, mental y espiritual.',

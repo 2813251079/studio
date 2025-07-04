@@ -38,7 +38,7 @@ const analysisPrompt = ai.definePrompt({
     name: 'workspaceAnalysisPrompt',
     input: { schema: WorkspaceHarmonizerInputSchema },
     output: { schema: WorkspaceHarmonizerOutputSchema.shape.analysis },
-    prompt: `Eres un experto en sonoterapia y diseño de ambientes acústicos para el bienestar. Analiza el estado actual del usuario y su intención para proponer un paisaje sonoro armonizador.
+    prompt: `Eres un experto en sonoterapia y diseño de ambientes acústicos para el bienestar. Analiza el estado actual del usuario y su intención para proponer un paisaje sonoro armonizador. Asegúrate de que los sonidos sean también calmantes para mascotas que puedan estar en el ambiente (como perros o gatos), utilizando frecuencias y texturas sonoras que promuevan la calma en animales.
 
     **Intención del Usuario:** {{{intention}}}
     **Descripción del Estado Actual:** {{{description}}}

@@ -35,6 +35,7 @@ export default function Footer() {
                   {t('footer.privacy')}
                 </Link>
             </div>
+            <p className="text-xs text-muted-foreground mt-2 max-w-md">{t('footer.disclaimer')}</p>
           </div>
         </div>
         <div className="flex items-center gap-4">

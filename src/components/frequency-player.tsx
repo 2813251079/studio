@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlayCircle, PauseCircle } from "lucide-react";
 import { translations } from "@/lib/translations";
+import { cn } from '@/lib/utils';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -74,16 +75,12 @@ export default function FrequencyPlayer({ frequency, title, description, isPlayi
         oscillatorRef.current.stop();
         oscillatorRef.current = null;
       }
-      // Close the audio context
-      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-        audioContextRef.current.close().catch(console.error);
-        audioContextRef.current = null;
-      }
+      // We don't close the context here anymore to allow multiple players to work
     };
   }, []);
 
   return (
-    <Card>
+    <Card className={cn("transition-all", isPlaying && "shadow-lg shadow-primary/40 ring-2 ring-primary")}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription className="pt-2">{description}</CardDescription>
