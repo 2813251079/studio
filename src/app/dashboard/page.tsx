@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Waves, Wind, Video, Puzzle, SlidersHorizontal } from "lucide-react";
+import { Waves, Wind, Video, Puzzle, SlidersHorizontal, Star } from "lucide-react";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -35,6 +35,12 @@ export default function DashboardPage() {
       title: t('dashboard.sidebar.music_production'),
       description: t('music_production.subtitle'),
       icon: <SlidersHorizontal className="h-8 w-8 text-primary" />,
+    },
+    {
+      href: '/pricing',
+      title: t('dashboard.sidebar.coming_soon'),
+      description: t('coming_soon.description'),
+      icon: <Star className="h-8 w-8 text-accent" />,
     },
   ];
 

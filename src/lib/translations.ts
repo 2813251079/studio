@@ -52,6 +52,7 @@ export const translations = {
     'pricing.pro.feature1': 'Acceso ilimitado a todas las frecuencias',
     'pricing.pro.feature2': 'Armonizaciones de espacio y video ilimitadas',
     'pricing.pro.feature3': 'Sonido de alta definición',
+    'pricing.pro.feature4': 'Acceso a contenido exclusivo (videos, pistas inéditas y más)',
     'pricing.pro.cta': 'Suscribirse',
 
     'login.title': 'Bienvenido de Nuevo',
@@ -77,6 +78,8 @@ export const translations = {
     'dashboard.sidebar.video_harmonizer': 'Armonizar Video',
     'dashboard.sidebar.inclusive_games': 'Herramientas Inclusivas',
     'dashboard.sidebar.music_production': 'Producción Musical',
+    'dashboard.sidebar.coming_soon': 'Contenido Exclusivo (Próximamente)',
+    'coming_soon.description': 'Videos en vivo, reseñas, pistas de guitarra inéditas y más. Contenido exclusivo para miembros.',
     'dashboard.sidebar.account': 'Cuenta',
     'dashboard.sidebar.logout': 'Cerrar Sesión',
 

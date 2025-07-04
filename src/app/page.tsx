@@ -4,7 +4,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, BrainCircuit, Combine, Waves, Wind, Video, Puzzle, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, BrainCircuit, Combine, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -39,6 +39,12 @@ export default function Home() {
       title: t('dashboard.sidebar.inclusive_games'),
       description: t('inclusive_games.subtitle'),
       icon: <Puzzle className="h-8 w-8 text-accent" />,
+    },
+    {
+      href: '/pricing',
+      title: t('dashboard.sidebar.coming_soon'),
+      description: t('coming_soon.description'),
+      icon: <Star className="h-8 w-8 text-accent" />,
     },
     {
       href: '/dashboard/production',

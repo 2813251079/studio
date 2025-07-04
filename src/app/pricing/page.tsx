@@ -17,6 +17,7 @@ export default function PricingPage() {
     t('pricing.pro.feature1'),
     t('pricing.pro.feature2'),
     t('pricing.pro.feature3'),
+    t('pricing.pro.feature4'),
   ];
 
   return (
