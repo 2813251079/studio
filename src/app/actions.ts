@@ -2,11 +2,12 @@
 
 import { z } from 'zod';
 import { workspaceHarmonizer, WorkspaceHarmonizerOutput } from '@/ai/flows/workspace-harmonizer';
+import { videoHarmonizer, VideoHarmonizerOutput } from '@/ai/flows/video-harmonizer';
 import { translations } from '@/lib/translations';
 
 const t = (key: any) => translations.es[key as any] || key;
 
-const validationSchema = z.object({
+const workspaceValidationSchema = z.object({
   intention: z.string().min(1, 'Por favor, selecciona una intención.'),
   description: z.string().min(10, 'Por favor, describe tu espacio con al menos 10 caracteres.'),
 });
@@ -25,7 +26,7 @@ export async function getHarmonizedWorkspace(
   formData: FormData
 ): Promise<WorkspaceHarmonizerState> {
   
-  const validatedFields = validationSchema.safeParse({
+  const validatedFields = workspaceValidationSchema.safeParse({
     intention: formData.get('intention'),
     description: formData.get('description'),
   });
@@ -39,6 +40,43 @@ export async function getHarmonizedWorkspace(
   
   try {
     const result = await workspaceHarmonizer(validatedFields.data);
+    return { data: result };
+  } catch (e) {
+    console.error(e);
+    return { error: t('error.ai') };
+  }
+}
+
+const videoValidationSchema = z.object({
+  description: z.string().min(10, 'Por favor, describe tu escena con al menos 10 caracteres.'),
+});
+
+type VideoHarmonizerState = {
+  data?: VideoHarmonizerOutput;
+  error?: string;
+  fieldErrors?: {
+    description?: string[];
+  };
+};
+
+export async function getHarmonizedVideo(
+  prevState: VideoHarmonizerState,
+  formData: FormData
+): Promise<VideoHarmonizerState> {
+  
+  const validatedFields = videoValidationSchema.safeParse({
+    description: formData.get('description'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      error: 'Error de validación.',
+      fieldErrors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+  
+  try {
+    const result = await videoHarmonizer(validatedFields.data);
     return { data: result };
   } catch (e) {
     console.error(e);
