@@ -5,28 +5,30 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { translations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
 import { speakNoteAction } from '@/app/actions';
+import { noteFrequencies } from '@/lib/noteFrequencies';
 
 const t = (key: any) => translations.es[key as any] || key;
 
 type Note = {
-  name: string;
+  name: string; // Spanish name
+  nameEn: string; // English name
   freq: number;
   type: 'white' | 'black';
 };
 
 const notes: Note[] = [
-  { name: 'C', freq: 261.6, type: 'white' },
-  { name: 'C#', freq: 277.2, type: 'black' },
-  { name: 'D', freq: 293.7, type: 'white' },
-  { name: 'D#', freq: 311.13, type: 'black' },
-  { name: 'E', freq: 329.6, type: 'white' },
-  { name: 'F', freq: 349.2, type: 'white' },
-  { name: 'F#', freq: 370, type: 'black' },
-  { name: 'G', freq: 392, type: 'white' },
-  { name: 'G#', freq: 415.3, type: 'black' },
-  { name: 'A', freq: 440, type: 'white' },
-  { name: 'A#', freq: 466.2, type: 'black' },
-  { name: 'B', freq: 493.2, type: 'white' },
+  { name: 'Do', nameEn: 'C', freq: noteFrequencies['Do'], type: 'white' },
+  { name: 'Do#', nameEn: 'C#', freq: noteFrequencies['Do#'], type: 'black' },
+  { name: 'Re', nameEn: 'D', freq: noteFrequencies['Re'], type: 'white' },
+  { name: 'Re#', nameEn: 'D#', freq: noteFrequencies['Re#'], type: 'black' },
+  { name: 'Mi', nameEn: 'E', freq: noteFrequencies['Mi'], type: 'white' },
+  { name: 'Fa', nameEn: 'F', freq: noteFrequencies['Fa'], type: 'white' },
+  { name: 'Fa#', nameEn: 'F#', freq: noteFrequencies['Fa#'], type: 'black' },
+  { name: 'Sol', nameEn: 'G', freq: noteFrequencies['Sol'], type: 'white' },
+  { name: 'Sol#', nameEn: 'G#', freq: noteFrequencies['Sol#'], type: 'black' },
+  { name: 'La', nameEn: 'A', freq: noteFrequencies['La'], type: 'white' },
+  { name: 'La#', nameEn: 'A#', freq: noteFrequencies['La#'], type: 'black' },
+  { name: 'Si', nameEn: 'B', freq: noteFrequencies['Si'], type: 'white' },
 ];
 
 export default function PianoKeyboard() {
@@ -123,14 +125,14 @@ export default function PianoKeyboard() {
               <div
                 key={note.name}
                 role="button"
-                aria-label={`Piano key ${note.name}`}
+                aria-label={`Tecla de piano ${note.name}`}
                 onMouseDown={() => handleInteractionStart(note)}
                 onMouseUp={() => handleInteractionEnd(note.freq)}
                 onMouseLeave={() => handleInteractionEnd(note.freq)}
                 onTouchStart={(e) => { e.preventDefault(); handleInteractionStart(note); }}
                 onTouchEnd={() => handleInteractionEnd(note.freq)}
                 className={cn(
-                  "relative h-full flex-1 cursor-pointer bg-white rounded-b-md",
+                  "relative h-full flex-1 cursor-pointer rounded-b-md border-2 border-primary/20 bg-white",
                   "flex items-end justify-center pb-4 text-accent font-semibold text-2xl",
                   { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
                 )}
@@ -146,7 +148,7 @@ export default function PianoKeyboard() {
                 <div
                   key={note.name}
                   role="button"
-                  aria-label={`Piano key ${note.name}`}
+                  aria-label={`Tecla de piano ${note.name}`}
                   onMouseDown={(e) => { e.stopPropagation(); handleInteractionStart(note); }}
                   onMouseUp={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
                   onMouseLeave={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
@@ -154,12 +156,12 @@ export default function PianoKeyboard() {
                   onTouchEnd={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
                   style={{ left: `calc(${leftPositionMap[index]} - 4%)` }}
                   className={cn(
-                    "absolute top-0 h-2/3 w-[8%] cursor-pointer bg-neutral-800 rounded-b-md z-10",
-                    "flex items-end justify-center pb-2 text-accent text-xl font-semibold transition-colors",
+                    "absolute top-0 h-2/3 w-[8%] cursor-pointer bg-neutral-800 rounded-b-md z-10 border-2 border-primary/20",
+                    "flex items-end justify-center pb-2 text-primary-foreground text-xl font-semibold transition-colors",
                     { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
                   )}
                 >
-                  {note.name}
+                  {note.name.replace('#','')}
                 </div>
               )
             })}

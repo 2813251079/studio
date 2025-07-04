@@ -80,7 +80,7 @@ export const translations = {
     'dashboard.sidebar.account': 'Cuenta',
     'dashboard.sidebar.logout': 'Cerrar Sesión',
 
-    'dashboard.home.title': 'Tu Espacio de Armonía',
+    'dashboard.home.title': 'Tu Espacio de Frecuencias Musicales de Armonía',
     'dashboard.home.subtitle': 'Bienvenido a tu centro de control. Explora las herramientas para comenzar.',
     'dashboard.home.features_title': 'Funciones Principales',
     'dashboard.home.features_subtitle': 'Explora las herramientas a tu disposición para comenzar tu viaje de armonización.',
@@ -184,7 +184,7 @@ export const translations = {
     'music_production.circle_of_fifths.description': 'Explora las relaciones entre tonalidades. Haz clic en una sección para escuchar su tríada mayor.',
     'music_production.circle_of_fifths.selected_key': 'Tonalidad Seleccionada',
     'music_production.circle_of_fifths.triad_notes': 'Notas de la Tríada Mayor',
-
+    'footer.rights_reserved': 'Todos los derechos reservados',
 
     'pictos.want': 'Quiero',
     'pictos.happy': 'Feliz',

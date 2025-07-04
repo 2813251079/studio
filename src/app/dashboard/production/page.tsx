@@ -8,11 +8,17 @@ export default function MusicProductionPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('music_production.title')}</h1>
-        <p className="text-muted-foreground">{t('music_production.subtitle')}</p>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('music_production.title')}</h1>
+        <p className="mt-4 text-foreground/80 text-lg">{t('music_production.subtitle')}</p>
       </div>
-      <PianoKeyboard />
-      <CircleOfFifths />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-8">
+          <PianoKeyboard />
+        </div>
+        <div className="space-y-8">
+          <CircleOfFifths />
+        </div>
+      </div>
     </div>
   );
 }

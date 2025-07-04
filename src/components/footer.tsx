@@ -17,22 +17,22 @@ export default function Footer() {
 
   return (
     <footer className="w-full">
-      <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
-        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <Image src={logoUrl} width={32} height={32} alt={t('app.title')} className="rounded-full border" data-ai-hint="logo soundwave" />
-          <p className="text-center text-sm leading-loose md:text-left">
-            © {new Date().getFullYear()} {t('app.title')}. {t('app.description')}.
+      <div className="container flex flex-col items-center justify-between gap-6 py-10 md:h-24 md:flex-row md:py-0">
+        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-4 md:px-0">
+          <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
+          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+            © {new Date().getFullYear()} {t('app.title')}. {t('footer.rights_reserved')}.
           </p>
         </div>
-        <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" size="icon">
+        <div className="flex items-center gap-4">
+            <Button asChild variant="ghost" size="icon" className="h-14 w-14">
                 <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <Instagram className="h-5 w-5" />
+                    <Instagram className="h-8 w-8" />
                 </Link>
             </Button>
-            <Button asChild variant="ghost" size="icon">
+            <Button asChild variant="ghost" size="icon" className="h-14 w-14">
                 <Link href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify">
-                    <SpotifyIcon className="h-5 w-5" />
+                    <SpotifyIcon className="h-8 w-8" />
                 </Link>
             </Button>
         </div>
