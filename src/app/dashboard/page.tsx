@@ -45,7 +45,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-16 p-4 md:p-8">
+    <div className="w-full max-w-6xl mx-auto space-y-16 p-4 md:p-8">
       <div>
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
           {t('dashboard.home.title')}
@@ -57,20 +57,20 @@ export default function DashboardPage() {
 
       <div className="w-full space-y-10">
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold">{t('dashboard.home.features_title')}</h2>
-          <p className="mt-3 text-foreground/80 text-lg">
+          <h2 className="text-3xl md:text-4xl font-bold text-center">{t('dashboard.home.features_title')}</h2>
+          <p className="mt-3 text-foreground/80 text-lg text-center">
             {t('dashboard.home.features_subtitle')}
           </p>
         </div>
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="flex flex-wrap justify-center gap-12 py-8">
           {features.map((feature) => (
-            <Link href={feature.href} key={feature.href} className="group block">
-              <div className="h-full p-8 rounded-3xl bg-secondary transition-all duration-300 hover:bg-card hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2">
-                  <div className="flex-shrink-0 bg-background rounded-full p-4 w-16 h-16 flex items-center justify-center mb-6 transition-colors group-hover:bg-secondary">
+            <Link href={feature.href} key={feature.href} className="group">
+              <div className="flex h-80 w-80 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
+                  <div className="mb-4 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
                     {feature.icon}
                   </div>
-                  <h3 className="text-3xl font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
-                  <p className="text-foreground/80 text-lg">{feature.description}</p>
+                  <h3 className="mb-2 text-2xl font-semibold transition-colors group-hover:text-primary">{feature.title}</h3>
+                  <p className="text-base text-foreground/80">{feature.description}</p>
               </div>
             </Link>
           ))}

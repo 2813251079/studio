@@ -81,15 +81,15 @@ export default function Home() {
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
                 <p className="mt-4 text-lg text-muted-foreground">{t('landing.tools.subtitle')}</p>
             </div>
-             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+             <div className="flex flex-wrap items-center justify-center gap-12">
                 {features.slice(0, -1).map((feature) => ( // Show all but last one
                     <Link key={feature.href} href="/auth/login" className="group">
-                        <div className="h-full p-8 rounded-3xl bg-secondary transition-all duration-300 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
-                           <div className="flex-shrink-0 bg-background rounded-full p-4 w-16 h-16 flex items-center justify-center mb-6 transition-colors group-hover:bg-secondary">
+                        <div className="flex h-72 w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
+                           <div className="mb-4 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
                              {feature.icon}
                            </div>
-                           <h3 className="text-2xl font-bold mb-2">{feature.title}</h3>
-                           <p className="text-muted-foreground">{feature.description}</p>
+                           <h3 className="mb-2 text-xl font-bold transition-colors group-hover:text-primary">{feature.title}</h3>
+                           <p className="text-sm text-muted-foreground">{feature.description}</p>
                         </div>
                     </Link>
                 ))}
