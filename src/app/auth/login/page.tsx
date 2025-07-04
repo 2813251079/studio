@@ -7,13 +7,13 @@ import { Label } from "@/components/ui/label";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
-const logoUrl = "https://placehold.co/128x128.png";
+const logoUrl = "/logo.png";
 
 export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6">
       <Link href="/">
-        <Image src={logoUrl} width={80} height={80} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
+        <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full" data-ai-hint="logo guitar wave" />
       </Link>
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
