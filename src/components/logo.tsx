@@ -9,9 +9,9 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <defs>
-      <radialGradient id="bodyGradient" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="hsl(195, 80%, 90%)" />
-        <stop offset="100%" stopColor="hsl(195, 70%, 75%)" />
+      <radialGradient id="sunsetGradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#FDB813" />
+        <stop offset="100%" stopColor="#F65B36" />
       </radialGradient>
     </defs>
     
@@ -19,7 +19,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     <g transform="translate(60, 82) scale(0.35) translate(-150, -235)">
       <path
         d="M 150 305 C 80 320, 70 260, 105 220 C 120 195, 180 195, 195 220 C 230 260, 220 320, 150 305 Z"
-        fill="url(#bodyGradient)"
+        fill="url(#sunsetGradient)"
       />
     </g>
 
@@ -55,15 +55,15 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           {/* F-Clef shape */}
           <path
             d="M12,24 C 25,10 25,45 12,45"
-            stroke="hsl(var(--accent))"
+            stroke="hsl(var(--muted-foreground))"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="12" cy="24" r="5" fill="hsl(var(--accent))" />
+          <circle cx="12" cy="24" r="5" fill="hsl(var(--muted-foreground))" />
           {/* Two dots for the F-clef */}
-          <circle cx="30" cy="20" r="3" fill="hsl(var(--accent))" />
-          <circle cx="30" cy="28" r="3" fill="hsl(var(--accent))" />
+          <circle cx="30" cy="20" r="3" fill="hsl(var(--muted-foreground))" />
+          <circle cx="30" cy="28" r="3" fill="hsl(var(--muted-foreground))" />
         </g>
     </g>
   </svg>
