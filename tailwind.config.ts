@@ -11,14 +11,14 @@ export default {
     fontSize: {
       xs: '0.9rem',
       sm: '1.1rem',
-      base: '1.25rem',
-      lg: '1.5rem',
-      xl: '1.75rem',
-      '2xl': '2.25rem',
-      '3xl': '2.75rem',
-      '4xl': '3.5rem',
-      '5xl': '4.25rem',
-      '6xl': '5rem',
+      base: '1.3rem',
+      lg: '1.6rem',
+      xl: '1.9rem',
+      '2xl': '2.4rem',
+      '3xl': '3rem',
+      '4xl': '3.8rem',
+      '5xl': '4.8rem',
+      '6xl': '6rem',
     },
     extend: {
       fontFamily: {
