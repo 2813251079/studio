@@ -1,0 +1,141 @@
+"use client";
+
+import { useFormState, useFormStatus } from "react-dom";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { getHarmonizedWorkspace } from "@/app/actions";
+import { AlertCircle, Loader2, Wand2, FolderKanban } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+const initialState = {};
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending} className="w-full sm:w-auto">
+      {pending ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Armonizando...
+        </>
+      ) : (
+        <>
+          <Wand2 className="mr-2 h-4 w-4" />
+          Armonizar
+        </>
+      )}
+    </Button>
+  );
+}
+
+export default function WorkspaceHarmonizerForm() {
+  const [state, formAction] = useFormState(getHarmonizedWorkspace, initialState);
+  const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (state.error && !state.fieldErrors) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: state.error,
+      });
+    }
+  }, [state, toast]);
+  
+  useEffect(() => {
+    if (state.data) {
+      formRef.current?.reset();
+    }
+  }, [state.data]);
+
+  return (
+    <div className="space-y-8">
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="font-headline text-2xl md:text-3xl flex items-center gap-3">
+            <Wand2 className="h-8 w-8 text-primary" />
+            <span>Armonizador de Espacios de Trabajo con IA</span>
+          </CardTitle>
+          <CardDescription>
+            Introduce los elementos de tu espacio de trabajo para organizarlos en categorías lógicas y crear un flujo armonioso.
+          </CardDescription>
+        </CardHeader>
+        <form ref={formRef} action={formAction}>
+          <CardContent>
+            <div className="grid w-full gap-2">
+              <Textarea
+                name="workspaceElements"
+                placeholder="Ej: portátil, monitor, teclado, ratón, documentos, taza de café, auriculares..."
+                className="min-h-[120px] text-base"
+                aria-describedby="elements-error"
+              />
+              {state.fieldErrors?.workspaceElements && (
+                <p id="elements-error" className="text-sm font-medium text-destructive">
+                  {state.fieldErrors.workspaceElements.join(", ")}
+                </p>
+              )}
+            </div>
+          </CardContent>
+          <CardFooter className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <p className="text-xs text-muted-foreground">
+              Separa cada elemento con una coma.
+            </p>
+            <SubmitButton />
+          </CardFooter>
+        </form>
+      </Card>
+
+      {state.data && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline text-2xl flex items-center gap-3">
+                <FolderKanban className="h-8 w-8 text-accent" />
+                <span>Tu Espacio de Trabajo Armonizado</span>
+            </CardTitle>
+            <CardDescription>
+                La IA ha organizado tus elementos en las siguientes categorías.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {state.data.categories.map((category, index) => (
+                    <div key={index} className="p-4 bg-background rounded-lg border shadow-sm flex flex-col">
+                        <h3 className="font-semibold text-lg mb-3 text-primary">{category.category}</h3>
+                        <div className="flex flex-wrap gap-2">
+                            {category.elements.map((element, i) => (
+                                <Badge key={i} variant="secondary" className="text-sm">
+                                    {element}
+                                </Badge>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {state.error && !state.fieldErrors && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error Inesperado</AlertTitle>
+            <AlertDescription>
+                {state.error}
+            </AlertDescription>
+          </Alert>
+      )}
+    </div>
+  );
+}
