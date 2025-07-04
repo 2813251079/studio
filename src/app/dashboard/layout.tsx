@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import Logo from '@/components/logo';
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +23,10 @@ import SpotifyIcon from '@/components/spotify-icon';
 import InstagramIcon from '@/components/instagram-icon';
 import YoutubeIcon from '@/components/youtube-icon';
 import VoiceCommander from '@/components/voice-commander';
+import { useRequireAuth } from '@/hooks/use-auth';
+import { auth } from '@/lib/firebase';
+import { signOut } from 'firebase/auth';
+import { useToast } from '@/hooks/use-toast';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -46,6 +50,37 @@ const features = [
 
 function DashboardHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
+  const { toast } = useToast();
+  const { user } = useRequireAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast({
+        title: "Sesión cerrada",
+        description: "Has cerrado sesión correctamente.",
+      });
+      router.push('/');
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "No se pudo cerrar la sesión. Por favor, inténtalo de nuevo.",
+      });
+    }
+  };
+
+  const getAvatarFallback = () => {
+    if (user?.displayName) {
+      return user.displayName.charAt(0).toUpperCase();
+    }
+    if (user?.email) {
+      return user.email.charAt(0).toUpperCase();
+    }
+    return <UserCircle />;
+  };
   
   return (
     <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -96,12 +131,14 @@ function DashboardHeader() {
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                         <Avatar className="h-10 w-10">
-                            <AvatarImage src="https://placehold.co/32x32.png" alt="@user" data-ai-hint="person avatar" />
-                            <AvatarFallback></AvatarFallback>
+                            <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || 'Usuario'} data-ai-hint="person avatar" />
+                            <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
                         </Avatar>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>{user?.displayName || user?.email}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
                         <Link href="#" className="flex items-center gap-2">
                             <UserCircle className="mr-2 h-4 w-4" />
@@ -109,11 +146,9 @@ function DashboardHeader() {
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                        <Link href="/" className="flex items-center gap-2">
-                            <LogOut className="mr-2 h-4 w-4" />
-                            <span>{t('dashboard.sidebar.logout')}</span>
-                        </Link>
+                    <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer">
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>{t('dashboard.sidebar.logout')}</span>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
@@ -127,7 +162,7 @@ function DashboardHeader() {
                 </SheetTrigger>
                 <SheetContent side="right">
                   <SheetHeader>
-                    <SheetTitle className="sr-only">Menú de Navegación</SheetTitle>
+                    <SheetTitle>Menú</SheetTitle>
                   </SheetHeader>
                   <nav className="flex flex-col gap-4 pt-10">
                      <Link href="/dashboard" className="font-bold text-lg mb-4" onClick={() => setMobileMenuOpen(false)}>Open Music Academy</Link>
@@ -170,6 +205,15 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { user, loading } = useRequireAuth();
+
+  if (loading || !user) {
+    // The loading screen is handled by the AuthProvider,
+    // and the redirect is handled by the useRequireAuth hook.
+    // So we can just return null here.
+    return null;
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <DashboardHeader />

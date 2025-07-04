@@ -3,6 +3,7 @@ import { PT_Sans } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { translations } from '@/lib/translations';
+import { AuthProvider } from '@/hooks/use-auth';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -27,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${ptSans.variable} dark`} style={{colorScheme: 'dark'}}>
       <body className="font-body antialiased font-medium">
-        {children}
-        <Toaster />
+        <AuthProvider>
+          {children}
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );
