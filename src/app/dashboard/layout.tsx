@@ -123,12 +123,12 @@ export default function DashboardLayout({
 
                 {features.map((feature) => (
                     <SidebarMenuItem key={feature.href}>
-                        <Link href={feature.href} asChild>
-                            <SidebarMenuButton isActive={pathname === feature.href} tooltip={{children: feature.title, side: "right"}}>
+                        <SidebarMenuButton asChild isActive={pathname === feature.href} tooltip={{children: feature.title, side: "right"}}>
+                            <Link href={feature.href}>
                                 {feature.icon}
                                 <span>{feature.title}</span>
-                            </SidebarMenuButton>
-                        </Link>
+                            </Link>
+                        </SidebarMenuButton>
                     </SidebarMenuItem>
                 ))}
             </SidebarMenu>
