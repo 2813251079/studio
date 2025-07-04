@@ -8,6 +8,8 @@ import { translations } from "@/lib/translations";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VisualRoutinePlanner from '@/components/visual-routine-planner';
 import SimonGame from '@/components/simon-game';
+import EmotionalCompanion from '@/components/emotional-companion';
+import ShapePuzzle from '@/components/shape-puzzle';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -172,10 +174,12 @@ export default function InclusiveGamesPage() {
       </div>
       
       <Tabs defaultValue="communicator" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="communicator">{t('inclusive_games.tabs.communicator')}</TabsTrigger>
           <TabsTrigger value="planner">{t('inclusive_games.tabs.planner')}</TabsTrigger>
           <TabsTrigger value="simon">{t('inclusive_games.tabs.simon')}</TabsTrigger>
+          <TabsTrigger value="puzzle">{t('inclusive_games.tabs.puzzle')}</TabsTrigger>
+          <TabsTrigger value="companion">{t('inclusive_games.tabs.companion')}</TabsTrigger>
         </TabsList>
         <TabsContent value="communicator">
           <div className="mt-6">
@@ -196,6 +200,20 @@ export default function InclusiveGamesPage() {
             <h2 className="text-xl font-semibold">{t('simon_game.title')}</h2>
             <p className="text-muted-foreground mt-1 mb-4">{t('simon_game.subtitle')}</p>
             <SimonGame />
+          </div>
+        </TabsContent>
+        <TabsContent value="puzzle">
+          <div className="mt-6">
+            <h2 className="text-xl font-semibold">{t('inclusive_games.puzzle.title')}</h2>
+            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.puzzle.subtitle')}</p>
+            <ShapePuzzle />
+          </div>
+        </TabsContent>
+        <TabsContent value="companion">
+           <div className="mt-6">
+            <h2 className="text-xl font-semibold">{t('inclusive_games.companion.page_title')}</h2>
+            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.companion.subtitle')}</p>
+            <EmotionalCompanion />
           </div>
         </TabsContent>
       </Tabs>

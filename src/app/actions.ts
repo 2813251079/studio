@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { workspaceHarmonizer, WorkspaceHarmonizerOutput } from '@/ai/flows/workspace-harmonizer';
 import { videoHarmonizer, VideoHarmonizerOutput } from '@/ai/flows/video-harmonizer';
 import { generateSpeech } from '@/ai/flows/tts-flow';
+import { talkToCompanion } from '@/ai/flows/emotional-companion-flow';
 import { translations } from '@/lib/translations';
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -100,4 +101,35 @@ export async function speakNoteAction(noteName: string) {
         console.error(e);
         return { error: t('error.ai') };
     }
+}
+
+type CompanionState = {
+  data?: { history: { user: string; model: string }[] };
+  error?: string;
+};
+
+export async function getCompanionResponse(
+  prevState: CompanionState,
+  formData: FormData
+): Promise<CompanionState> {
+  const userInput = formData.get('message') as string;
+
+  if (!userInput || userInput.trim().length < 1) {
+    return {
+        ...prevState,
+        error: "Por favor, escribe algo."
+    };
+  }
+
+  try {
+    const response = await talkToCompanion(userInput);
+    const newHistory = [...(prevState.data?.history || []), { user: userInput, model: response }];
+    return { data: { history: newHistory } };
+  } catch (e) {
+    console.error(e);
+    return { 
+        ...prevState,
+        error: t('error.ai') 
+    };
+  }
 }

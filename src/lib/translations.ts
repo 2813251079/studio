@@ -85,6 +85,7 @@ export const translations = {
     'coming_soon.description': 'Videos en vivo, reseñas, pistas de guitarra inéditas y más. Contenido exclusivo para miembros.',
     'dashboard.sidebar.account': 'Cuenta',
     'dashboard.sidebar.logout': 'Cerrar Sesión',
+    'dashboard.sidebar.education': 'Educación',
 
     'dashboard.home.title': 'Tu Espacio de Frecuencias Musicales de Armonía',
     'dashboard.home.subtitle': 'Bienvenido a tu centro de control. Explora las herramientas para comenzar.',
@@ -162,6 +163,8 @@ export const translations = {
     'inclusive_games.tabs.communicator': 'Comunicador Visual',
     'inclusive_games.tabs.planner': 'Planificador de Rutinas',
     'inclusive_games.tabs.simon': 'Simón Musical',
+    'inclusive_games.tabs.puzzle': 'Puzzle de Formas',
+    'inclusive_games.tabs.companion': 'Amigo Emocional',
     
     'inclusive_games.communicator.title': 'Comunicador Visual (CAA)',
     'inclusive_games.communicator.subtitle': 'Utiliza los pictogramas para construir frases y comunicarte. Es un sistema de Comunicación Aumentativa y Alternativa.',
@@ -191,6 +194,20 @@ export const translations = {
     'simon_game.score': 'Puntos',
     'simon_game.game_over': '¡Juego Terminado!',
 
+    'inclusive_games.puzzle.title': 'Puzzle de Formas y Colores',
+    'inclusive_games.puzzle.subtitle': 'Aprende a reconocer formas y colores de una manera divertida.',
+    'inclusive_games.puzzle.instruction': 'Encuentra la figura que es igual al modelo.',
+    'inclusive_games.puzzle.correct': '¡Muy bien!',
+    'inclusive_games.puzzle.congratulations': '¡Felicidades, completaste todas las formas!',
+    'inclusive_games.puzzle.play_again': 'Jugar de Nuevo',
+    
+    'inclusive_games.companion.page_title': 'Tu Acompañante Emocional',
+    'inclusive_games.companion.title': 'Habla con Yana',
+    'inclusive_games.companion.subtitle': 'Un espacio seguro para hablar sobre tus sentimientos. Yana es una IA amable que está aquí para escucharte.',
+    'inclusive_games.companion.welcome_message': '¡Hola! Soy Yana, tu amigo robot. 😊 ¿Cómo te sientes hoy?',
+    'inclusive_games.companion.input_placeholder': 'Escribe tu mensaje...',
+    'inclusive_games.companion.user_name': 'Tú',
+
     'music_production.title': 'Estudio de Producción Musical',
     'music_production.subtitle': 'Herramientas para crear, explorar y afinar tu música frecuencial.',
     'music_production.piano.title': 'Piano Virtual Frecuencial',
@@ -206,8 +223,10 @@ export const translations = {
     'circle_of_fifths.current_key': 'Tonalidad Activa',
     'circle_of_fifths.no_key': 'Selecciona una tonalidad',
     
-    'footer.rights_reserved': 'Todos los derechos reservados',
+    'footer.rights_reserved': '© 2025 Todos los derechos reservados. Elo Diaz Allende. Open Music Academy.',
     'footer.education_link': 'Open Music',
+    'footer.terms': 'Términos y Condiciones',
+    'footer.privacy': 'Privacidad y Seguridad',
 
     'education.title': 'Universo Sonoro: El Poder de las Frecuencias',
     'education.subtitle': 'Sumérgete en el conocimiento detrás de la música sanadora. Descubre cómo las vibraciones pueden transformar tu bienestar físico, mental y espiritual.',
