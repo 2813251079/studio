@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { workspaceHarmonizer, WorkspaceHarmonizerOutput } from '@/ai/flows/workspace-harmonizer';
 import { videoHarmonizer, VideoHarmonizerOutput } from '@/ai/flows/video-harmonizer';
+import { generateSpeech } from '@/ai/flows/tts-flow';
 import { translations } from '@/lib/translations';
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -82,4 +83,21 @@ export async function getHarmonizedVideo(
     console.error(e);
     return { error: t('error.ai') };
   }
+}
+
+export async function speakNoteAction(noteName: string) {
+    const speechValidationSchema = z.string().min(1, 'Note name cannot be empty.');
+    const validatedField = speechValidationSchema.safeParse(noteName);
+
+    if (!validatedField.success) {
+        return { error: 'Validation Error: Invalid note name.' };
+    }
+  
+    try {
+        const result = await generateSpeech(validatedField.data);
+        return { data: result };
+    } catch (e) {
+        console.error(e);
+        return { error: t('error.ai') };
+    }
 }

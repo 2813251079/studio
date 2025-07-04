@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { translations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
-import { Music4 } from 'lucide-react';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -145,7 +144,7 @@ export default function CircleOfFifths() {
                             );
                         })}
                          <circle cx={center} cy={center} r={radius * 0.3} fill="hsl(var(--background))" />
-                         <Music4 x={center-20} y={center-20} className="w-10 h-10 text-primary" />
+                         <image href="https://placehold.co/128x128.png" data-ai-hint="logo soundwave" x={center - 20} y={center - 20} height="40" width="40" />
                     </svg>
                 </div>
                 {selectedKey && (

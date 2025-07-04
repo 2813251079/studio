@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { translations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
+import { speakNoteAction } from '@/app/actions';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -32,6 +33,7 @@ export default function PianoKeyboard() {
   const [activeNotes, setActiveNotes] = useState<Set<number>>(new Set());
   const audioContextRef = useRef<AudioContext | null>(null);
   const oscillatorsRef = useRef<Map<number, { osc: OscillatorNode; gain: GainNode }>>(new Map());
+  const speechAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -83,8 +85,23 @@ export default function PianoKeyboard() {
     }
   };
 
-  const handleInteractionStart = (freq: number) => {
-    playNote(freq);
+  const fetchAndPlaySpeech = async (noteName: string) => {
+    try {
+      const result = await speakNoteAction(noteName);
+      if (result.data && speechAudioRef.current) {
+        speechAudioRef.current.src = result.data;
+        speechAudioRef.current.play().catch(e => console.error("Error playing speech audio:", e));
+      } else if (result.error) {
+        console.error("TTS Action Error:", result.error);
+      }
+    } catch (e) {
+      console.error("Failed to fetch speech:", e);
+    }
+  };
+
+  const handleInteractionStart = (note: Note) => {
+    playNote(note.freq);
+    fetchAndPlaySpeech(note.name);
   };
 
   const handleInteractionEnd = (freq: number) => {
@@ -98,6 +115,7 @@ export default function PianoKeyboard() {
         <CardDescription>{t('music_production.piano.description')}</CardDescription>
       </CardHeader>
       <CardContent>
+        <audio ref={speechAudioRef} className="hidden" />
         <div className="relative flex h-48 w-full select-none" role="application" aria-label="Piano Keyboard">
           {notes
             .filter(note => note.type === 'white')
@@ -106,15 +124,15 @@ export default function PianoKeyboard() {
                 key={note.name}
                 role="button"
                 aria-label={`Piano key ${note.name}`}
-                onMouseDown={() => handleInteractionStart(note.freq)}
+                onMouseDown={() => handleInteractionStart(note)}
                 onMouseUp={() => handleInteractionEnd(note.freq)}
                 onMouseLeave={() => handleInteractionEnd(note.freq)}
-                onTouchStart={(e) => { e.preventDefault(); handleInteractionStart(note.freq); }}
+                onTouchStart={(e) => { e.preventDefault(); handleInteractionStart(note); }}
                 onTouchEnd={() => handleInteractionEnd(note.freq)}
                 className={cn(
                   "relative h-full flex-1 cursor-pointer border-x border-t border-neutral-300 bg-white rounded-b-md border-b-4 border-neutral-400",
                   "flex items-end justify-center pb-4 text-accent font-semibold shadow-inner",
-                  { "bg-primary text-primary-foreground border-primary": activeNotes.has(note.freq) }
+                  { "bg-primary text-primary-foreground border-b-primary-foreground": activeNotes.has(note.freq) }
                 )}
               >
                 {note.name}
@@ -129,16 +147,16 @@ export default function PianoKeyboard() {
                   key={note.name}
                   role="button"
                   aria-label={`Piano key ${note.name}`}
-                  onMouseDown={(e) => { e.stopPropagation(); handleInteractionStart(note.freq); }}
+                  onMouseDown={(e) => { e.stopPropagation(); handleInteractionStart(note); }}
                   onMouseUp={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
                   onMouseLeave={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
-                  onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); handleInteractionStart(note.freq); }}
+                  onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); handleInteractionStart(note); }}
                   onTouchEnd={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
                   style={{ left: `calc(${leftPositionMap[index]} - 4%)` }}
                   className={cn(
                     "absolute top-0 h-2/3 w-[8%] cursor-pointer border border-black bg-gradient-to-b from-neutral-800 to-black rounded-b-md z-10",
                     "flex items-end justify-center pb-2 text-accent text-xs font-semibold transition-colors",
-                    { "bg-primary border-primary": activeNotes.has(note.freq) }
+                    { "bg-primary border-primary text-primary-foreground": activeNotes.has(note.freq) }
                   )}
                 >
                   {note.name}

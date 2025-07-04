@@ -4,7 +4,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, Waves, Wind, Video, Music4, BrainCircuit, Combine } from "lucide-react";
+import { ArrowRight, Waves, Wind, Video, BrainCircuit, Combine } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -77,7 +77,7 @@ export default function Home() {
               <AccordionItem value="item-1">
                 <AccordionTrigger className="text-xl hover:no-underline">
                   <div className="flex items-center gap-4">
-                    <Music4 className="h-6 w-6 text-primary" />
+                    <Image src="https://placehold.co/128x128.png" width={24} height={24} alt="App Logo" className="rounded-full" data-ai-hint="logo soundwave" />
                     <span>{t('landing.sound_universe.solfeggio.title')}</span>
                   </div>
                 </AccordionTrigger>
