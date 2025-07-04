@@ -80,20 +80,22 @@ export function useAuth() {
 }
 
 export function useRequireAuth(redirectUrl = '/auth/login') {
-  const { user, loading, isFirebaseConfigured } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!isFirebaseConfigured) return;
-
-    if (!loading && !user) {
+    if (loading) {
+      return;
+    }
+    
+    if (!user) {
       if (pathname !== redirectUrl) {
           sessionStorage.setItem('redirectAfterLogin', pathname);
       }
       router.replace(redirectUrl);
     }
-  }, [user, loading, router, redirectUrl, pathname, isFirebaseConfigured]);
+  }, [user, loading, router, redirectUrl, pathname]);
 
   return { user, loading };
 }
