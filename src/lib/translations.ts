@@ -13,7 +13,7 @@ export const translations = {
     'landing.hero.title': 'Descubre el Poder de las Frecuencias Sanadoras con IA',
     'landing.hero.subtitle': 'Transforma tu bienestar auditivo y visual. Sube tus archivos, elige una frecuencia y deja que Armonía AI cree una experiencia inmersiva y armoniosa para ti.',
     'landing.hero.title_new': 'Eleva tu Vibración con AI Frecuencias',
-    'landing.hero.subtitle_new': 'Frecuencias Musicales',
+    'landing.hero.subtitle_new': 'Descubre el poder del sonido y la inteligencia artificial para transformar tu mente, tu espacio y tu bienestar.',
     
     'landing.what_is.title': '¿Qué son las Frecuencias Sanadoras?',
     'landing.what_is.p1': 'Las frecuencias sonoras han sido utilizadas desde tiempos ancestrales en diversas culturas por su capacidad para influir en el estado de ánimo, la mente y el cuerpo. Se basan en el principio de resonancia, la idea de que todo en el universo vibra a una frecuencia particular. Al exponernos a frecuencias específicas, podemos ayudar a restaurar el equilibrio y la armonía en nuestro propio campo energético.',
