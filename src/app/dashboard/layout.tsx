@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
 import {
   SidebarProvider,
   Sidebar,
-  SidebarHeader,
   SidebarTrigger,
   SidebarInset,
   SidebarContent,
@@ -14,6 +14,11 @@ import {
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -21,9 +26,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut, Home, GraduationCap } from 'lucide-react';
+import { UserCircle, LogOut, Home, GraduationCap, ChevronRight } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -33,38 +39,48 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const logoUrl = "/logo.png";
+  const [isNavOpen, setIsNavOpen] = useState(true);
 
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">
         <Sidebar collapsible="icon" className="">
-          <SidebarHeader>
-            <Link href="/dashboard" className="flex items-center gap-3 p-2">
-                <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
-                <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
-                     <h1 className="text-2xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
+          <SidebarContent className="p-0">
+            <Collapsible open={isNavOpen} onOpenChange={setIsNavOpen} className="w-full">
+              <CollapsibleTrigger asChild>
+                <div className="flex items-center justify-between w-full p-2 cursor-pointer hover:bg-sidebar-accent group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:h-16">
+                    <div className="flex items-center gap-3">
+                        <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-1" data-ai-hint="logo guitar wave" />
+                        <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
+                            <h1 className="text-xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
+                        </div>
+                    </div>
+                    <ChevronRight className={cn("h-5 w-5 transition-transform duration-200 group-data-[collapsible=icon]:hidden", isNavOpen && "rotate-90")} />
                 </div>
-            </Link>
-          </SidebarHeader>
-          <SidebarContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/dashboard">
-                    <Home />
-                    <span>{t('dashboard.sidebar.home')}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/education">
-                    <GraduationCap />
-                    <span>{t('landing.header.education')}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="group-data-[collapsible=icon]:hidden">
+                  <SidebarMenu className="px-2">
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild>
+                        <Link href="/dashboard">
+                          <Home />
+                          <span>{t('dashboard.sidebar.home')}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild>
+                        <Link href="/education">
+                          <GraduationCap />
+                          <span>{t('landing.header.education')}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </SidebarContent>
         </Sidebar>
         <SidebarInset className="bg-background">
