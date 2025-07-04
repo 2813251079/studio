@@ -112,8 +112,8 @@ export default function PianoKeyboard() {
                 onTouchStart={(e) => { e.preventDefault(); handleInteractionStart(note.freq); }}
                 onTouchEnd={() => handleInteractionEnd(note.freq)}
                 className={cn(
-                  "relative h-full flex-1 cursor-pointer border-x border-t border-slate-300 dark:border-slate-600 bg-secondary rounded-b-md border-b-4 dark:border-b-slate-800",
-                  "flex items-end justify-center pb-4 text-accent font-semibold shadow-inner transition-colors",
+                  "relative h-full flex-1 cursor-pointer border-x border-t border-neutral-300 bg-white rounded-b-md border-b-4 border-neutral-400",
+                  "flex items-end justify-center pb-4 text-accent font-semibold shadow-inner",
                   { "bg-primary/80 text-primary-foreground border-accent": activeNotes.has(note.freq) }
                 )}
               >
