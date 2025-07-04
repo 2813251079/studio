@@ -14,14 +14,14 @@ let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
 
 // Check if the API key is present and not a placeholder.
-const firebaseEnabled = !!firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("YOUR_API_KEY");
+export const firebaseEnabled = !!firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("YOUR_API_KEY");
 
 if (firebaseEnabled) {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     auth = getAuth(app);
 } else {
-    // This warning is helpful for developers to know that Firebase is not configured.
-    console.warn("ACCIÓN REQUERIDA: Las credenciales de Firebase no están configuradas en el archivo .env. Las funciones de autenticación estarán deshabilitadas.");
+    // The UI now handles this case gracefully by showing alerts on the login/register pages,
+    // so we can remove the console log to avoid confusion in the server logs.
 }
 
-export { app, auth, firebaseEnabled };
+export { app, auth };
