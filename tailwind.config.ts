@@ -9,16 +9,16 @@ export default {
   ],
   theme: {
     fontSize: {
-      xs: '0.9rem',
-      sm: '1.1rem',
-      base: '1.3rem',
-      lg: '1.6rem',
-      xl: '1.9rem',
-      '2xl': '2.4rem',
-      '3xl': '3rem',
-      '4xl': '3.8rem',
-      '5xl': '4.8rem',
-      '6xl': '6rem',
+      xs: '0.75rem',
+      sm: '0.875rem',
+      base: '1rem',
+      lg: '1.125rem',
+      xl: '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '4rem',
     },
     extend: {
       fontFamily: {
