@@ -2,9 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { Instagram } from "lucide-react";
+import { Instagram, Menu } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -16,6 +22,7 @@ export default function Header() {
   const logoUrl = "https://placehold.co/120x120.png";
   const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite";
   const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=dc162ee9106c4cfe";
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -51,10 +58,42 @@ export default function Header() {
             </Link>
           </Button>
         </nav>
-        <Button size="icon" variant="ghost" className="md:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-            <span className="sr-only">Toggle Menu</span>
-        </Button>
+        <div className="md:hidden">
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button size="icon" variant="ghost">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <nav className="flex flex-col gap-6 pt-10">
+                <Link href="/#features" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-primary">{t('landing.header.features')}</Link>
+                <Link href="/education" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-primary">{t('landing.header.education')}</Link>
+                <Link href="/pricing" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-primary">{t('landing.header.pricing')}</Link>
+                <hr className="border-border"/>
+                <Button asChild>
+                  <Link href="/auth/login" onClick={() => setOpen(false)}>{t('landing.header.login')}</Link>
+                </Button>
+                <Button variant="outline" asChild>
+                  <Link href="/auth/register" onClick={() => setOpen(false)}>{t('landing.header.get_started')}</Link>
+                </Button>
+                 <div className="flex items-center justify-center gap-4 pt-4">
+                    <Button asChild variant="ghost" size="icon">
+                        <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <Instagram className="h-6 w-6" />
+                        </Link>
+                    </Button>
+                    <Button asChild variant="ghost" size="icon">
+                        <Link href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                            <SpotifyIcon className="h-6 w-6" />
+                        </Link>
+                    </Button>
+                </div>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );

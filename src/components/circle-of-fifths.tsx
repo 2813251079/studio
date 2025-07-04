@@ -83,8 +83,10 @@ export default function CircleOfFifths() {
     const audioContextRef = useRef<AudioContext | null>(null);
     const oscillatorRef = useRef<OscillatorNode | null>(null);
     const speechAudioRef = useRef<HTMLAudioElement | null>(null);
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        setIsMounted(true);
         if (typeof window !== 'undefined') {
             audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
         }
@@ -149,17 +151,19 @@ export default function CircleOfFifths() {
     return (
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full">
             <audio ref={speechAudioRef} className="hidden" />
-            <div className="relative">
-                <svg width="320" height="320" viewBox="0 0 320 320">
-                    <circle cx="160" cy="160" r="150" fill="transparent" stroke="hsl(var(--border))" strokeWidth="1" />
-                    <circle cx="160" cy="160" r="100" fill="transparent" stroke="hsl(var(--border))" strokeWidth="1" />
-                    <g>
-                        {keys.map((_, i) => <KeySegment key={`major-${i}`} i={i} type="major" onKeySelect={handleKeySelect} activeKey={activeKey} />)}
-                    </g>
-                    <g>
-                        {keys.map((_, i) => <KeySegment key={`minor-${i}`} i={i} type="minor" onKeySelect={handleKeySelect} activeKey={activeKey} />)}
-                    </g>
-                </svg>
+            <div className="relative h-[320px] w-[320px]">
+                {isMounted && (
+                    <svg width="320" height="320" viewBox="0 0 320 320">
+                        <circle cx="160" cy="160" r="150" fill="transparent" stroke="hsl(var(--border))" strokeWidth="1" />
+                        <circle cx="160" cy="160" r="100" fill="transparent" stroke="hsl(var(--border))" strokeWidth="1" />
+                        <g>
+                            {keys.map((_, i) => <KeySegment key={`major-${i}`} i={i} type="major" onKeySelect={handleKeySelect} activeKey={activeKey} />)}
+                        </g>
+                        <g>
+                            {keys.map((_, i) => <KeySegment key={`minor-${i}`} i={i} type="minor" onKeySelect={handleKeySelect} activeKey={activeKey} />)}
+                        </g>
+                    </svg>
+                )}
             </div>
             <div className="text-center p-4 rounded-lg bg-secondary w-full max-w-xs">
                 <p className="text-xl font-semibold mb-2">
