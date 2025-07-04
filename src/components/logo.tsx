@@ -13,12 +13,24 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <stop offset="0%" style={{ stopColor: "hsl(195, 83%, 25%)" }} />
         <stop offset="100%" style={{ stopColor: "hsl(195, 83%, 15%)" }} />
       </radialGradient>
+      <radialGradient id="guitarGradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="hsl(35, 80%, 55%)" />
+        <stop offset="100%" stopColor="hsl(90, 30%, 20%)" />
+      </radialGradient>
     </defs>
     
     <circle cx="60" cy="60" r="60" fill="url(#darkTurquoiseGradient)" />
 
+    {/* Guitar Body */}
+    <g transform="translate(60, 89) scale(0.4) translate(-150, -235)">
+      <path
+        d="M 150 300 C 50 320, 20 250, 80 200 C 100 150, 200 150, 220 200 C 280 250, 250 320, 150 300 Z"
+        fill="url(#guitarGradient)"
+      />
+    </g>
+
     {/* Guitar Headstock */}
-    <g transform="translate(34, 20)">
+    <g transform="translate(39, 15)">
         {/* Vertical black neck/headstock */}
         <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="#1C1C1C" />
         <rect x="-5" y="40" width="10" height="50" fill="#1C1C1C" />
@@ -36,7 +48,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Pentagram and F-Clef */}
-    <g transform="translate(39, 55)">
+    <g transform="translate(39, 53)">
         <g stroke="hsl(195, 30%, 70%)" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
