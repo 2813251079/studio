@@ -2,7 +2,6 @@ export const translations = {
   es: {
     'app.title': 'Open Music Academy Frecuency',
     'app.description': 'Frecuencias Sanadoras y Curativas',
-    'app.logo_alt': 'Logo de Open Music Academy Frecuency',
     
     'landing.header.features': 'Características',
     'landing.header.pricing': 'Precios',
