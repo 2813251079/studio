@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { translations } from "@/lib/translations";
 import { Instagram } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -23,13 +24,17 @@ export default function Footer() {
             © {new Date().getFullYear()} {t('app.title')}. {t('app.description')}.
           </p>
         </div>
-        <div className="flex items-center gap-6">
-            <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-muted-foreground hover:text-foreground">
-                <Instagram className="h-6 w-6" />
-            </Link>
-            <Link href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify" className="text-muted-foreground hover:text-foreground">
-                <SpotifyIcon className="h-6 w-6" />
-            </Link>
+        <div className="flex items-center gap-2">
+            <Button asChild variant="ghost" size="icon">
+                <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <Instagram className="h-5 w-5" />
+                </Link>
+            </Button>
+            <Button asChild variant="ghost" size="icon">
+                <Link href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                    <SpotifyIcon className="h-5 w-5" />
+                </Link>
+            </Button>
         </div>
       </div>
     </footer>
