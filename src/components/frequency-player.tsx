@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlayCircle, PauseCircle } from "lucide-react";
@@ -21,17 +21,24 @@ export default function FrequencyPlayer({ frequency, title, description, isPlayi
   const oscillatorRef = useRef<OscillatorNode | null>(null);
   const gainRef = useRef<GainNode | null>(null);
 
+  // Effect for handling audio playback logic
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    if (!audioContextRef.current) {
+    // Initialize audio context on first user interaction if not already present
+    if (isPlaying && !audioContextRef.current && typeof window !== 'undefined') {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
+
     const audioContext = audioContextRef.current;
+    if (!audioContext) return;
 
     if (isPlaying) {
       if (audioContext.state === 'suspended') {
         audioContext.resume();
+      }
+
+      // Stop any previous sound
+      if (oscillatorRef.current) {
+        oscillatorRef.current.stop();
       }
       
       const oscillator = audioContext.createOscillator();
@@ -48,28 +55,31 @@ export default function FrequencyPlayer({ frequency, title, description, isPlayi
 
       oscillatorRef.current = oscillator;
       gainRef.current = gainNode;
+
     } else {
-      if (oscillatorRef.current && gainRef.current && audioContext) {
+      if (oscillatorRef.current && gainRef.current) {
         gainRef.current.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.2); 
         oscillatorRef.current.stop(audioContext.currentTime + 0.2);
         oscillatorRef.current = null;
         gainRef.current = null;
       }
     }
-
-    return () => {
-      if (oscillatorRef.current) {
-        oscillatorRef.current.stop();
-      }
-    };
   }, [isPlaying, frequency]);
-  
+
+  // Effect for cleaning up resources on unmount
   useEffect(() => {
     return () => {
-        if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-            audioContextRef.current.close().catch(() => {});
-        }
-    }
+      // Stop the oscillator if it's playing
+      if (oscillatorRef.current) {
+        oscillatorRef.current.stop();
+        oscillatorRef.current = null;
+      }
+      // Close the audio context
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close().catch(console.error);
+        audioContextRef.current = null;
+      }
+    };
   }, []);
 
   return (
