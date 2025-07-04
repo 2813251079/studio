@@ -144,7 +144,7 @@ export default function CircleOfFifths() {
                             );
                         })}
                          <circle cx={center} cy={center} r={radius * 0.3} fill="hsl(var(--background))" />
-                         <image href="https://placehold.co/128x128.png" data-ai-hint="logo soundwave" x={center - 20} y={center - 20} height="40" width="40" />
+                         <image href="https://placehold.co/128x128.png" data-ai-hint="logo soundwave" x={center - 30} y={center - 30} height="60" width="60" />
                     </svg>
                 </div>
                 {selectedKey && (

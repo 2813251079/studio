@@ -82,7 +82,7 @@ export default function Home() {
                     <AccordionItem value="item-1">
                         <AccordionTrigger className="text-xl hover:no-underline">
                         <div className="flex items-center gap-4">
-                            <Image src="https://placehold.co/128x128.png" width={24} height={24} alt="App Logo" className="rounded-full" data-ai-hint="logo soundwave" />
+                            <Image src="https://placehold.co/128x128.png" width={32} height={32} alt="App Logo" className="rounded-full border" data-ai-hint="logo soundwave" />
                             <span>{t('landing.sound_universe.solfeggio.title')}</span>
                         </div>
                         </AccordionTrigger>
