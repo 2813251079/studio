@@ -1,15 +1,17 @@
+
 'use client';
 
-import { useActionState, useState, useRef, useEffect } from 'react';
+import { useActionState, useRef, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import { getKnowledgeInfo } from '@/app/actions';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, Search, AlertCircle, BookOpen, BrainCircuit, Waves, Star, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { translations } from '@/lib/translations';
+import * as React from 'react';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -43,6 +45,9 @@ export default function EducationPage() {
         title: t('error.toast.title'),
         description: state.error,
       });
+    }
+    if (state.data || state.error) {
+        if(isPending) startTransition(() => {});
     }
   }, [state, toast]);
 
@@ -107,7 +112,7 @@ export default function EducationPage() {
            </Card>
         )}
         
-        {state.error && !state.fieldError && (
+        {state.error && !state.fieldError && !isPending && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>{t('error.toast.title')}</AlertTitle>
@@ -115,7 +120,7 @@ export default function EducationPage() {
           </Alert>
         )}
 
-        {state.data && (
+        {state.data && !isPending && (
             <div className="space-y-8">
                 <Card>
                     <CardHeader>
