@@ -22,37 +22,37 @@ export default function DashboardPage() {
       href: '/dashboard/frequencies',
       title: t('dashboard.sidebar.frequencies'),
       description: t('frequencies.subtitle'),
-      icon: <Waves className="h-10 w-10 text-primary" />,
+      icon: <Waves className="h-8 w-8 text-primary" />,
     },
     {
       href: '/dashboard/audio-enhancer',
       title: t('dashboard.sidebar.workspace_harmonizer'),
       description: t('workspace_harmonizer.subtitle'),
-      icon: <Wind className="h-10 w-10 text-accent" />,
+      icon: <Wind className="h-8 w-8 text-accent" />,
     },
     {
       href: '/dashboard/video-harmonizer',
       title: t('dashboard.sidebar.video_harmonizer'),
       description: t('video_harmonizer.subtitle'),
-      icon: <Video className="h-10 w-10 text-primary" />,
+      icon: <Video className="h-8 w-8 text-primary" />,
     },
     {
       href: '/dashboard/inclusive-games',
       title: t('dashboard.sidebar.inclusive_games'),
       description: t('inclusive_games.subtitle'),
-      icon: <Puzzle className="h-10 w-10 text-accent" />,
+      icon: <Puzzle className="h-8 w-8 text-accent" />,
     },
     {
       href: '/dashboard/production',
       title: t('dashboard.sidebar.music_production'),
       description: t('music_production.subtitle'),
-      icon: <SlidersHorizontal className="h-10 w-10 text-primary" />,
+      icon: <SlidersHorizontal className="h-8 w-8 text-primary" />,
     },
     {
       href: '/pricing',
       title: t('dashboard.sidebar.coming_soon'),
       description: t('coming_soon.description'),
-      icon: <Star className="h-10 w-10 text-accent" />,
+      icon: <Star className="h-8 w-8 text-accent" />,
     },
   ];
 
@@ -90,18 +90,16 @@ export default function DashboardPage() {
           </CollapsibleContent>
         </Collapsible>
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
           {features.map((feature) => (
             <Link href={feature.href} key={feature.href} className="group h-full">
-              <Card className="h-full flex flex-col items-center justify-center p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-card hover:shadow-2xl hover:shadow-primary/20">
-                  <CardHeader className="items-center p-0 mb-4">
-                    <div className="mb-4 flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
-                        {feature.icon}
-                    </div>
-                    <CardTitle className="text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{feature.title}</CardTitle>
+              <Card className="h-full p-6 transition-all duration-300 hover:-translate-y-2 hover:bg-card hover:shadow-2xl hover:shadow-primary/20">
+                  <CardHeader className="flex flex-row items-center gap-4 p-0 mb-4">
+                    {feature.icon}
+                    <CardTitle className="text-xl text-left font-semibold bg-gradient-to-r from-primary via-accent to-yellow-400 bg-clip-text text-transparent">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
-                    <CardDescription className="text-sm md:text-base text-muted-foreground">{feature.description}</CardDescription>
+                    <CardDescription className="text-sm text-left text-muted-foreground">{feature.description}</CardDescription>
                   </CardContent>
               </Card>
             </Link>
