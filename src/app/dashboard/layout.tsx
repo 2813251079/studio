@@ -66,7 +66,7 @@ export default function DashboardLayout({
               <Link href="/dashboard" className="flex items-center gap-2">
                  <Image src={logoUrl} width={40} height={40} alt={t('app.logo_alt')} className="rounded-full" />
               </Link>
-              <h1 className="text-lg font-semibold truncate">{t('app.title')}</h1>
+              <h1 className="text-lg font-semibold truncate bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
             </div>
           </SidebarHeader>
           <SidebarMenu className="flex-1 p-2">

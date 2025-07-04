@@ -10,7 +10,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">{t('dashboard.home.title')}</h1>
+        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('dashboard.home.title')}</h1>
         <p className="text-muted-foreground">{t('dashboard.home.subtitle')}</p>
       </div>
       <div className="grid gap-6 md:grid-cols-2">

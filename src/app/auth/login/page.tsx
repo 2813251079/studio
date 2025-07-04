@@ -12,7 +12,7 @@ export default function LoginPage() {
     <div className="flex items-center justify-center min-h-screen bg-secondary dark:bg-black">
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
-          <CardTitle className="text-2xl">{t('login.title')}</CardTitle>
+          <CardTitle className="text-2xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('login.title')}</CardTitle>
           <CardDescription>{t('login.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>

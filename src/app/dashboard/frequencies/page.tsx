@@ -44,7 +44,7 @@ export default function FrequenciesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">{t('frequencies.title')}</h1>
+        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('frequencies.title')}</h1>
         <p className="text-muted-foreground">{t('frequencies.subtitle')}</p>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

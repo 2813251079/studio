@@ -25,7 +25,7 @@ export default function PricingPage() {
       <main className="flex-1">
         <section className="container py-20 md:py-24">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{t('pricing.title')}</h1>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.title')}</h1>
             <p className="mt-4 text-lg text-muted-foreground">{t('pricing.subtitle')}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">

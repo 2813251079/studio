@@ -52,7 +52,7 @@ export default function Home() {
 
         <section id="features" className="container py-20 md:py-24 bg-secondary dark:bg-black rounded-t-3xl">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{t('landing.features.title')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.features.title')}</h2>
             <p className="mt-4 text-muted-foreground">{t('landing.features.subtitle')}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -70,7 +70,7 @@ export default function Home() {
         
         <section className="container py-20 md:py-24 text-center">
            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold">{t('pricing.title')}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.title')}</h2>
               <p className="mt-4 text-muted-foreground">{t('pricing.subtitle')}</p>
               <Button size="lg" variant="outline" className="mt-8" asChild>
                   <Link href="/pricing">Ver Planes de Precios</Link>

@@ -14,7 +14,7 @@ export default function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image src={logoUrl} width={40} height={40} alt={t('app.logo_alt')} className="rounded-full" />
-          <span className="font-bold text-lg hidden sm:inline-block">{t('app.title')}</span>
+          <span className="font-bold text-lg hidden sm:inline-block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">
           <Button variant="link" asChild>
