@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen } from 'lucide-react';
+import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 import SpotifyIcon from '@/components/spotify-icon';
@@ -38,6 +38,7 @@ const features = [
     { href: '/dashboard/production', title: t('dashboard.sidebar.music_production'), icon: <SlidersHorizontal /> },
     { href: '/dashboard/tuner', title: t('dashboard.sidebar.tuner'), icon: <Brain /> },
     { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), icon: <BookOpen /> },
+    { href: '/education', title: t('dashboard.sidebar.education'), icon: <BrainCircuit /> },
     { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), icon: <Star /> },
 ];
 
@@ -69,12 +70,6 @@ function DashboardHeader() {
                             </DropdownMenuItem>
                         ))}
                     </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                        <Link href="/education" className="flex items-center gap-2">
-                            <span>{t('dashboard.sidebar.education')}</span>
-                        </Link>
-                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
 
@@ -138,10 +133,6 @@ function DashboardHeader() {
                             <span>{feature.title}</span>
                         </Link>
                      ))}
-                     <DropdownMenuSeparator />
-                     <Link href="/education" className="flex items-center gap-3 text-lg" onClick={() => setMobileMenuOpen(false)}>
-                        <span>{t('dashboard.sidebar.education')}</span>
-                    </Link>
                     <div className="flex items-center justify-center gap-4 pt-4">
                       <Button asChild variant="ghost" size="icon">
                           <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
