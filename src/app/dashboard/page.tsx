@@ -39,29 +39,32 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-12 p-4 md:p-6">
-      <div className="text-center">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('dashboard.home.title')}</h1>
-        <p className="mt-4 text-foreground/80 text-lg">{t('dashboard.home.subtitle')}</p>
+    <div className="w-full max-w-4xl mx-auto space-y-12 p-4 md:p-8">
+      <div>
+        <h1 className="text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+          {t('dashboard.home.title')}
+        </h1>
+        <p className="mt-4 text-foreground/80 text-lg">
+          {t('dashboard.home.subtitle')}
+        </p>
       </div>
 
-      <div className="w-full space-y-6">
+      <div className="w-full space-y-8">
         <div>
-          <h2 className="text-3xl font-bold">{t('dashboard.home.features_title')}</h2>
-          <p className="mt-2 text-foreground/80 text-base">{t('dashboard.home.features_subtitle')}</p>
+          <h2 className="text-4xl font-bold">{t('dashboard.home.features_title')}</h2>
+          <p className="mt-2 text-foreground/80 text-base">
+            {t('dashboard.home.features_subtitle')}
+          </p>
         </div>
         <ul className="space-y-8">
           {features.map((feature) => (
             <li key={feature.href}>
-              <Link 
-                href={feature.href} 
-                className="group flex items-center gap-6 p-2 rounded-lg transition-colors -mx-2 hover:bg-secondary/50"
-              >
-                <div className="flex-shrink-0 bg-secondary rounded-full p-4">
+              <Link href={feature.href} className="group flex items-start gap-6 p-2 -m-2 rounded-lg transition-colors hover:bg-secondary/10">
+                <div className="flex-shrink-0 bg-secondary rounded-full p-4 flex items-center justify-center transition-colors group-hover:bg-secondary/80">
                   {feature.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-semibold">{feature.title}</h3>
+                  <h3 className="text-2xl font-semibold group-hover:text-primary transition-colors">{feature.title}</h3>
                   <p className="text-foreground/80 text-base mt-1">{feature.description}</p>
                 </div>
               </Link>

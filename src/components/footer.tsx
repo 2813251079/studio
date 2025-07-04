@@ -13,13 +13,13 @@ const SpotifyIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Footer() {
   const logoUrl = "https://placehold.co/128x128.png";
   const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite";
-  const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=cd0a66d7796f437c";
+  const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=36cb695127734fd5";
 
   return (
     <footer className="w-full">
       <div className="container flex flex-col items-center justify-between gap-6 py-10 md:h-24 md:flex-row md:py-0">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-4 md:px-0">
-          <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
+          <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full border-2 border-primary/20" data-ai-hint="logo soundwave" />
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
             © {new Date().getFullYear()} {t('app.title')}. {t('footer.rights_reserved')}.
           </p>
