@@ -137,7 +137,7 @@ export default function PianoKeyboard() {
                   style={{ left: `calc(${leftPositionMap[index]} - 4%)` }}
                   className={cn(
                     "absolute top-0 h-2/3 w-[8%] cursor-pointer border border-black bg-gradient-to-b from-neutral-800 to-black rounded-b-md z-10",
-                    "flex items-end justify-center pb-2 text-background text-xs font-semibold transition-colors",
+                    "flex items-end justify-center pb-2 text-accent text-xs font-semibold transition-colors",
                     { "bg-accent border-primary": activeNotes.has(note.freq) }
                   )}
                 >
