@@ -5,7 +5,6 @@ import Image from "next/image";
 import { translations } from "@/lib/translations";
 import { Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -14,12 +13,6 @@ const SpotifyIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Footer() {
-  const [year, setYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
-
   const logoUrl = "https://placehold.co/120x120.png";
   const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite";
   const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=36cb695127734fd5";
@@ -33,7 +26,7 @@ export default function Footer() {
           </Link>
           <div className="flex flex-col text-center md:text-left">
             <p className="text-sm leading-loose text-muted-foreground">
-              © {year || '...'} {t('app.title')}. {t('footer.rights_reserved')}.
+              © 2025 Todos los derechos reservados. Elo Diaz Allende. Open Music Academy.
             </p>
             <Link href="/education" className="text-sm text-primary hover:underline">
               {t('footer.education_link')}
