@@ -75,13 +75,13 @@ export default function WorkspaceHarmonizerForm() {
               <Label htmlFor="intention">{t('workspace_harmonizer.form.intention_label')}</Label>
               <Select name="intention" defaultValue="Enfoque">
                 <SelectTrigger id="intention">
-                  <SelectValue placeholder="Selecciona una intención" />
+                  <SelectValue placeholder={t('workspace_harmonizer.form.intention_placeholder')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Enfoque">Enfoque y Concentración</SelectItem>
-                  <SelectItem value="Relajación">Relajación y Calma</SelectItem>
-                  <SelectItem value="Creatividad">Creatividad y Flujo</SelectItem>
-                  <SelectItem value="Energía">Energía y Motivación</SelectItem>
+                  <SelectItem value="Enfoque">{t('workspace_harmonizer.intentions.focus')}</SelectItem>
+                  <SelectItem value="Relajación">{t('workspace_harmonizer.intentions.relax')}</SelectItem>
+                  <SelectItem value="Creatividad">{t('workspace_harmonizer.intentions.creativity')}</SelectItem>
+                  <SelectItem value="Energía">{t('workspace_harmonizer.intentions.energy')}</SelectItem>
                 </SelectContent>
               </Select>
               {state.fieldErrors?.intention && <p className="text-sm font-medium text-destructive">{state.fieldErrors.intention[0]}</p>}
@@ -165,10 +165,19 @@ export default function WorkspaceHarmonizerForm() {
         )}
 
         {!useFormStatus().pending && !state.data && !state.error && (
-            <Card className="flex h-full flex-col items-center justify-center p-8 text-center border-dashed">
-                <Bot className="h-12 w-12 text-muted-foreground mb-4" />
-                <h3 className="text-xl font-semibold">{t('workspace_harmonizer.result.placeholder_title')}</h3>
-                <p className="text-muted-foreground mt-2 max-w-sm">{t('workspace_harmonizer.result.placeholder_subtitle')}</p>
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle>{t('workspace_harmonizer.result.placeholder_title')}</CardTitle>
+                <CardDescription>{t('workspace_harmonizer.result.placeholder_subtitle')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                  <div className="grid grid-cols-2 gap-4">
+                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.focus')} className="rounded-lg aspect-square object-cover" data-ai-hint="focus study" />
+                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.relax')} className="rounded-lg aspect-square object-cover" data-ai-hint="calm beach" />
+                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.creativity')} className="rounded-lg aspect-square object-cover" data-ai-hint="creative paint" />
+                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.energy')} className="rounded-lg aspect-square object-cover" data-ai-hint="energy sunrise" />
+                  </div>
+              </CardContent>
             </Card>
         )}
       </div>
