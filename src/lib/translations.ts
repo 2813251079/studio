@@ -160,6 +160,12 @@ export const translations = {
     'pictos.play': 'Jugar',
     'pictos.music': 'Música',
     'pictos.read': 'Leer',
+    'pictos.angry': 'Enojado',
+    'pictos.home': 'Casa',
+    'pictos.school': 'Colegio',
+    'pictos.bath': 'Baño',
+    'pictos.help': 'Ayuda',
+    'pictos.no': 'No',
 
     'error.ai': 'Ha ocurrido un error al contactar con la IA. Por favor, inténtalo de nuevo más tarde.',
     'error.toast.title': 'Error',

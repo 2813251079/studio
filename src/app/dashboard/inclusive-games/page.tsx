@@ -3,7 +3,7 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed } from 'lucide-react';
+import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed, Angry, Home, School, Bath, HelpCircle, Ban } from 'lucide-react';
 import { translations } from "@/lib/translations";
 import SimonGame from '@/components/simon-game';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,8 +18,14 @@ type Pictogram = {
 
 const availablePictograms: Pictogram[] = [
   { id: 'want', labelKey: 'pictos.want', icon: <Hand className="h-12 w-12" /> },
+  { id: 'no', labelKey: 'pictos.no', icon: <Ban className="h-12 w-12" /> },
+  { id: 'help', labelKey: 'pictos.help', icon: <HelpCircle className="h-12 w-12" /> },
   { id: 'happy', labelKey: 'pictos.happy', icon: <Smile className="h-12 w-12" /> },
   { id: 'sad', labelKey: 'pictos.sad', icon: <Frown className="h-12 w-12" /> },
+  { id: 'angry', labelKey: 'pictos.angry', icon: <Angry className="h-12 w-12" /> },
+  { id: 'home', labelKey: 'pictos.home', icon: <Home className="h-12 w-12" /> },
+  { id: 'school', labelKey: 'pictos.school', icon: <School className="h-12 w-12" /> },
+  { id: 'bath', labelKey: 'pictos.bath', icon: <Bath className="h-12 w-12" /> },
   { id: 'water', labelKey: 'pictos.water', icon: <GlassWater className="h-12 w-12" /> },
   { id: 'eat', labelKey: 'pictos.eat', icon: <Utensils className="h-12 w-12" /> },
   { id: 'sleep', labelKey: 'pictos.sleep', icon: <Bed className="h-12 w-12" /> },
