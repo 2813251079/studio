@@ -63,10 +63,7 @@ export default function Home() {
             <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               {t('landing.hero.title_new')}
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-10">
-              {t('landing.hero.subtitle_new')}
-            </p>
-            <div className="flex justify-start gap-4">
+            <div className="flex justify-start gap-4 pt-4">
               <Button size="lg" asChild>
                 <Link href="/auth/register">
                   {t('landing.header.get_started')} <ArrowRight className="ml-2 h-5 w-5" />
