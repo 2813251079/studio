@@ -81,7 +81,7 @@ export function useRequireAuth(redirectUrl = '/auth/login') {
         if (pathname !== redirectUrl) {
             sessionStorage.setItem('redirectAfterLogin', pathname);
         }
-        router.push(redirectUrl);
+        router.replace(redirectUrl);
     }
   }, [user, loading, router, redirectUrl, pathname]);
 

@@ -56,7 +56,7 @@ export default function RegisterPage() {
 
     const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
     sessionStorage.removeItem('redirectAfterLogin');
-    router.push(redirectUrl);
+    router.replace(redirectUrl);
   };
 
   return (
