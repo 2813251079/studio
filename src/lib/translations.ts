@@ -179,6 +179,11 @@ export const translations = {
     'music_production.subtitle': 'Herramientas para crear, explorar y afinar tu música frecuencial.',
     'music_production.piano.title': 'Piano Virtual Frecuencial',
     'music_production.piano.description': 'Toca notas musicales y explora sus frecuencias correspondientes.',
+    'music_production.circle_of_fifths.title': 'Círculo de Quintas Interactivo',
+    'music_production.circle_of_fifths.description': 'Explora las relaciones entre tonalidades. Haz clic en una sección para escuchar su tríada mayor.',
+    'music_production.circle_of_fifths.selected_key': 'Tonalidad Seleccionada',
+    'music_production.circle_of_fifths.triad_notes': 'Notas de la Tríada Mayor',
+
 
     'pictos.want': 'Quiero',
     'pictos.happy': 'Feliz',

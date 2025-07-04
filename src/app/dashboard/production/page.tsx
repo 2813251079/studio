@@ -1,3 +1,4 @@
+import CircleOfFifths from "@/components/circle-of-fifths";
 import PianoKeyboard from "@/components/piano-keyboard";
 import { translations } from "@/lib/translations";
 
@@ -11,6 +12,7 @@ export default function MusicProductionPage() {
         <p className="text-muted-foreground">{t('music_production.subtitle')}</p>
       </div>
       <PianoKeyboard />
+      <CircleOfFifths />
     </div>
   );
 }

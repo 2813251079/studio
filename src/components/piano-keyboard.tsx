@@ -101,7 +101,7 @@ export default function PianoKeyboard() {
         <div className="relative flex h-48 w-full select-none" role="application" aria-label="Piano Keyboard">
           {notes
             .filter(note => note.type === 'white')
-            .map((note, index) => (
+            .map((note) => (
               <div
                 key={note.name}
                 role="button"
@@ -112,9 +112,9 @@ export default function PianoKeyboard() {
                 onTouchStart={(e) => { e.preventDefault(); handleInteractionStart(note.freq); }}
                 onTouchEnd={() => handleInteractionEnd(note.freq)}
                 className={cn(
-                  "relative h-full flex-1 cursor-pointer border-2 border-foreground bg-secondary",
-                  "flex items-end justify-center pb-2 text-foreground font-semibold",
-                  { "bg-primary text-primary-foreground border-accent": activeNotes.has(note.freq) }
+                  "relative h-full flex-1 cursor-pointer border-x border-t border-slate-300 dark:border-slate-600 bg-secondary rounded-b-md border-b-4 dark:border-b-slate-800",
+                  "flex items-end justify-center pb-4 text-foreground font-semibold shadow-inner transition-colors",
+                  { "bg-primary/80 text-primary-foreground border-accent": activeNotes.has(note.freq) }
                 )}
               >
                 {note.name}
@@ -123,7 +123,7 @@ export default function PianoKeyboard() {
           {notes
             .filter(note => note.type === 'black')
             .map((note, index) => {
-              const leftPositionMap: { [key: number]: string } = { 0: "5.5%", 1: "20%", 2: "48%", 3: "62.5%", 4: "77%" };
+              const leftPositionMap: { [key: number]: string } = { 0: "14.28%", 1: "28.57%", 2: "57.14%", 3: "71.42%", 4: "85.71%" };
               return (
                 <div
                   key={note.name}
@@ -134,10 +134,10 @@ export default function PianoKeyboard() {
                   onMouseLeave={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
                   onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); handleInteractionStart(note.freq); }}
                   onTouchEnd={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
-                  style={{ left: leftPositionMap[index] }}
+                  style={{ left: `calc(${leftPositionMap[index]} - 4%)` }}
                   className={cn(
-                    "absolute top-0 h-2/3 w-[8%] cursor-pointer border-2 border-foreground bg-foreground",
-                    "flex items-end justify-center pb-2 text-background text-xs font-semibold z-10",
+                    "absolute top-0 h-2/3 w-[8%] cursor-pointer border border-black bg-gradient-to-b from-neutral-800 to-black rounded-b-md z-10",
+                    "flex items-end justify-center pb-2 text-background text-xs font-semibold transition-colors",
                     { "bg-accent border-primary": activeNotes.has(note.freq) }
                   )}
                 >
