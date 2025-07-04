@@ -17,18 +17,26 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     
     <circle cx="60" cy="60" r="60" fill="url(#darkTurquoiseGradient)" />
 
-    {/* Guitar Neck Silhouette */}
-    <g transform="translate(-5, 8) rotate(-10 30 60)">
-        <path 
-          d="M 38 105 L 38 45 C 42 35, 30 22, 22 25 C 10 30, 12 45, 20 50 L 22 105 Z" 
-          fill="#A0522D" 
-          stroke="#6B4F3A" 
-          strokeWidth="1.5"
-        />
+    {/* Guitar Headstock */}
+    <g transform="translate(30, 20)">
+        {/* Vertical black neck/headstock */}
+        <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="#1C1C1C" />
+        <rect x="-5" y="40" width="10" height="50" fill="#1C1C1C" />
+        
+        {/* Pegs */}
+        <circle cx="-10" cy="10" r="3" fill="#B0B0B0"/>
+        <circle cx="-10" cy="10" r="1" fill="black"/>
+        <circle cx="-10" cy="25" r="3" fill="#B0B0B0"/>
+        <circle cx="-10" cy="25" r="1" fill="black"/>
+        
+        <circle cx="10" cy="10" r="3" fill="#B0B0B0"/>
+        <circle cx="10" cy="10" r="1" fill="black"/>
+        <circle cx="10" cy="25" r="3" fill="#B0B0B0"/>
+        <circle cx="10" cy="25" r="1" fill="black"/>
     </g>
 
     {/* Pentagram and Fa Key moved to the right */}
-    <g transform="translate(25, 0)">
+    <g transform="translate(45, 0)">
         <g stroke="hsl(195, 30%, 70%)" strokeWidth="1.5">
           <path d="M 25 48 H 95" />
           <path d="M 25 56 H 95" />
