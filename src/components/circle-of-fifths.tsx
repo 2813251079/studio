@@ -4,17 +4,23 @@ import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { translations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 const t = (key: any) => translations.es[key as any] || key;
 
 const noteFrequencies: { [note: string]: number } = {
-    'C': 261.63, 'C#': 277.18, 'Db': 277.18,
-    'D': 293.66, 'D#': 311.13, 'Eb': 311.13,
-    'E': 329.63,
-    'F': 349.23, 'F#': 369.99, 'Gb': 369.99,
-    'G': 392.00, 'G#': 415.30, 'Ab': 415.30,
-    'A': 440.00, 'A#': 466.16, 'Bb': 466.16,
-    'B': 493.88,
+    'C': 261.6, 
+    'C#': 277.2, 'Db': 277.2,
+    'D': 293.7, 
+    'D#': 311.13, 'Eb': 311.13,
+    'E': 329.6,
+    'F': 349.2, 
+    'F#': 370, 'Gb': 370,
+    'G': 392, 
+    'G#': 415.3, 'Ab': 415.3,
+    'A': 440, 
+    'A#': 466.2, 'Bb': 466.2,
+    'B': 493.2,
 };
 
 const circleKeys = [
@@ -56,10 +62,10 @@ const playChord = (audioContext: AudioContext, frequencies: number[]) => {
 export default function CircleOfFifths() {
     const [selectedKey, setSelectedKey] = useState<typeof circleKeys[0] | null>(null);
     const audioContextRef = useRef<AudioContext | null>(null);
-    const [isMounted, setIsMounted] = useState(false); // Fix for hydration error
+    const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
-        setIsMounted(true); // Component is now mounted on client
+        setIsMounted(true);
         if (typeof window !== 'undefined') {
             audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
         }
@@ -89,7 +95,7 @@ export default function CircleOfFifths() {
             </CardHeader>
             <CardContent className="flex flex-col items-center gap-6">
                 <div className="relative w-[320px] h-[320px]">
-                    {isMounted ? ( // Only render SVG on client
+                    {isMounted ? (
                         <svg viewBox="0 0 320 320" className="w-full h-full">
                             <circle cx={center} cy={center} r={radius} fill="none" strokeWidth="0" />
                             <circle cx={center} cy={center} r={radius * 0.6} fill="none" strokeWidth="0" />
@@ -128,7 +134,7 @@ export default function CircleOfFifths() {
                                             textAnchor="middle"
                                             dominantBaseline="middle"
                                             className={cn(
-                                                "text-2xl font-bold fill-primary-foreground pointer-events-none",
+                                                "text-4xl font-bold fill-primary-foreground pointer-events-none",
                                                 isSelected && "font-extrabold"
                                             )}
                                         >
@@ -139,7 +145,7 @@ export default function CircleOfFifths() {
                                             y={minorY}
                                             textAnchor="middle"
                                             dominantBaseline="middle"
-                                            className={cn("text-lg pointer-events-none", isSelected ? "fill-primary-foreground" : "fill-primary-foreground/80")}
+                                            className={cn("text-2xl pointer-events-none", isSelected ? "fill-primary-foreground" : "fill-primary-foreground/80")}
                                         >
                                             {keyInfo.minor}
                                         </text>
@@ -147,7 +153,7 @@ export default function CircleOfFifths() {
                                 );
                             })}
                              <circle cx={center} cy={center} r={radius * 0.3} fill="hsl(var(--background))" />
-                             <image href="https://placehold.co/128x128.png" data-ai-hint="logo soundwave" x={center - 40} y={center - 40} height="80" width="80" />
+                             <image href="https://placehold.co/128x128.png" data-ai-hint="logo soundwave" x={center - 40} y={center - 40} height="80" width="80" className="rounded-full border" />
                         </svg>
                     ) : (
                       <div className="w-[320px] h-[320px] bg-muted/50 rounded-full animate-pulse" />
@@ -155,8 +161,8 @@ export default function CircleOfFifths() {
                 </div>
                 {selectedKey && (
                     <div className="text-center p-4 rounded-lg bg-secondary w-full max-w-sm">
-                        <p className="text-lg font-semibold">{t('music_production.circle_of_fifths.selected_key')}: <span className="text-primary">{selectedKey.major} / {selectedKey.minor}</span></p>
-                        <p className="text-muted-foreground">{t('music_production.circle_of_fifths.triad_notes')}: {selectedKey.triad.join(', ')}</p>
+                        <p className="text-2xl font-semibold">{t('music_production.circle_of_fifths.selected_key')}: <span className="text-primary">{selectedKey.major} / {selectedKey.minor}</span></p>
+                        <p className="text-muted-foreground text-xl">{t('music_production.circle_of_fifths.triad_notes')}: {selectedKey.triad.join(', ')}</p>
                     </div>
                 )}
             </CardContent>

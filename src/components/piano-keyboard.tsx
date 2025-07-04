@@ -15,18 +15,18 @@ type Note = {
 };
 
 const notes: Note[] = [
-  { name: 'C', freq: 261.63, type: 'white' },
-  { name: 'C#', freq: 277.18, type: 'black' },
-  { name: 'D', freq: 293.66, type: 'white' },
+  { name: 'C', freq: 261.6, type: 'white' },
+  { name: 'C#', freq: 277.2, type: 'black' },
+  { name: 'D', freq: 293.7, type: 'white' },
   { name: 'D#', freq: 311.13, type: 'black' },
-  { name: 'E', freq: 329.63, type: 'white' },
-  { name: 'F', freq: 349.23, type: 'white' },
-  { name: 'F#', freq: 369.99, type: 'black' },
-  { name: 'G', freq: 392.00, type: 'white' },
-  { name: 'G#', freq: 415.30, type: 'black' },
-  { name: 'A', freq: 440.00, type: 'white' },
-  { name: 'A#', freq: 466.16, type: 'black' },
-  { name: 'B', freq: 493.88, type: 'white' },
+  { name: 'E', freq: 329.6, type: 'white' },
+  { name: 'F', freq: 349.2, type: 'white' },
+  { name: 'F#', freq: 370, type: 'black' },
+  { name: 'G', freq: 392, type: 'white' },
+  { name: 'G#', freq: 415.3, type: 'black' },
+  { name: 'A', freq: 440, type: 'white' },
+  { name: 'A#', freq: 466.2, type: 'black' },
+  { name: 'B', freq: 493.2, type: 'white' },
 ];
 
 export default function PianoKeyboard() {
@@ -131,7 +131,7 @@ export default function PianoKeyboard() {
                 onTouchEnd={() => handleInteractionEnd(note.freq)}
                 className={cn(
                   "relative h-full flex-1 cursor-pointer bg-white rounded-b-md",
-                  "flex items-end justify-center pb-4 text-accent font-semibold",
+                  "flex items-end justify-center pb-4 text-accent font-semibold text-2xl",
                   { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
                 )}
               >
@@ -155,7 +155,7 @@ export default function PianoKeyboard() {
                   style={{ left: `calc(${leftPositionMap[index]} - 4%)` }}
                   className={cn(
                     "absolute top-0 h-2/3 w-[8%] cursor-pointer bg-neutral-800 rounded-b-md z-10",
-                    "flex items-end justify-center pb-2 text-accent text-xs font-semibold transition-colors",
+                    "flex items-end justify-center pb-2 text-accent text-xl font-semibold transition-colors",
                     { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
                   )}
                 >
