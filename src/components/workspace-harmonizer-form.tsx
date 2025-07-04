@@ -107,7 +107,7 @@ export default function WorkspaceHarmonizerForm() {
         {useFormStatus().pending && (
            <Card className="flex h-full flex-col items-center justify-center p-8 text-center">
                 <div className="animate-pulse mb-4">
-                    <Image src="/logo.png" width={100} height={100} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
+                    <Image src="https://placehold.co/100x100.png" width={100} height={100} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
                 </div>
                 <p className="text-muted-foreground text-lg">{t('workspace_harmonizer.result.loading')}</p>
            </Card>

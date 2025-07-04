@@ -38,7 +38,8 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const logoUrl = "/logo.png";
+  const logoUrl = "https://placehold.co/120x120.png";
+  const smallLogoUrl = "https://placehold.co/48x48.png";
   const [isNavOpen, setIsNavOpen] = useState(true);
 
   return (
@@ -50,7 +51,9 @@ export default function DashboardLayout({
               <CollapsibleTrigger asChild>
                 <button className="flex items-center justify-between w-full p-2 text-left hover:bg-sidebar-accent group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:h-16">
                     <div className="flex items-center gap-3">
-                        <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-1" data-ai-hint="logo guitar wave" />
+                        <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-1 group-data-[collapsible=icon]:hidden" data-ai-hint="logo guitar wave" />
+                        <Image src={smallLogoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full hidden flex-shrink-0 bg-slate-200 p-1 group-data-[collapsible=icon]:block" data-ai-hint="logo guitar wave" />
+
                         <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
                             <h1 className="text-xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
                         </div>

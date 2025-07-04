@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
-const logoUrl = "/logo.png";
+const logoUrl = "https://placehold.co/120x120.png";
 
 export default function RegisterPage() {
   return (
