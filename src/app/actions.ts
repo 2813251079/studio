@@ -6,6 +6,7 @@ import { videoHarmonizer, VideoHarmonizerOutput } from '@/ai/flows/video-harmoni
 import { generateSpeech } from '@/ai/flows/tts-flow';
 import { talkToCompanion } from '@/ai/flows/emotional-companion-flow';
 import { translations } from '@/lib/translations';
+import { knowledgeBaseFlow, KnowledgeBaseOutput } from '@/ai/flows/knowledge-base-flow';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -131,5 +132,37 @@ export async function getCompanionResponse(
         ...prevState,
         error: t('error.ai') 
     };
+  }
+}
+
+const knowledgeBaseValidationSchema = z.string().min(3, 'Por favor, introduce un tema con al menos 3 caracteres.');
+
+type KnowledgeBaseState = {
+  data?: KnowledgeBaseOutput;
+  error?: string;
+  fieldError?: string;
+};
+
+export async function getKnowledgeInfo(
+  prevState: KnowledgeBaseState,
+  formData: FormData
+): Promise<KnowledgeBaseState> {
+  const query = formData.get('query') as string;
+
+  const validatedField = knowledgeBaseValidationSchema.safeParse(query);
+
+  if (!validatedField.success) {
+    return {
+      error: 'Error de validación.',
+      fieldError: validatedField.error.flatten().formErrors[0],
+    };
+  }
+
+  try {
+    const result = await knowledgeBaseFlow(validatedField.data);
+    return { data: result };
+  } catch (e) {
+    console.error(e);
+    return { error: t('error.ai') };
   }
 }

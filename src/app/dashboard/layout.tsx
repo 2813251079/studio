@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Instagram, Brain } from 'lucide-react';
+import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Instagram, Brain, BookOpen } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 
@@ -35,6 +35,7 @@ const features = [
     { href: '/dashboard/inclusive-games', title: t('dashboard.sidebar.inclusive_games'), icon: <Puzzle /> },
     { href: '/dashboard/production', title: t('dashboard.sidebar.music_production'), icon: <SlidersHorizontal /> },
     { href: '/dashboard/tuner', title: t('dashboard.sidebar.tuner'), icon: <Brain /> },
+    { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), icon: <BookOpen /> },
     { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), icon: <Star /> },
 ];
 
