@@ -2,7 +2,7 @@
 export const translations = {
   es: {
     'app.title': 'Open Music Academy',
-    'app.description': 'Eleva tu Vibración con Armonía AI',
+    'app.description': 'Eleva tu Vibración con AI Frecuencias',
     
     'landing.header.features': 'Características',
     'landing.header.pricing': 'Precios',
@@ -12,7 +12,7 @@ export const translations = {
 
     'landing.hero.title': 'Descubre el Poder de las Frecuencias Sanadoras con IA',
     'landing.hero.subtitle': 'Transforma tu bienestar auditivo y visual. Sube tus archivos, elige una frecuencia y deja que Armonía AI cree una experiencia inmersiva y armoniosa para ti.',
-    'landing.hero.title_new': 'Eleva tu Vibración con Armonía AI',
+    'landing.hero.title_new': 'Eleva tu Vibración con AI Frecuencias',
     'landing.hero.subtitle_new': 'Frecuencias Musicales',
     
     'landing.what_is.title': '¿Qué son las Frecuencias Sanadoras?',
