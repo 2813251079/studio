@@ -108,14 +108,17 @@ export default function CircleOfFifths() {
                             const minorX = center + (radius * 0.45) * Math.cos(textAngle);
                             const minorY = center + (radius * 0.45) * Math.sin(textAngle);
 
+                            const isSelected = selectedKey?.major === keyInfo.major;
+                            const fillColor = i % 2 === 0 ? 'hsl(var(--primary))' : 'hsl(var(--accent))';
+
                             return (
                                 <g key={keyInfo.major} onClick={() => handleKeyClick(keyInfo)} className="cursor-pointer group">
                                     <path
                                         d={pathData}
-                                        fill={selectedKey?.major === keyInfo.major ? 'hsl(var(--primary))' : 'hsl(var(--secondary))'}
-                                        stroke="hsl(var(--border))"
-                                        strokeWidth="2"
-                                        className="transition-colors group-hover:fill-primary/50"
+                                        fill={fillColor}
+                                        stroke={isSelected ? 'hsl(var(--ring))' : 'hsl(var(--border))'}
+                                        strokeWidth={isSelected ? 3 : 2}
+                                        className="transition-all group-hover:opacity-80"
                                     />
                                     <text
                                         x={majorX}
@@ -123,12 +126,8 @@ export default function CircleOfFifths() {
                                         textAnchor="middle"
                                         dominantBaseline="middle"
                                         className={cn(
-                                            "text-lg font-bold",
-                                            selectedKey?.major === keyInfo.major
-                                                ? "fill-primary-foreground"
-                                                : i % 2 === 0
-                                                ? "fill-accent"
-                                                : "fill-primary"
+                                            "text-lg font-bold fill-primary-foreground pointer-events-none",
+                                            isSelected && "font-extrabold"
                                         )}
                                     >
                                         {keyInfo.major}
@@ -138,7 +137,7 @@ export default function CircleOfFifths() {
                                         y={minorY}
                                         textAnchor="middle"
                                         dominantBaseline="middle"
-                                        className={cn("text-base fill-muted-foreground", selectedKey?.major === keyInfo.major && "fill-primary-foreground/80")}
+                                        className={cn("text-base pointer-events-none", isSelected ? "fill-primary-foreground" : "fill-primary-foreground/80")}
                                     >
                                         {keyInfo.minor}
                                     </text>

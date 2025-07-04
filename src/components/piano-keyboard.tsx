@@ -114,7 +114,7 @@ export default function PianoKeyboard() {
                 className={cn(
                   "relative h-full flex-1 cursor-pointer border-x border-t border-neutral-300 bg-white rounded-b-md border-b-4 border-neutral-400",
                   "flex items-end justify-center pb-4 text-accent font-semibold shadow-inner",
-                  { "bg-primary/80 text-primary-foreground border-accent": activeNotes.has(note.freq) }
+                  { "bg-primary text-primary-foreground border-primary": activeNotes.has(note.freq) }
                 )}
               >
                 {note.name}
@@ -138,7 +138,7 @@ export default function PianoKeyboard() {
                   className={cn(
                     "absolute top-0 h-2/3 w-[8%] cursor-pointer border border-black bg-gradient-to-b from-neutral-800 to-black rounded-b-md z-10",
                     "flex items-end justify-center pb-2 text-accent text-xs font-semibold transition-colors",
-                    { "bg-accent border-primary": activeNotes.has(note.freq) }
+                    { "bg-primary border-primary": activeNotes.has(note.freq) }
                   )}
                 >
                   {note.name}
