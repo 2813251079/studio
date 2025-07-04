@@ -67,9 +67,9 @@ export default function VideoHarmonizerForm() {
         <form ref={formRef} action={formAction}>
           <CardHeader>
               <CardTitle>{t('video_harmonizer.form.title')}</CardTitle>
-              <CardDescription>{t('video_harmonizer.form.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            <p className="text-sm text-muted-foreground -mt-4 mb-4">{t('video_harmonizer.form.description')}</p>
             <div className="space-y-2">
               <Label htmlFor="description" className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 {t('video_harmonizer.form.scene_label')}
