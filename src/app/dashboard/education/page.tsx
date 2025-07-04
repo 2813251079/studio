@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useActionState, useRef, useEffect } from 'react';
@@ -46,10 +45,7 @@ export default function EducationPage() {
         description: state.error,
       });
     }
-    if (state.data || state.error) {
-        if(isPending) startTransition(() => {});
-    }
-  }, [state, toast]);
+  }, [state.error, state.fieldError, toast]);
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
