@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Waves, Wind, Video, Puzzle, SlidersHorizontal } from "lucide-react";
 import { translations } from "@/lib/translations";
-import { Button } from "@/components/ui/button";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -56,21 +55,24 @@ export default function DashboardPage() {
           <CardContent>
             <ul className="space-y-4">
               {features.map((feature, index) => (
-                <li key={index} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg transition-colors hover:bg-secondary/50">
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 bg-secondary rounded-full p-3">
-                      {feature.icon}
+                <li key={index}>
+                  <Link 
+                    href={feature.href} 
+                    className="group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg transition-colors hover:bg-secondary/50"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0 bg-secondary rounded-full p-3">
+                        {feature.icon}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold">{feature.title}</h3>
+                        <p className="text-muted-foreground text-sm mt-1">{feature.description}</p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold">{feature.title}</h3>
-                      <p className="text-muted-foreground text-sm mt-1">{feature.description}</p>
+                    <div className="shrink-0 self-end sm:self-center">
+                      <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
                     </div>
-                  </div>
-                  <Button asChild variant="ghost" className="shrink-0 self-end sm:self-center">
-                    <Link href={feature.href}>
-                      <span>Ir</span> <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
+                  </Link>
                 </li>
               ))}
             </ul>
