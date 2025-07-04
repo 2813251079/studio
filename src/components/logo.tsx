@@ -22,9 +22,9 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     <circle cx="60" cy="60" r="60" fill="url(#darkTurquoiseGradient)" />
 
     {/* Guitar Body */}
-    <g transform="translate(60, 89) scale(0.4) translate(-150, -235)">
+    <g transform="translate(60, 82) scale(0.4) translate(-150, -235)">
       <path
-        d="M 150 300 C 50 320, 20 250, 80 200 C 100 150, 200 150, 220 200 C 280 250, 250 320, 150 300 Z"
+        d="M 150 305 C 80 320, 70 260, 105 220 C 120 195, 180 195, 195 220 C 230 260, 220 320, 150 305 Z"
         fill="url(#guitarGradient)"
       />
     </g>
