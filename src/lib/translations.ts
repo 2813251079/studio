@@ -80,6 +80,8 @@ export const translations = {
 
     'dashboard.home.title': 'Tu Espacio de Armonía',
     'dashboard.home.subtitle': 'Bienvenido a tu centro de control. Explora las herramientas para comenzar.',
+    'dashboard.home.features_title': 'Funciones Principales',
+    'dashboard.home.features_subtitle': 'Explora las herramientas a tu disposición para comenzar tu viaje de armonización.',
 
     'frequencies.title': 'Biblioteca de Frecuencias',
     'frequencies.subtitle': 'Explora nuestra colección de sonidos curativos para meditar, concentrarte o relajarte.',

@@ -14,6 +14,14 @@ import {
   SidebarInset,
 } from '@/components/ui/sidebar';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
   Home,
   Waves,
   Wind,
@@ -90,26 +98,6 @@ export default function DashboardLayout({
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
-          <div className='p-2'>
-            <SidebarMenu>
-               <SidebarMenuItem>
-                 <Link href="#">
-                    <SidebarMenuButton tooltip={{children: t('dashboard.sidebar.account')}}>
-                        <UserCircle />
-                        <span>{t('dashboard.sidebar.account')}</span>
-                    </SidebarMenuButton>
-                 </Link>
-               </SidebarMenuItem>
-               <SidebarMenuItem>
-                 <Link href="/">
-                    <SidebarMenuButton tooltip={{children: t('dashboard.sidebar.logout')}}>
-                        <LogOut />
-                        <span>{t('dashboard.sidebar.logout')}</span>
-                    </SidebarMenuButton>
-                 </Link>
-               </SidebarMenuItem>
-            </SidebarMenu>
-          </div>
         </Sidebar>
         <SidebarInset className="bg-background">
           <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-6">
@@ -117,7 +105,34 @@ export default function DashboardLayout({
               <SidebarTrigger />
             </div>
             <div className="flex-1">
-              {/* You can add a breadcrumb or page title here */}
+              {/* This empty div will push the user menu to the right */}
+            </div>
+            <div>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                            <Avatar className="h-10 w-10">
+                                <AvatarImage src="https://placehold.co/32x32.png" alt="@user" data-ai-hint="person avatar" />
+                                <AvatarFallback>U</AvatarFallback>
+                            </Avatar>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem asChild>
+                            <Link href="#">
+                                <UserCircle className="mr-2 h-4 w-4" />
+                                <span>{t('dashboard.sidebar.account')}</span>
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild>
+                            <Link href="/">
+                                <LogOut className="mr-2 h-4 w-4" />
+                                <span>{t('dashboard.sidebar.logout')}</span>
+                            </Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
           </header>
           <main className="flex-1 p-4 md:p-6">{children}</main>
