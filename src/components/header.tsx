@@ -8,11 +8,12 @@ import { translations } from "@/lib/translations";
 const t = (key: any) => translations.es[key as any] || key;
 
 export default function Header() {
+  const logoUrl = "https://storage.googleapis.com/project-spark-348216.appspot.com/users%2FlD5sgrj92eaW42rAAnZ01c8U5kh1%2Flabs%2FM_tE-GwtwWd215bT3tO2s%2Flogo.png";
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="https://placehold.co/40x40.png" width={40} height={40} alt={t('app.title')} className="rounded-full" data-ai-hint="logo" />
+          <Image src={logoUrl} width={40} height={40} alt={t('app.title')} className="rounded-full" />
           <span className="font-bold text-lg hidden sm:inline-block">{t('app.title')}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">
