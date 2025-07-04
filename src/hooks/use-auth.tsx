@@ -58,8 +58,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const value = { user, loading, logout, isFirebaseConfigured };
+
   return (
-    <AuthContext.Provider value={{ user, loading, logout, isFirebaseConfigured }}>
+    <AuthContext.Provider value={value}>
       {loading ? (
         <div className="flex items-center justify-center min-h-screen">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />

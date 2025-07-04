@@ -3,40 +3,27 @@ import { initializeApp, getApp, getApps, type FirebaseApp } from "firebase/app";
 import { getAuth, type Auth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyAVS6YAtIHica96_0sA3lV8vrWv5qqZjmk",
+  authDomain: "workspace-symphony-70n4i.firebaseapp.com",
+  projectId: "workspace-symphony-70n4i",
+  storageBucket: "workspace-symphony-70n4i.firebasestorage.app",
+  messagingSenderId: "288399007235",
+  appId: "1:288399007235:web:d0a44e507558ca4624f836"
 };
 
 let app: FirebaseApp;
 let auth: Auth;
 
-// A more robust check to ensure config values are not undefined or placeholders
-const isConfigValueValid = (value: string | undefined): value is string => {
-  return value !== undefined && value !== '' && !value.startsWith('<your-');
-};
+// Since the credentials are now hardcoded, we can assume Firebase is always configured.
+// This simplifies the logic and removes potential issues with environment variable loading.
+export const isFirebaseConfigured = true;
 
-// Check that all required Firebase config values are present and are not just placeholders.
-const isFirebaseConfigured =
-  isConfigValueValid(firebaseConfig.apiKey) &&
-  isConfigValueValid(firebaseConfig.authDomain) &&
-  isConfigValueValid(firebaseConfig.projectId) &&
-  isConfigValueValid(firebaseConfig.storageBucket) &&
-  isConfigValueValid(firebaseConfig.messagingSenderId) &&
-  isConfigValueValid(firebaseConfig.appId);
-
-if (isFirebaseConfigured) {
-    try {
-        app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-        auth = getAuth(app);
-    } catch (e) {
-        console.error("Failed to initialize Firebase", e);
-    }
-} else {
-    console.warn("Firebase credentials are not set or are incomplete in .env. Authentication will be disabled.");
+try {
+    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    auth = getAuth(app);
+} catch (e) {
+    console.error("Failed to initialize Firebase", e);
+    // In a real-world scenario, you might want to handle this error more gracefully.
 }
 
-export { app, auth, isFirebaseConfigured };
+export { app, auth };
