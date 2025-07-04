@@ -87,7 +87,7 @@ export default function WorkspaceHarmonizerForm() {
               {state.fieldErrors?.intention && <p className="text-sm font-medium text-destructive">{state.fieldErrors.intention[0]}</p>}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description">{t('workspace_harmonizer.form.state_label')}</Label>
+              <Label htmlFor="description" className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('workspace_harmonizer.form.state_label')}</Label>
               <Textarea
                 id="description"
                 name="description"
@@ -169,7 +169,7 @@ export default function WorkspaceHarmonizerForm() {
         {!useFormStatus().pending && !state.data && !state.error && (
             <Card className="h-full">
               <CardHeader>
-                <CardTitle>{t('workspace_harmonizer.result.placeholder_title')}</CardTitle>
+                <CardTitle className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('workspace_harmonizer.result.placeholder_title')}</CardTitle>
                 <CardDescription>{t('workspace_harmonizer.result.placeholder_subtitle')}</CardDescription>
               </CardHeader>
               <CardContent>
