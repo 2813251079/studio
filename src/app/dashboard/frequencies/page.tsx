@@ -11,6 +11,26 @@ export default function FrequenciesPage() {
 
   const frequencies = [
     {
+      title: t('frequencies.261hz.title'),
+      description: t('frequencies.261hz.description'),
+      freqValue: 261
+    },
+    {
+      title: t('frequencies.293hz.title'),
+      description: t('frequencies.293hz.description'),
+      freqValue: 293
+    },
+    {
+      title: t('frequencies.396hz.title'),
+      description: t('frequencies.396hz.description'),
+      freqValue: 396
+    },
+    {
+      title: t('frequencies.417hz.title'),
+      description: t('frequencies.417hz.description'),
+      freqValue: 417
+    },
+    {
       title: t('frequencies.432hz.title'),
       description: t('frequencies.432hz.description'),
       freqValue: 432
@@ -30,7 +50,17 @@ export default function FrequenciesPage() {
       description: t('frequencies.741hz.description'),
       freqValue: 741
     },
-  ];
+    {
+      title: t('frequencies.852hz.title'),
+      description: t('frequencies.852hz.description'),
+      freqValue: 852
+    },
+    {
+      title: t('frequencies.963hz.title'),
+      description: t('frequencies.963hz.description'),
+      freqValue: 963
+    },
+  ].sort((a, b) => a.freqValue - b.freqValue);
 
   const handlePlayToggle = (index: number) => {
     if (playingIndex === index) {
