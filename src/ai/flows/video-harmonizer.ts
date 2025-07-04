@@ -144,7 +144,7 @@ const videoHarmonizerFlow = ai.defineFlow(
     }
 
     const imagePrompt = `Una escena cinematográfica: ${analysis.sceneDescription}.`;
-    const soundscapePrompt = `Imagina esta melodía que he compuesto para ti. Es una pieza que suena así: ${analysis.soundscapeDescription}. Deja que te transporte a la escena.`;
+    const soundscapePrompt = `Crea la banda sonora para esta escena: ${analysis.sceneDescription}. El paisaje sonoro debe sonar así: ${analysis.soundscapeDescription}. El audio debe ser puramente instrumental o ambiental, sin palabras. Usa sonidos que evoquen la descripción para crear una atmósfera inmersiva.`;
     
     const [imageUrl, soundscapeUrl] = await Promise.all([
       imageGenerationFlow(imagePrompt),

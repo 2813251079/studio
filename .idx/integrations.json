@@ -1,7 +1,4 @@
 {
-  "firebase_hosting": {
-    "deploymentHostingUrl": "https://gen-lang-client-0532231213.web.app"
-  },
   "cloud_run_deploy": {},
   "gemini_api": {},
   "secrets_manager": {}
