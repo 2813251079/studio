@@ -9,18 +9,33 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <defs>
-      <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style={{ stopColor: "hsl(var(--primary))" }} />
-        <stop offset="100%" style={{ stopColor: "hsl(var(--accent))" }} />
-      </linearGradient>
+      <radialGradient id="darkTurquoiseGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <stop offset="0%" style={{ stopColor: "hsl(195, 83%, 25%)" }} />
+        <stop offset="100%" style={{ stopColor: "hsl(195, 83%, 15%)" }} />
+      </radialGradient>
     </defs>
-    <circle cx="60" cy="60" r="60" fill="url(#logoGradient)" />
-    <g transform="translate(20, 22) scale(0.9)" fill="hsl(var(--primary))" stroke="white" strokeWidth="2.5">
+    
+    <circle cx="60" cy="60" r="60" fill="url(#darkTurquoiseGradient)" />
+
+    <g stroke="hsl(195, 30%, 70%)" strokeWidth="1.5">
+      <path d="M 25 48 H 95" />
+      <path d="M 25 56 H 95" />
+      <path d="M 25 64 H 95" />
+      <path d="M 25 72 H 95" />
+      <path d="M 25 80 H 95" />
+    </g>
+
+    <g transform="translate(5, -2)">
       <path
-        d="M45.5,20.5C57.6,20.5,65,29.3,65,40.5c0,11.1-7.4,20-19.5,20c-12.1,0-19.5-8.9-19.5-20 C26,29.3,33.4,20.5,45.5,20.5z"
+        d="M 50 45 C 35 50, 35 80, 50 95"
+        stroke="hsl(var(--primary))"
+        strokeWidth="5"
+        strokeLinecap="round"
+        fill="none"
       />
-      <circle cx="74" cy="33" r="6" />
-      <circle cx="74" cy="50" r="6" />
+      <circle cx="50" cy="45" r="7" fill="hsl(var(--primary))" />
+      <circle cx="70" cy="68" r="4" fill="hsl(var(--primary))" />
+      <circle cx="70" cy="76" r="4" fill="hsl(var(--primary))" />
     </g>
   </svg>
 );
