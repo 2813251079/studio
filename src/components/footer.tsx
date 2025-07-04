@@ -1,8 +1,11 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
 import { translations } from "@/lib/translations";
 import { Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -11,6 +14,12 @@ const SpotifyIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Footer() {
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   const logoUrl = "https://placehold.co/128x128.png";
   const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite";
   const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=36cb695127734fd5";
@@ -21,7 +30,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-4 md:px-0">
           <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            © {new Date().getFullYear()} {t('app.title')}. {t('footer.rights_reserved')}.
+            © {year || '...'} {t('app.title')}. {t('footer.rights_reserved')}.
           </p>
         </div>
         <div className="flex items-center gap-4">
