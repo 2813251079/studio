@@ -18,7 +18,6 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { useSettings } from "@/hooks/use-settings";
 import {
-  Globe,
   Monitor,
   Moon,
   Settings,
@@ -27,7 +26,7 @@ import {
   Video,
   Check,
 } from "lucide-react";
-import { translations } from "@/lib/translations";
+import { translations, TranslationKey } from "@/lib/translations";
 
 export default function Header() {
   const {
@@ -38,11 +37,9 @@ export default function Header() {
     setFontSize,
     animationsEnabled,
     setAnimationsEnabled,
-    language,
-    setLanguage,
   } = useSettings();
 
-  const t = (key: any) => translations[language]?.[key] || translations['en'][key];
+  const t = (key: TranslationKey) => translations.es[key] || key;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -54,26 +51,6 @@ export default function Header() {
           </h1>
         </div>
         <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Globe className="h-5 w-5" />
-                <span className="sr-only">{t('header.select_language')}</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{t('header.language')}</DropdownMenuLabel>
-              <DropdownMenuRadioGroup value={language} onValueChange={(value) => setLanguage(value as any)}>
-                <DropdownMenuRadioItem value="es">
-                  {t('header.spanish')}
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="en">
-                  {t('header.english')}
-                </DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">

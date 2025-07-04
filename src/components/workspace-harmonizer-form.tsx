@@ -17,15 +17,13 @@ import { getHarmonizedWorkspace } from "@/app/actions";
 import { AlertCircle, Loader2, Wand2, FolderKanban } from "lucide-react";
 import { useActionState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useSettings } from "@/hooks/use-settings";
-import { translations } from "@/lib/translations";
+import { translations, TranslationKey } from "@/lib/translations";
 
 const initialState = {};
+const t = (key: TranslationKey) => translations.es[key] || key;
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  const { language } = useSettings();
-  const t = (key: any) => translations[language]?.[key] || translations['en'][key];
   
   return (
     <Button type="submit" disabled={pending} className="w-full sm:w-auto">
@@ -48,8 +46,6 @@ export default function WorkspaceHarmonizerForm() {
   const [state, formAction] = useActionState(getHarmonizedWorkspace, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
-  const { language } = useSettings();
-  const t = (key: any) => translations[language]?.[key] || translations['en'][key];
 
   useEffect(() => {
     if (state.error && !state.fieldErrors) {
@@ -59,7 +55,7 @@ export default function WorkspaceHarmonizerForm() {
         description: state.error,
       });
     }
-  }, [state, toast, t]);
+  }, [state, toast]);
   
   useEffect(() => {
     if (state.data) {
@@ -80,7 +76,6 @@ export default function WorkspaceHarmonizerForm() {
           </CardDescription>
         </CardHeader>
         <form ref={formRef} action={formAction}>
-          <input type="hidden" name="lang" value={language} />
           <CardContent>
             <div className="grid w-full gap-2">
               <Textarea

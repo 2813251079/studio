@@ -28,38 +28,8 @@ export const translations = {
     'error.validation.generic': 'Error de validación.',
     'error.ai': 'Ha ocurrido un error al contactar con la IA. Por favor, inténtalo de nuevo más tarde.',
     'error.toast.title': 'Error',
-  },
-  en: {
-    'app.title': 'Workspace Symphony',
-    'app.description': 'Harmonize your workspace',
-    'header.language': 'Language',
-    'header.spanish': 'Español',
-    'header.english': 'English',
-    'header.sensory_settings': 'Sensory Settings',
-    'header.theme': 'Theme',
-    'header.light': 'Light',
-    'header.dark': 'Dark',
-    'header.font_size': 'Font Size',
-    'header.font_size.sm': 'Small',
-    'header.font_size.base': 'Normal',
-    'header.font_size.lg': 'Large',
-    'header.animations': 'Animations',
-    'header.select_language': 'Select language',
-    'form.title': 'AI Workspace Harmonizer',
-    'form.description': 'Enter your workspace elements to organize them into logical categories and create a harmonious flow.',
-    'form.placeholder': 'e.g., laptop, monitor, keyboard, mouse, documents, coffee mug, headphones...',
-    'form.helper_text': 'Separate each element with a comma.',
-    'form.submit_button': 'Harmonize',
-    'form.submit_button.loading': 'Harmonizing...',
-    'results.title': 'Your Harmonized Workspace',
-    'results.description': 'The AI has organized your items into the following categories.',
-    'error.unexpected': 'Unexpected Error',
-    'error.validation.min': 'Please enter at least one element.',
-    'error.validation.generic': 'Validation error.',
-    'error.ai': 'An error occurred while contacting the AI. Please try again later.',
-    'error.toast.title': 'Error',
   }
 };
 
 export type Language = keyof typeof translations;
-export type TranslationKey = keyof typeof translations['en'];
+export type TranslationKey = keyof typeof translations['es'];
