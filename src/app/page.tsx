@@ -71,8 +71,28 @@ export default function Home() {
             {features.map((feature, index) => (
               <div key={index} className="flex flex-col items-center text-center group">
                 <Link href="/auth/register">
-                  <div className="w-40 h-40 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-primary/20 cursor-pointer">
-                    {feature.icon}
+                  <div className="relative w-40 h-40 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-primary/20 cursor-pointer overflow-hidden">
+                    {/* Vinyl record-like grooves */}
+                    <svg className="absolute inset-0 w-full h-full opacity-20" width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="80" cy="80" r="78" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="74" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="70" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="66" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="62" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="58" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="54" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="50" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="46" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="42" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="38" stroke="white" strokeWidth="0.5" fill="none" />
+                        <circle cx="80" cy="80" r="34" stroke="white" strokeWidth="0.5" fill="none" />
+                    </svg>
+                    {/* Center label */}
+                    <div className="absolute w-16 h-16 rounded-full bg-background/20 backdrop-blur-sm"></div>
+                    {/* Icon */}
+                    <div className="relative z-10">
+                        {feature.icon}
+                    </div>
                   </div>
                 </Link>
                 <h3 className="mt-6 text-xl font-bold">{feature.title}</h3>
