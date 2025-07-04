@@ -10,8 +10,9 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   >
     <defs>
       <radialGradient id="guitarGradient" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="hsl(35, 80%, 55%)" />
-        <stop offset="100%" stopColor="hsl(90, 30%, 20%)" />
+        <stop offset="0%" stopColor="hsl(47, 98%, 60%)" />
+        <stop offset="50%" stopColor="hsl(35, 80%, 55%)" />
+        <stop offset="100%" stopColor="hsl(20, 90%, 45%)" />
       </radialGradient>
     </defs>
     
