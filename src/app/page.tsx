@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Logo from "@/components/logo";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
@@ -111,7 +111,7 @@ export default function Home() {
                     <AccordionItem value="item-1">
                         <AccordionTrigger className="text-xl hover:no-underline">
                         <div className="flex items-center gap-4">
-                            <Image src="https://placehold.co/32x32.png" width={32} height={32} alt="App Logo" className="rounded-full bg-slate-200 p-1" data-ai-hint="logo guitar wave" />
+                            <Logo className="w-8 h-8" />
                             <span>{t('landing.sound_universe.solfeggio.title')}</span>
                         </div>
                         </AccordionTrigger>

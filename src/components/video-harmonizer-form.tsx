@@ -12,6 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, Film, AlertCircle, Bot, Clapperboard, Music, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { translations } from '@/lib/translations';
+import Logo from '@/components/logo';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -93,7 +94,7 @@ export default function VideoHarmonizerForm() {
         {useFormStatus().pending && (
            <Card className="flex h-full flex-col items-center justify-center p-8 text-center">
                 <div className="animate-pulse mb-4">
-                    <Image src="https://placehold.co/100x100.png" width={100} height={100} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
+                    <Logo className="w-24 h-24" />
                 </div>
                 <p className="text-muted-foreground text-lg">{t('video_harmonizer.result.loading')}</p>
            </Card>

@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import Logo from '@/components/logo';
 import { useState } from 'react';
 import {
   DropdownMenu,
@@ -45,7 +45,7 @@ function DashboardHeader() {
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
          <Link href="/dashboard" className="flex items-center gap-4">
-            <Image src="https://placehold.co/120x120.png" width={120} height={120} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
+            <Logo className="w-20 h-20" />
         </Link>
         
         <nav className="hidden md:flex items-center gap-2">
@@ -59,7 +59,7 @@ function DashboardHeader() {
                     <DropdownMenuGroup>
                         {features.map((feature) => (
                              <DropdownMenuItem key={feature.href} asChild>
-                                <Link href={feature.href}>
+                                <Link href={feature.href} className="flex items-center gap-2">
                                     {feature.icon}
                                     <span>{feature.title}</span>
                                 </Link>
@@ -68,7 +68,7 @@ function DashboardHeader() {
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                        <Link href="/education">
+                        <Link href="/education" className="flex items-center gap-2">
                             <span>{t('dashboard.sidebar.education')}</span>
                         </Link>
                     </DropdownMenuItem>
@@ -99,14 +99,14 @@ function DashboardHeader() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild>
-                        <Link href="#">
+                        <Link href="#" className="flex items-center gap-2">
                             <UserCircle className="mr-2 h-4 w-4" />
                             <span>{t('dashboard.sidebar.account')}</span>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                        <Link href="/">
+                        <Link href="/" className="flex items-center gap-2">
                             <LogOut className="mr-2 h-4 w-4" />
                             <span>{t('dashboard.sidebar.logout')}</span>
                         </Link>
@@ -165,7 +165,7 @@ export default function DashboardLayout({
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <DashboardHeader />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 container py-8">{children}</main>
     </div>
   );
 }

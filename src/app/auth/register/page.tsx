@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,13 +7,12 @@ import { Label } from "@/components/ui/label";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
-const logoUrl = "https://placehold.co/120x120.png";
 
 export default function RegisterPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6">
        <Link href="/">
-        <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
+        <Logo className="w-32 h-32" />
       </Link>
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
