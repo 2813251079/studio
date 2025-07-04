@@ -8,6 +8,8 @@ const t = (key: any) => translations.es[key as any] || key;
 export const metadata: Metadata = {
   title: t('app.title'),
   description: t('app.description'),
+  authors: [{ name: 'Elo Diaz Allende' }],
+  creator: 'Elo Diaz Allende',
 };
 
 export default function RootLayout({
