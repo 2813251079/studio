@@ -56,6 +56,13 @@ export default function InclusiveGamesPage() {
   const handleRemoveItem = (indexToRemove: number) => {
     setSentence(prev => prev.filter((_, index) => index !== indexToRemove));
   };
+  
+  const handlePictoKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, picto: Pictogram) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handlePictoClick(picto);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -71,7 +78,11 @@ export default function InclusiveGamesPage() {
         <CardContent>
           <div className="flex items-center gap-4 flex-wrap">
             {sentence.map((picto, index) => (
-              <button key={`${picto.id}-${index}`} onClick={() => handleRemoveItem(index)} className="relative flex flex-col items-center gap-2 p-3 rounded-lg bg-secondary text-secondary-foreground transition-transform hover:scale-105 group">
+              <button 
+                key={`${picto.id}-${index}`} 
+                onClick={() => handleRemoveItem(index)}
+                aria-label={`${t('inclusive_games.communicator.remove_pictogram')}: ${t(picto.labelKey)}`}
+                className="relative flex flex-col items-center gap-2 p-3 rounded-lg bg-secondary text-secondary-foreground transition-transform hover:scale-105 group">
                 {picto.icon}
                 <span className="text-sm">{t(picto.labelKey)}</span>
                 <div className="absolute -top-2 -right-2 bg-background rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
@@ -101,7 +112,11 @@ export default function InclusiveGamesPage() {
         {availablePictograms.map((picto) => (
           <Card 
             key={picto.id} 
+            role="button"
+            tabIndex={0}
             onClick={() => handlePictoClick(picto)}
+            onKeyDown={(e) => handlePictoKeyDown(e, picto)}
+            aria-label={`${t('inclusive_games.communicator.add_pictogram')}: ${t(picto.labelKey)}`}
             className="flex flex-col items-center justify-center p-6 text-center cursor-pointer transition-all hover:ring-2 hover:ring-primary hover:shadow-lg active:scale-95"
           >
             {picto.icon}

@@ -137,7 +137,9 @@ export const translations = {
     'inclusive_games.communicator.sentence_strip_placeholder': 'Selecciona los pictogramas de abajo para formar una frase.',
     'inclusive_games.communicator.speak_button': 'Leer Frase',
     'inclusive_games.communicator.clear_button': 'Limpiar',
-    
+    'inclusive_games.communicator.remove_pictogram': 'Quitar pictograma',
+    'inclusive_games.communicator.add_pictogram': 'Añadir pictograma',
+
     'pictos.want': 'Quiero',
     'pictos.happy': 'Feliz',
     'pictos.sad': 'Triste',
