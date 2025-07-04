@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, type ReactNode } from 'react';
@@ -46,7 +47,35 @@ function VisualCommunicator() {
     }
   }, []);
 
+  const playClickSound = () => {
+    if (typeof window !== 'undefined') {
+        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.type = 'sine';
+        oscillator.frequency.value = 600;
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+        oscillator.start(audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.1);
+        oscillator.stop(audioContext.currentTime + 0.1);
+    }
+  };
+
+  const triggerHapticFeedback = () => {
+    if (typeof window !== 'undefined' && window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(50);
+    }
+  };
+
   const handlePictoClick = (picto: Pictogram) => {
+    playClickSound();
+    triggerHapticFeedback();
     setSentence(prev => [...prev, picto]);
   };
 
