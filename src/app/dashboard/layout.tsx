@@ -20,6 +20,7 @@ import {
   Video,
   UserCircle,
   LogOut,
+  Puzzle,
 } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
@@ -54,6 +55,11 @@ export default function DashboardLayout({
       href: '/dashboard/video-harmonizer',
       label: t('dashboard.sidebar.video_harmonizer'),
       icon: <Video />,
+    },
+    {
+      href: '/dashboard/inclusive-games',
+      label: t('dashboard.sidebar.inclusive_games'),
+      icon: <Puzzle />,
     },
   ];
 

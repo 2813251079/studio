@@ -74,6 +74,7 @@ export const translations = {
     'dashboard.sidebar.frequencies': 'Frecuencias',
     'dashboard.sidebar.workspace_harmonizer': 'Armonizar Espacio',
     'dashboard.sidebar.video_harmonizer': 'Armonizar Video',
+    'dashboard.sidebar.inclusive_games': 'Juegos Inclusivos',
     'dashboard.sidebar.account': 'Cuenta',
     'dashboard.sidebar.logout': 'Cerrar Sesión',
 
@@ -114,6 +115,13 @@ export const translations = {
 
     'video_harmonizer.title': 'Armonizador de Video con IA',
     'video_harmonizer.subtitle': 'Próximamente: Sube un video y deja que la IA cree una experiencia visual relajante.',
+    'video_harmonizer.coming_soon.title': 'Próximamente',
+    'video_harmonizer.coming_soon.description': 'Estamos trabajando para traer esta increíble función. ¡Vuelve pronto!',
+
+    'inclusive_games.title': 'Juegos Musicales Inclusivos',
+    'inclusive_games.subtitle': 'Explora juegos diseñados para estimular la mente y el espíritu a través del sonido.',
+    'inclusive_games.coming_soon.title': 'Próximamente',
+    'inclusive_games.coming_soon.description': 'Estamos creando divertidos juegos musicales para todas las habilidades. ¡Vuelve pronto!',
 
     'error.ai': 'Ha ocurrido un error al contactar con la IA. Por favor, inténtalo de nuevo más tarde.',
     'error.toast.title': 'Error',

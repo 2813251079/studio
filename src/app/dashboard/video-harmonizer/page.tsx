@@ -13,8 +13,8 @@ export default function VideoHarmonizerPage() {
       </div>
       <Card className="flex flex-col items-center justify-center p-12 text-center border-dashed">
         <Video className="h-16 w-16 text-muted-foreground mb-4" />
-        <h2 className="text-xl font-semibold">Próximamente</h2>
-        <p className="text-muted-foreground mt-2">Estamos trabajando para traer esta increíble función. ¡Vuelve pronto!</p>
+        <h2 className="text-xl font-semibold">{t('video_harmonizer.coming_soon.title')}</h2>
+        <p className="text-muted-foreground mt-2">{t('video_harmonizer.coming_soon.description')}</p>
       </Card>
     </div>
   );
