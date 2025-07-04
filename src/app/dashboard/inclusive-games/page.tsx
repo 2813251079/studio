@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed } from 'lucide-react';
 import { translations } from "@/lib/translations";
+import SimonGame from '@/components/simon-game';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -26,7 +28,7 @@ const availablePictograms: Pictogram[] = [
   { id: 'read', labelKey: 'pictos.read', icon: <BookOpen className="h-12 w-12" /> },
 ];
 
-export default function InclusiveGamesPage() {
+function VisualCommunicator() {
   const [sentence, setSentence] = useState<Pictogram[]>([]);
   const [speechSynthesis, setSpeechSynthesis] = useState<SpeechSynthesis | null>(null);
 
@@ -65,12 +67,7 @@ export default function InclusiveGamesPage() {
   };
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('inclusive_games.title')}</h1>
-        <p className="text-muted-foreground">{t('inclusive_games.communicator.subtitle')}</p>
-      </div>
-      
+    <div className="space-y-6">
       <Card className="min-h-[160px]">
         <CardHeader>
           <CardTitle className="text-lg">{t('inclusive_games.communicator.sentence_strip_title')}</CardTitle>
@@ -124,6 +121,37 @@ export default function InclusiveGamesPage() {
           </Card>
         ))}
       </div>
+    </div>
+  );
+}
+
+
+export default function InclusiveGamesPage() {
+  return (
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('inclusive_games.title')}</h1>
+        <p className="text-muted-foreground">{t('inclusive_games.subtitle')}</p>
+      </div>
+      
+      <Tabs defaultValue="communicator" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="communicator">{t('inclusive_games.tabs.communicator')}</TabsTrigger>
+          <TabsTrigger value="simon">{t('inclusive_games.tabs.simon')}</TabsTrigger>
+        </TabsList>
+        <TabsContent value="communicator">
+          <div className="mt-6">
+            <h2 className="text-xl font-semibold">{t('inclusive_games.communicator.title')}</h2>
+            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.communicator.subtitle')}</p>
+            <VisualCommunicator />
+          </div>
+        </TabsContent>
+        <TabsContent value="simon">
+          <div className="mt-6">
+            <SimonGame />
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

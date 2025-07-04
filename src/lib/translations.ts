@@ -130,8 +130,9 @@ export const translations = {
     'video_harmonizer.coming_soon.title': 'Próximamente',
     'video_harmonizer.coming_soon.description': 'Estamos trabajando para traer esta increíble función. ¡Vuelve pronto!',
 
-    'inclusive_games.title': 'Comunicador Visual',
+    'inclusive_games.title': 'Herramientas Inclusivas',
     'inclusive_games.subtitle': 'Herramientas y juegos para potenciar la comunicación y el aprendizaje.',
+    'inclusive_games.communicator.title': 'Comunicador Visual',
     'inclusive_games.communicator.subtitle': 'Utiliza los pictogramas para construir frases y comunicarte.',
     'inclusive_games.communicator.sentence_strip_title': 'Tu Frase',
     'inclusive_games.communicator.sentence_strip_placeholder': 'Selecciona los pictogramas de abajo para formar una frase.',
@@ -139,6 +140,16 @@ export const translations = {
     'inclusive_games.communicator.clear_button': 'Limpiar',
     'inclusive_games.communicator.remove_pictogram': 'Quitar pictograma',
     'inclusive_games.communicator.add_pictogram': 'Añadir pictograma',
+
+    'inclusive_games.simon.title': 'Simón Musical',
+    'inclusive_games.simon.description': 'Pon a prueba tu memoria visual y auditiva siguiendo la secuencia de luces y sonidos.',
+    'inclusive_games.simon.start_button': 'Empezar',
+    'inclusive_games.simon.restart_button': 'Reiniciar',
+    'inclusive_games.simon.score': 'Puntuación',
+    'inclusive_games.simon.game_over': 'Juego Terminado',
+    
+    'inclusive_games.tabs.communicator': 'Comunicador',
+    'inclusive_games.tabs.simon': 'Simón Musical',
 
     'pictos.want': 'Quiero',
     'pictos.happy': 'Feliz',
