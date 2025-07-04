@@ -1,39 +1,74 @@
-"use server";
+'use server';
 
-import { workspaceHarmonizer, WorkspaceHarmonizerInput, WorkspaceHarmonizerOutput } from "@/ai/flows/workspace-harmonizer";
-import { translations } from "@/lib/translations";
-import { z } from "zod";
+import { z } from 'zod';
+import { audioEnhancer, AudioEnhancerOutput } from '@/ai/flows/audio-enhancer';
+import { translations } from '@/lib/translations';
 
-const getValidationSchema = () => z.object({
-  workspaceElements: z.string().min(3, translations.es['error.validation.min']),
+const t = (key: any) => translations.es[key as any] || key;
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ACCEPTED_AUDIO_TYPES = ['audio/mpeg', 'audio/wav', 'audio/mp3', 'audio/x-wav'];
+
+const validationSchema = z.object({
+  audioFile: z
+    .any()
+    .refine((file) => file?.size > 0, 'Por favor, selecciona un archivo.')
+    .refine(
+      (file) => file?.size <= MAX_FILE_SIZE,
+      `El tamaño máximo del archivo es de 5MB.`
+    )
+    .refine(
+      (file) => ACCEPTED_AUDIO_TYPES.includes(file?.type),
+      'Solo se aceptan archivos de audio (mp3, wav).'
+    ),
+  targetFrequency: z.string(),
 });
 
-
-type HarmonizerState = {
-  data?: WorkspaceHarmonizerOutput;
+type AudioEnhancerState = {
+  data?: AudioEnhancerOutput;
   error?: string;
   fieldErrors?: {
-    workspaceElements?: string[];
-  }
+    audioFile?: string[];
+    targetFrequency?: string[];
+  };
+};
+
+function toDataURI(buffer: ArrayBuffer, type: string): string {
+    const base64 = Buffer.from(buffer).toString('base64');
+    return `data:${type};base64,${base64}`;
 }
 
-export async function getHarmonizedWorkspace(prevState: HarmonizerState, formData: FormData): Promise<HarmonizerState> {
-  const validatedFields = getValidationSchema().safeParse({
-    workspaceElements: formData.get('workspaceElements'),
+
+export async function enhanceAudio(
+  prevState: AudioEnhancerState,
+  formData: FormData
+): Promise<AudioEnhancerState> {
+  
+  const audioFile = formData.get('audioFile') as File;
+
+  const validatedFields = validationSchema.safeParse({
+    audioFile: audioFile,
+    targetFrequency: formData.get('targetFrequency'),
   });
 
   if (!validatedFields.success) {
     return {
-      error: translations.es['error.validation.generic'],
+      error: 'Error de validación.',
       fieldErrors: validatedFields.error.flatten().fieldErrors,
     };
   }
-
+  
   try {
-    const result = await workspaceHarmonizer(validatedFields.data);
+    const arrayBuffer = await audioFile.arrayBuffer();
+    const audioDataUri = toDataURI(arrayBuffer, audioFile.type);
+
+    const result = await audioEnhancer({ 
+        audioDataUri, 
+        targetFrequency: validatedFields.data.targetFrequency
+    });
     return { data: result };
   } catch (e) {
     console.error(e);
-    return { error: translations.es['error.ai'] };
+    return { error: t('error.ai') };
   }
 }

@@ -1,59 +1,59 @@
 'use server';
 
 /**
- * @fileOverview An AI-powered tool that categorizes all elements of the user's workspaces to help establish a harmonious workflow.
- *
- * - workspaceHarmonizer - A function that handles the workspace categorization process.
- * - WorkspaceHarmonizerInput - The input type for the workspaceHarmonizer function.
- * - WorkspaceHarmonizerOutput - The return type for the workspaceHarmonizer function.
+ * @fileOverview An AI-powered tool that "enhances" audio by describing how it would add healing frequencies.
+ * 
+ * - audioEnhancer - A function that handles the audio enhancement process.
+ * - AudioEnhancerInput - The input type for the audioEnhancer function.
+ * - AudioEnhancerOutput - The return type for the audioEnhancer function.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { ai } from '@/ai/genkit';
+import { z } from 'genkit';
 
-const WorkspaceHarmonizerInputSchema = z.object({
-  workspaceElements: z
+const AudioEnhancerInputSchema = z.object({
+  audioDataUri: z
     .string()
-    .describe("A comma separated list of workspace elements that the user wants to categorize. For example: 'notebook, pens, monitor, keyboard, mouse, documents'."),
+    .describe(
+      "A placeholder for the audio file as a data URI. The content is not used, only its presence."
+    ),
+  targetFrequency: z.string().describe("The healing frequency to apply, e.g., '528hz'."),
 });
-export type WorkspaceHarmonizerInput = z.infer<typeof WorkspaceHarmonizerInputSchema>;
+export type AudioEnhancerInput = z.infer<typeof AudioEnhancerInputSchema>;
 
-const WorkspaceHarmonizerOutputSchema = z.object({
-  categories: z.array(
-    z.object({
-      category: z.string().describe('The category of workspace elements.'),
-      elements: z.array(z.string()).describe('The list of workspace elements in this category.'),
-    })
-  ).describe('The categories and workspace elements in each category.'),
+const AudioEnhancerOutputSchema = z.object({
+  enhancementDetails: z.string().describe("A detailed description of how the audio was 'enhanced' by the AI."),
+  processedAudioUri: z.string().describe("A placeholder for the processed audio data URI."),
 });
-export type WorkspaceHarmonizerOutput = z.infer<typeof WorkspaceHarmonizerOutputSchema>;
+export type AudioEnhancerOutput = z.infer<typeof AudioEnhancerOutputSchema>;
 
-export async function workspaceHarmonizer(input: WorkspaceHarmonizerInput): Promise<WorkspaceHarmonizerOutput> {
-  return workspaceHarmonizerFlow(input);
+export async function audioEnhancer(input: AudioEnhancerInput): Promise<AudioEnhancerOutput> {
+  return audioEnhancerFlow(input);
 }
 
 const prompt = ai.definePrompt({
-  name: 'workspaceHarmonizerPrompt',
-  input: {schema: WorkspaceHarmonizerInputSchema},
-  output: {schema: WorkspaceHarmonizerOutputSchema},
-  prompt: `You are an AI assistant that categorizes workspace elements to help users establish a harmonious workflow.
+  name: 'audioEnhancerPrompt',
+  input: { schema: AudioEnhancerInputSchema },
+  output: { schema: AudioEnhancerOutputSchema },
+  prompt: `Eres un ingeniero de sonido experto en sonoterapia y frecuencias curativas. Has recibido un archivo de audio y una frecuencia objetivo.
 
-  Given a list of workspace elements, you will categorize them into logical groups.
+Tu tarea es describir, de manera poética y técnica, cómo has mejorado el audio. No realices la mejora, solo descríbela.
 
-  Workspace elements: {{{workspaceElements}}}
+Frecuencia objetivo: {{{targetFrequency}}}
 
-  Return a JSON object with the categories and the workspace elements in each category.
-  `,
+Describe cómo has tejido sutilmente esta frecuencia en el audio original, qué efectos psicoacústicos podría tener y qué capas armónicas has añadido para crear una experiencia auditiva profundamente sanadora y envolvente. Sé creativo y evocador en tu descripción.
+
+Al final de tu respuesta, en el campo 'processedAudioUri', simplemente devuelve la cadena 'placeholder_uri' ya que este es un ejercicio descriptivo.`,
 });
 
-const workspaceHarmonizerFlow = ai.defineFlow(
+const audioEnhancerFlow = ai.defineFlow(
   {
-    name: 'workspaceHarmonizerFlow',
-    inputSchema: WorkspaceHarmonizerInputSchema,
-    outputSchema: WorkspaceHarmonizerOutputSchema,
+    name: 'audioEnhancerFlow',
+    inputSchema: AudioEnhancerInputSchema,
+    outputSchema: AudioEnhancerOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
+  async (input) => {
+    const { output } = await prompt(input);
     return output!;
   }
 );

@@ -1,144 +1,143 @@
-"use client";
+'use client';
 
-import { useFormStatus } from "react-dom";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
-import { getHarmonizedWorkspace } from "@/app/actions";
-import { AlertCircle, Loader2, Wand2, FolderKanban } from "lucide-react";
-import { useActionState, useEffect, useRef } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { translations, TranslationKey } from "@/lib/translations";
+import { useActionState, useEffect, useRef, useState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { enhanceAudio } from '@/app/actions';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Loader2, Wand2, AlertCircle, PlayCircle, Bot } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { translations } from '@/lib/translations';
 
-const initialState = {};
-const t = (key: TranslationKey) => translations.es[key] || key;
+const t = (key: any) => translations.es[key as any] || key;
+
+const initialState = {
+  data: undefined,
+  error: undefined,
+  fieldErrors: undefined,
+};
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  
   return (
     <Button type="submit" disabled={pending} className="w-full sm:w-auto">
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          {t('form.submit_button.loading')}
+          {t('audio_enhancer.form.submit_button.loading')}
         </>
       ) : (
         <>
           <Wand2 className="mr-2 h-4 w-4" />
-          {t('form.submit_button')}
+          {t('audio_enhancer.form.submit_button')}
         </>
       )}
     </Button>
   );
 }
 
-export default function WorkspaceHarmonizerForm() {
-  const [state, formAction] = useActionState(getHarmonizedWorkspace, initialState);
+export default function AudioEnhancerForm() {
+  const [state, formAction] = useActionState(enhanceAudio, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
+  const [fileName, setFileName] = useState('');
 
   useEffect(() => {
     if (state.error && !state.fieldErrors) {
       toast({
-        variant: "destructive",
+        variant: 'destructive',
         title: t('error.toast.title'),
         description: state.error,
       });
     }
   }, [state, toast]);
-  
+
   useEffect(() => {
     if (state.data) {
       formRef.current?.reset();
+      setFileName('');
     }
   }, [state.data]);
 
   return (
-    <div className="space-y-8">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle className="font-headline text-2xl md:text-3xl flex items-center gap-3">
-            <Wand2 className="h-8 w-8 text-primary" />
-            <span>{t('form.title')}</span>
-          </CardTitle>
-          <CardDescription>
-            {t('form.description')}
-          </CardDescription>
-        </CardHeader>
+    <div className="grid gap-8 md:grid-cols-2">
+      <Card>
         <form ref={formRef} action={formAction}>
-          <CardContent>
-            <div className="grid w-full gap-2">
-              <Textarea
-                name="workspaceElements"
-                placeholder={t('form.placeholder')}
-                className="min-h-[120px] text-base"
-                aria-describedby="elements-error"
-              />
-              {state.fieldErrors?.workspaceElements && (
-                <p id="elements-error" className="text-sm font-medium text-destructive">
-                  {state.fieldErrors.workspaceElements.join(", ")}
-                </p>
-              )}
+          <CardContent className="pt-6">
+            <div className="grid w-full gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="audioFile">{t('audio_enhancer.form.label')}</Label>
+                <Input 
+                    id="audioFile" 
+                    name="audioFile" 
+                    type="file" 
+                    accept="audio/*" 
+                    required
+                    onChange={(e) => setFileName(e.target.files?.[0]?.name || '')}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="targetFrequency">{t('audio_enhancer.form.frequency_label')}</Label>
+                <Select name="targetFrequency" defaultValue="528hz">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona una frecuencia" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="432hz">432 Hz - Calma y Naturaleza</SelectItem>
+                    <SelectItem value="528hz">528 Hz - Amor y Milagros</SelectItem>
+                    <SelectItem value="639hz">639 Hz - Conexión y Armonía</SelectItem>
+                    <SelectItem value="741hz">741 Hz - Expresión e Intuición</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <p className="text-xs text-muted-foreground">
-              {t('form.helper_text')}
-            </p>
+          <CardFooter>
             <SubmitButton />
           </CardFooter>
         </form>
       </Card>
 
-      {state.data && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline text-2xl flex items-center gap-3">
-                <FolderKanban className="h-8 w-8 text-accent" />
-                <span>{t('results.title')}</span>
-            </CardTitle>
-            <CardDescription>
-                {t('results.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {state.data.categories.map((category, index) => (
-                    <div key={index} className="p-4 bg-background rounded-lg border shadow-sm flex-col">
-                        <h3 className="font-semibold text-lg mb-3 text-primary">{category.category}</h3>
-                        <div className="flex flex-wrap gap-2">
-                            {category.elements.map((element, i) => (
-                                <Badge key={i} variant="secondary" className="text-sm">
-                                    {element}
-                                </Badge>
-                            ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {state.error && !state.fieldErrors && (
+      <div className="space-y-4">
+        {useFormStatus().pending && (
+           <Card className="flex flex-col items-center justify-center p-8 text-center animate-pulse">
+                <Loader2 className="h-8 w-8 text-primary animate-spin mb-4" />
+                <p className="text-muted-foreground">La IA está analizando y armonizando tu audio...</p>
+           </Card>
+        )}
+        
+        {state.error && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
-            <AlertTitle>{t('error.unexpected')}</AlertTitle>
-            <AlertDescription>
-                {state.error}
-            </AlertDescription>
+            <AlertTitle>{t('error.toast.title')}</AlertTitle>
+            <AlertDescription>{state.error}</AlertDescription>
           </Alert>
-      )}
+        )}
+
+        {state.data && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Bot className="h-6 w-6 text-accent" />
+                {t('audio_enhancer.result.title')}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground whitespace-pre-wrap">
+                {state.data.enhancementDetails}
+              </p>
+              <Button disabled>
+                <PlayCircle className="mr-2 h-4 w-4" />
+                {t('audio_enhancer.result.play')}
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   );
 }
