@@ -36,7 +36,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Pentagram and F-Clef */}
-    <g transform="translate(39, 65)">
+    <g transform="translate(39, 55)">
         <g stroke="hsl(195, 30%, 70%)" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
