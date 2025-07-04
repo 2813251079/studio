@@ -16,12 +16,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit } from 'lucide-react';
+import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit, Smile } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 import SpotifyIcon from '@/components/spotify-icon';
 import InstagramIcon from '@/components/instagram-icon';
 import YoutubeIcon from '@/components/youtube-icon';
+import VoiceCommander from '@/components/voice-commander';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -37,6 +38,7 @@ const features = [
     { href: '/dashboard/inclusive-games', title: t('dashboard.sidebar.inclusive_games'), icon: <Puzzle /> },
     { href: '/dashboard/production', title: t('dashboard.sidebar.music_production'), icon: <SlidersHorizontal /> },
     { href: '/dashboard/tuner', title: t('dashboard.sidebar.tuner'), icon: <Brain /> },
+    { href: '/dashboard/facial-wellness', title: t('dashboard.sidebar.facial_wellness'), icon: <Smile /> },
     { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), icon: <BookOpen /> },
     { href: '/education', title: t('dashboard.sidebar.healing_frequencies'), icon: <BrainCircuit /> },
     { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), icon: <Star /> },
@@ -91,6 +93,7 @@ function DashboardHeader() {
         </nav>
 
         <div className="flex items-center gap-4">
+            <VoiceCommander />
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-10 w-10 rounded-full">

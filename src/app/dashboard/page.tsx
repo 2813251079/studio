@@ -2,7 +2,7 @@
 'use client';
 
 import Link from "next/link";
-import { Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Brain, BookOpen, BrainCircuit } from "lucide-react";
+import { Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Brain, BookOpen, BrainCircuit, Smile } from "lucide-react";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -14,9 +14,10 @@ const features = [
     { href: '/dashboard/inclusive-games', title: t('dashboard.sidebar.inclusive_games'), description: t('inclusive_games.subtitle'), icon: <Puzzle className="h-10 w-10 text-accent" /> },
     { href: '/dashboard/production', title: t('dashboard.sidebar.music_production'), description: t('music_production.subtitle'), icon: <SlidersHorizontal className="h-10 w-10 text-primary" /> },
     { href: '/dashboard/tuner', title: t('dashboard.sidebar.tuner'), description: t('tuner.subtitle'), icon: <Brain className="h-10 w-10 text-accent" />},
-    { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), description: t('education_page.description'), icon: <BookOpen className="h-10 w-10 text-primary" /> },
-    { href: '/education', title: t('dashboard.sidebar.healing_frequencies'), description: t('healing_frequencies.subtitle'), icon: <BrainCircuit className="h-10 w-10 text-accent" /> },
-    { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), description: t('coming_soon.description'), icon: <Star className="h-10 w-10 text-primary" /> },
+    { href: '/dashboard/facial-wellness', title: t('dashboard.sidebar.facial_wellness'), description: t('facial_wellness.subtitle'), icon: <Smile className="h-10 w-10 text-primary" /> },
+    { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), description: t('education_page.description'), icon: <BookOpen className="h-10 w-10 text-accent" /> },
+    { href: '/education', title: t('dashboard.sidebar.healing_frequencies'), description: t('healing_frequencies.subtitle'), icon: <BrainCircuit className="h-10 w-10 text-primary" /> },
+    { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), description: t('coming_soon.description'), icon: <Star className="h-10 w-10 text-accent" /> },
 ];
 
 export default function DashboardPage() {

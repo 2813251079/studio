@@ -7,6 +7,7 @@ import { generateSpeech } from '@/ai/flows/tts-flow';
 import { talkToCompanion } from '@/ai/flows/emotional-companion-flow';
 import { translations } from '@/lib/translations';
 import { knowledgeBaseFlow, KnowledgeBaseOutput } from '@/ai/flows/knowledge-base-flow';
+import { facialAnalysis, FacialAnalysisOutput } from '@/ai/flows/facial-analysis-flow';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -160,6 +161,36 @@ export async function getKnowledgeInfo(
 
   try {
     const result = await knowledgeBaseFlow(validatedField.data);
+    return { data: result };
+  } catch (e) {
+    console.error(e);
+    return { error: t('error.ai') };
+  }
+}
+
+const facialAnalysisValidationSchema = z.string().min(1, 'La imagen no puede estar vacía.');
+
+type FacialAnalysisState = {
+  data?: FacialAnalysisOutput;
+  error?: string;
+};
+
+export async function getFacialAnalysis(
+  prevState: FacialAnalysisState,
+  formData: FormData
+): Promise<FacialAnalysisState> {
+  const imageData = formData.get('imageData') as string;
+
+  const validatedField = facialAnalysisValidationSchema.safeParse(imageData);
+
+  if (!validatedField.success) {
+    return {
+      error: 'Error: No se ha proporcionado ninguna imagen.',
+    };
+  }
+
+  try {
+    const result = await facialAnalysis(validatedField.data);
     return { data: result };
   } catch (e) {
     console.error(e);
