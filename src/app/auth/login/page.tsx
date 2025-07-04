@@ -39,10 +39,7 @@ export default function LoginPage() {
 
   const { isSubmitting } = form.formState;
 
-  const onSubmit = async (values: LoginFormValues) => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
+  const onSubmit = (values: LoginFormValues) => {
     // Mock login logic
     const userName = values.email.split('@')[0];
     login({

@@ -42,10 +42,7 @@ export default function RegisterPage() {
 
   const { isSubmitting } = form.formState;
 
-  const onSubmit = async (values: RegisterFormValues) => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-
+  const onSubmit = (values: RegisterFormValues) => {
     // Mock register logic
     login({
         email: values.email,
@@ -56,7 +53,10 @@ export default function RegisterPage() {
       title: "¡Cuenta creada!",
       description: "Tu cuenta ha sido creada exitosamente.",
     });
-    router.push('/dashboard');
+
+    const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+    sessionStorage.removeItem('redirectAfterLogin');
+    router.push(redirectUrl);
   };
 
   return (
