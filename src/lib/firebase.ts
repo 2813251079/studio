@@ -16,17 +16,20 @@ let auth: Auth;
 
 // Check that all required Firebase config values are present and are not just placeholders.
 const isFirebaseConfigured =
-  firebaseConfig.apiKey &&
-  !firebaseConfig.apiKey.startsWith('NEXT_PUBLIC_') &&
-  firebaseConfig.authDomain &&
-  firebaseConfig.projectId &&
-  firebaseConfig.storageBucket &&
-  firebaseConfig.messagingSenderId &&
-  firebaseConfig.appId;
+  firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('NEXT_PUBLIC_') &&
+  firebaseConfig.authDomain && !firebaseConfig.authDomain.startsWith('NEXT_PUBLIC_') &&
+  firebaseConfig.projectId && !firebaseConfig.projectId.startsWith('NEXT_PUBLIC_') &&
+  firebaseConfig.storageBucket && !firebaseConfig.storageBucket.startsWith('NEXT_PUBLIC_') &&
+  firebaseConfig.messagingSenderId && !firebaseConfig.messagingSenderId.startsWith('NEXT_PUBLIC_') &&
+  firebaseConfig.appId && !firebaseConfig.appId.startsWith('NEXT_PUBLIC_');
 
 if (isFirebaseConfigured) {
-    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-    auth = getAuth(app);
+    try {
+        app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+        auth = getAuth(app);
+    } catch (e) {
+        console.error("Failed to initialize Firebase", e);
+    }
 } else {
     console.warn("Firebase credentials are not set or are incomplete in .env. Authentication will be disabled.");
 }
