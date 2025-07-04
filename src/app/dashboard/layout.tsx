@@ -35,12 +35,12 @@ export default function DashboardLayout({
       <div className="flex min-h-screen">
         <Sidebar collapsible="icon" className="">
           <SidebarHeader>
-            <div className="flex items-center gap-2 p-2">
-              <Link href="/dashboard" className="flex items-center gap-2">
-                 <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
-              </Link>
-              <h1 className="text-lg font-semibold truncate bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
-            </div>
+            <Link href="/dashboard" className="flex items-center gap-3 p-2">
+                <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full flex-shrink-0" data-ai-hint="logo soundwave" />
+                <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
+                     <h1 className="text-lg font-semibold truncate bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
+                </div>
+            </Link>
           </SidebarHeader>
         </Sidebar>
         <SidebarInset className="bg-background">
