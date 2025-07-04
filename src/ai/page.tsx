@@ -98,7 +98,7 @@ export default function EducationPage() {
       <Header />
       <main className="flex-1 container py-20 md:py-32">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             {t('education.title')}
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-16">
@@ -109,7 +109,7 @@ export default function EducationPage() {
         <Card className="p-4 md:p-8">
             <Accordion type="multiple" className="w-full" defaultValue={['concepts']}>
                 <AccordionItem value="concepts">
-                    <AccordionTrigger className="text-2xl md:text-3xl font-bold hover:no-underline bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent text-left">
+                    <AccordionTrigger className="text-2xl md:text-3xl font-bold hover:no-underline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-left">
                         {t('education.concepts.title')}
                     </AccordionTrigger>
                     <AccordionContent>
@@ -128,7 +128,7 @@ export default function EducationPage() {
                 </AccordionItem>
                 
                 <AccordionItem value="brainwaves">
-                    <AccordionTrigger className="text-2xl md:text-3xl font-bold hover:no-underline bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent text-left">
+                    <AccordionTrigger className="text-2xl md:text-3xl font-bold hover:no-underline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-left">
                         {t('education.brainwaves.title')}
                     </AccordionTrigger>
                     <AccordionContent>
@@ -147,7 +147,7 @@ export default function EducationPage() {
                 </AccordionItem>
                 
                 <AccordionItem value="benefits">
-                    <AccordionTrigger className="text-2xl md:text-3xl font-bold hover:no-underline bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent text-left">
+                    <AccordionTrigger className="text-2xl md:text-3xl font-bold hover:no-underline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent text-left">
                         {t('education.benefits.title')}
                     </AccordionTrigger>
                     <AccordionContent>

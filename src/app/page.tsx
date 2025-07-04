@@ -60,7 +60,7 @@ export default function Home() {
       <main className="flex-1">
         <section className="container flex items-center text-left min-h-[calc(100vh-6rem)] py-20 md:py-32">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               {t('landing.hero.title_new')}
             </h1>
             <p className="mt-4 max-w-2xl text-xl text-muted-foreground">
@@ -78,7 +78,7 @@ export default function Home() {
 
         <section id="features" className="container py-20 md:py-32">
             <div className="text-left max-w-3xl mb-20">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
                 <p className="mt-4 text-lg text-muted-foreground">{t('landing.tools.subtitle')}</p>
             </div>
              <div className="flex flex-wrap items-center justify-start gap-12">
@@ -88,7 +88,7 @@ export default function Home() {
                            <div className="mb-4 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
                              {feature.icon}
                            </div>
-                           <h3 className="mb-2 text-xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{feature.title}</h3>
+                           <h3 className="mb-2 text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{feature.title}</h3>
                            <p className="text-sm text-muted-foreground">{feature.description}</p>
                         </div>
                     </Link>
@@ -98,7 +98,7 @@ export default function Home() {
 
         <section id="education" className="container py-20 md:py-32 bg-secondary rounded-3xl">
             <div className="text-center max-w-3xl mx-auto">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
                 <div className="mt-6 space-y-4 text-lg text-muted-foreground">
                     <p>{t('landing.what_is.p1')}</p>
                     <p>{t('landing.what_is.p2')}</p>
@@ -106,7 +106,7 @@ export default function Home() {
             </div>
             
             <div className="max-w-4xl mx-auto mt-20">
-                <h3 className="text-3xl md:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.education.concepts_title')}</h3>
+                <h3 className="text-3xl md:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.education.concepts_title')}</h3>
                 <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1">
                         <AccordionTrigger className="text-xl hover:no-underline">
@@ -158,7 +158,7 @@ export default function Home() {
         
         <section className="container py-20 md:py-32 text-center">
            <div className="max-w-2xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.title')}</h2>
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('pricing.title')}</h2>
               <p className="mt-4 text-lg text-muted-foreground">{t('pricing.subtitle')}</p>
               <Button size="lg" variant="outline" className="mt-8" asChild>
                   <Link href="/pricing">Ver Planes de Precios</Link>

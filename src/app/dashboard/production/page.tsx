@@ -10,7 +10,7 @@ export default function MusicProductionPage() {
   return (
     <div className="space-y-12">
       <div>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('music_production.title')}</h1>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('music_production.title')}</h1>
         <p className="mt-4 text-foreground/80 text-xl">{t('music_production.subtitle')}</p>
       </div>
       <div className="grid grid-cols-1 gap-8 items-start">

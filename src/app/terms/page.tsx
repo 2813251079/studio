@@ -9,7 +9,7 @@ export default function TermsPage() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1 container py-20 md:py-32 prose prose-invert max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent !mb-10">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent !mb-10">
           {t('footer.terms')}
         </h1>
         <h2>1. Aceptación de los Términos</h2>

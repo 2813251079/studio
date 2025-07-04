@@ -99,7 +99,7 @@ export default function FacialWellnessPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('facial_wellness.title')}</h1>
+        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('facial_wellness.title')}</h1>
         <p className="text-muted-foreground">{t('facial_wellness.subtitle')}</p>
       </div>
 
@@ -188,7 +188,7 @@ export default function FacialWellnessPage() {
             {!isAnalyzing && !state.data && !state.error && (
                 <Card className="flex h-full min-h-[400px] flex-col items-center justify-center p-8 text-center border-dashed">
                     <Camera className="h-12 w-12 text-muted-foreground mb-4" />
-                    <h3 className="text-xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('facial_wellness.placeholder_title')}</h3>
+                    <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('facial_wellness.placeholder_title')}</h3>
                     <p className="text-muted-foreground mt-2 max-w-sm">{t('facial_wellness.placeholder_subtitle')}</p>
                 </Card>
             )}

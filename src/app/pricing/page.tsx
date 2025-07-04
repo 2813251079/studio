@@ -32,13 +32,13 @@ export default function PricingPage() {
       <main className="flex-1">
         <section className="container py-20 md:py-32">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.title')}</h1>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('pricing.title')}</h1>
             <p className="mt-4 text-xl text-muted-foreground">{t('pricing.subtitle')}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
             <Card className="flex flex-col shadow-lg">
               <CardHeader>
-                <CardTitle className="text-3xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.free.title')}</CardTitle>
+                <CardTitle className="text-3xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('pricing.free.title')}</CardTitle>
                 <CardDescription className="text-base">{t('pricing.free.description')}</CardDescription>
                 <div className="text-5xl font-bold pt-4">{t('pricing.free.price')}</div>
               </CardHeader>
@@ -60,7 +60,7 @@ export default function PricingPage() {
             </Card>
             <Card className="flex flex-col shadow-lg shadow-primary/20">
               <CardHeader>
-                <CardTitle className="text-3xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.pro.title')}</CardTitle>
+                <CardTitle className="text-3xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('pricing.pro.title')}</CardTitle>
                 <CardDescription className="text-base">{t('pricing.pro.description')}</CardDescription>
                 <div className="text-5xl font-bold pt-4">{t('pricing.pro.price')}</div>
               </CardHeader>
@@ -85,7 +85,7 @@ export default function PricingPage() {
            <div className="max-w-2xl mx-auto mt-16">
              <Card className="flex flex-col shadow-lg border-2 border-accent">
               <CardHeader>
-                <CardTitle className="text-3xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.custom.title')}</CardTitle>
+                <CardTitle className="text-3xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('pricing.custom.title')}</CardTitle>
                 <CardDescription className="text-base">{t('pricing.custom.description')}</CardDescription>
                 <div className="text-5xl font-bold pt-4">{t('pricing.custom.price')}</div>
               </CardHeader>

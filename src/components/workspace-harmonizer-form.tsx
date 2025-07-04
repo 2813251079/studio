@@ -170,7 +170,7 @@ export default function WorkspaceHarmonizerForm() {
         {!useFormStatus().pending && !state.data && !state.error && (
             <Card className="h-full">
               <CardHeader>
-                <CardTitle className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('workspace_harmonizer.result.placeholder_title')}</CardTitle>
+                <CardTitle className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('workspace_harmonizer.result.placeholder_title')}</CardTitle>
                 <CardDescription>{t('workspace_harmonizer.result.placeholder_subtitle')}</CardDescription>
               </CardHeader>
               <CardContent>

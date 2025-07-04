@@ -83,7 +83,7 @@ export default function LoginPage() {
       </Link>
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
-          <CardTitle className="text-2xl text-center bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('login.title')}</CardTitle>
+          <CardTitle className="text-2xl text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('login.title')}</CardTitle>
           <CardDescription className="text-center">{t('login.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>

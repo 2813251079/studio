@@ -152,7 +152,7 @@ export default function VideoHarmonizerForm() {
         {!useFormStatus().pending && !state.data && !state.error && (
             <Card className="flex h-full flex-col items-center justify-center p-8 text-center border-dashed">
                 <Bot className="h-12 w-12 text-muted-foreground mb-4" />
-                <h3 className="text-xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('video_harmonizer.result.placeholder_title')}</h3>
+                <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('video_harmonizer.result.placeholder_title')}</h3>
                 <p className="text-muted-foreground mt-2 max-w-sm">{t('video_harmonizer.result.placeholder_subtitle')}</p>
             </Card>
         )}

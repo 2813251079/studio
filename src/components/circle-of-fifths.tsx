@@ -171,7 +171,7 @@ export default function CircleOfFifths() {
                 </p>
                 {activeKey ? (
                     <div className="space-y-1">
-                        <p className="text-3xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                        <p className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                             {activeKey.name} {activeKey.type === 'major' ? 'Mayor' : 'menor'}
                         </p>
                         <p className="text-muted-foreground">

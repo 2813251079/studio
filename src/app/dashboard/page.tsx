@@ -24,7 +24,7 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col items-center justify-start w-full p-4 md:p-8 text-center">
         <div className="mb-12 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-yellow-400 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               {t('app.title')}
             </h1>
             <p className="mt-2 text-foreground/80 text-xl md:text-2xl max-w-3xl">
@@ -39,7 +39,7 @@ export default function DashboardPage() {
                        <div className="mb-4 flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
                          {feature.icon}
                        </div>
-                       <h3 className="mb-2 text-xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{feature.title}</h3>
+                       <h3 className="mb-2 text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{feature.title}</h3>
                        <p className="text-sm text-muted-foreground">{feature.description}</p>
                     </div>
                 </Link>
