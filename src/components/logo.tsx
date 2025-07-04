@@ -35,27 +35,27 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <circle cx="10" cy="25" r="1" fill="black"/>
     </g>
 
-    {/* Pentagram and Fa Key moved to the right */}
-    <g transform="translate(45, 0)">
+    {/* Pentagram and Fa Key */}
+    <g transform="translate(50, 50)">
         <g stroke="hsl(195, 30%, 70%)" strokeWidth="1.5">
-          <path d="M 25 48 H 95" />
-          <path d="M 25 56 H 95" />
-          <path d="M 25 64 H 95" />
-          <path d="M 25 72 H 95" />
-          <path d="M 25 80 H 95" />
+          <path d="M 0 0 H 55" />
+          <path d="M 0 8 H 55" />
+          <path d="M 0 16 H 55" />
+          <path d="M 0 24 H 55" />
+          <path d="M 0 32 H 55" />
         </g>
 
-        <g transform="translate(5, -2)">
+        <g transform="translate(10, -5)">
           <path
-            d="M 50 45 C 35 50, 35 80, 50 95"
+            d="M 20 0 C 5 5, 5 35, 20 42"
             stroke="hsl(var(--primary))"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="50" cy="45" r="7" fill="hsl(var(--primary))" />
-          <circle cx="70" cy="68" r="4" fill="hsl(var(--primary))" />
-          <circle cx="70" cy="76" r="4" fill="hsl(var(--primary))" />
+          <circle cx="20" cy="0" r="7" fill="hsl(var(--primary))" />
+          <circle cx="35" cy="18" r="4" fill="hsl(var(--primary))" />
+          <circle cx="35" cy="26" r="4" fill="hsl(var(--primary))" />
         </g>
     </g>
   </svg>
