@@ -2,7 +2,7 @@
 
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { auth, firebaseEnabled } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 
@@ -18,12 +18,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    if (firebaseEnabled && auth) {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        setUser(user);
+        setLoading(false);
+      });
+      return () => unsubscribe();
+    } else {
+      // If Firebase is not configured, we are not loading and there is no user.
       setLoading(false);
-    });
-
-    return () => unsubscribe();
+      setUser(null);
+    }
   }, []);
 
   return (
@@ -52,7 +57,8 @@ export function useRequireAuth(redirectUrl = '/auth/login') {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
+    // Only redirect if firebase is enabled.
+    if (firebaseEnabled && !loading && !user) {
       router.push(redirectUrl);
     }
   }, [user, loading, router, redirectUrl]);

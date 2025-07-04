@@ -1,5 +1,5 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
+import { getAuth, type Auth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -10,15 +10,18 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// ACCIÓN REQUERIDA: Si la app no funciona, asegúrate de que las variables de entorno
-// en el archivo `.env` estén configuradas con tus credenciales de Firebase.
-if (!firebaseConfig.apiKey || firebaseConfig.apiKey.includes("YOUR_API_KEY")) {
-    console.error("ACCIÓN REQUERIDA: Las claves de API de Firebase no están configuradas. Por favor, abre el archivo `.env` en el panel izquierdo, y rellena las variables con las credenciales de tu proyecto de Firebase.");
+let app: FirebaseApp | null = null;
+let auth: Auth | null = null;
+
+// Check if the API key is present and not a placeholder.
+const firebaseEnabled = !!firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("YOUR_API_KEY");
+
+if (firebaseEnabled) {
+    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    auth = getAuth(app);
+} else {
+    // This warning is helpful for developers to know that Firebase is not configured.
+    console.warn("ACCIÓN REQUERIDA: Las credenciales de Firebase no están configuradas en el archivo .env. Las funciones de autenticación estarán deshabilitadas.");
 }
 
-
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(app);
-
-export { app, auth };
+export { app, auth, firebaseEnabled };

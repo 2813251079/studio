@@ -24,7 +24,7 @@ import InstagramIcon from '@/components/instagram-icon';
 import YoutubeIcon from '@/components/youtube-icon';
 import VoiceCommander from '@/components/voice-commander';
 import { useRequireAuth } from '@/hooks/use-auth';
-import { auth } from '@/lib/firebase';
+import { auth, firebaseEnabled } from '@/lib/firebase';
 import { signOut } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 
@@ -55,6 +55,14 @@ function DashboardHeader() {
   const { user } = useRequireAuth();
 
   const handleLogout = async () => {
+    if (!firebaseEnabled || !auth) {
+        toast({
+            variant: "destructive",
+            title: "Funcionalidad deshabilitada",
+            description: "La autenticación de Firebase no está configurada.",
+        });
+        return;
+    }
     try {
       await signOut(auth);
       toast({
@@ -129,7 +137,7 @@ function DashboardHeader() {
             <VoiceCommander />
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Button variant="ghost" className="relative h-10 w-10 rounded-full" disabled={!firebaseEnabled}>
                         <Avatar className="h-10 w-10">
                             <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || 'Usuario'} data-ai-hint="person avatar" />
                             <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
@@ -137,16 +145,16 @@ function DashboardHeader() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>{user?.displayName || user?.email}</DropdownMenuLabel>
+                    <DropdownMenuLabel>{user?.displayName || user?.email || "Invitado"}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
+                    <DropdownMenuItem asChild disabled={!firebaseEnabled}>
                         <Link href="#" className="flex items-center gap-2">
                             <UserCircle className="mr-2 h-4 w-4" />
                             <span>{t('dashboard.sidebar.account')}</span>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer">
+                    <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer" disabled={!firebaseEnabled}>
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>{t('dashboard.sidebar.logout')}</span>
                     </DropdownMenuItem>
@@ -207,10 +215,10 @@ export default function DashboardLayout({
 }) {
   const { user, loading } = useRequireAuth();
 
-  if (loading || !user) {
+  if (loading && firebaseEnabled) {
     // The loading screen is handled by the AuthProvider,
     // and the redirect is handled by the useRequireAuth hook.
-    // So we can just return null here.
+    // So we can just return null here, but only if firebase is enabled.
     return null;
   }
 
