@@ -1,29 +1,45 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { PlayCircle } from "lucide-react";
+'use client';
+
+import { useState } from 'react';
 import { translations } from "@/lib/translations";
+import FrequencyPlayer from '@/components/frequency-player';
 
 const t = (key: any) => translations.es[key as any] || key;
 
 export default function FrequenciesPage() {
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+
   const frequencies = [
     {
       title: t('frequencies.432hz.title'),
       description: t('frequencies.432hz.description'),
+      freqValue: 432
     },
     {
       title: t('frequencies.528hz.title'),
       description: t('frequencies.528hz.description'),
+      freqValue: 528
     },
     {
       title: t('frequencies.639hz.title'),
       description: t('frequencies.639hz.description'),
+      freqValue: 639
     },
     {
       title: t('frequencies.741hz.title'),
       description: t('frequencies.741hz.description'),
+      freqValue: 741
     },
   ];
+
+  const handlePlayToggle = (index: number) => {
+    if (playingIndex === index) {
+      setPlayingIndex(null); // Stop playing if it's the current one
+    } else {
+      setPlayingIndex(index); // Play the new one
+    }
+  };
+
 
   return (
     <div className="space-y-8">
@@ -33,18 +49,14 @@ export default function FrequenciesPage() {
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {frequencies.map((freq, index) => (
-          <Card key={index}>
-            <CardHeader>
-              <CardTitle>{freq.title}</CardTitle>
-              <CardDescription className="pt-2">{freq.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button>
-                <PlayCircle className="mr-2 h-4 w-4" />
-                Reproducir
-              </Button>
-            </CardContent>
-          </Card>
+          <FrequencyPlayer
+            key={index}
+            title={freq.title}
+            description={freq.description}
+            frequency={freq.freqValue}
+            isPlaying={playingIndex === index}
+            onPlayToggle={() => handlePlayToggle(index)}
+          />
         ))}
       </div>
     </div>

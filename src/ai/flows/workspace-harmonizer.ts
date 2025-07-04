@@ -10,6 +10,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import wav from 'wav';
 
 const WorkspaceHarmonizerInputSchema = z.object({
   intention: z.string().describe("The user's desired state or goal (e.g., Focus, Relaxation, Creativity)."),
@@ -24,6 +25,7 @@ const WorkspaceHarmonizerOutputSchema = z.object({
     resonance: z.string().describe("The expected emotional and mental resonance of the harmonized space."),
   }),
   imageUrl: z.string().describe("A data URI of a generated image representing the harmonized soundscape."),
+  soundscapeUrl: z.string().describe("A data URI of a generated soundscape audio file."),
 });
 export type WorkspaceHarmonizerOutput = z.infer<typeof WorkspaceHarmonizerOutputSchema>;
 
@@ -71,6 +73,67 @@ const imageGenerationFlow = ai.defineFlow(
   }
 );
 
+async function toWav(
+  pcmData: Buffer,
+  channels = 1,
+  rate = 24000,
+  sampleWidth = 2
+): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const writer = new wav.Writer({
+      channels,
+      sampleRate: rate,
+      bitDepth: sampleWidth * 8,
+    });
+
+    let bufs = [] as any[];
+    writer.on('error', reject);
+    writer.on('data', function (d) {
+      bufs.push(d);
+    });
+    writer.on('end', function () {
+      resolve(Buffer.concat(bufs).toString('base64'));
+    });
+
+    writer.write(pcmData);
+    writer.end();
+  });
+}
+
+const soundscapeGenerationFlow = ai.defineFlow(
+  {
+    name: 'soundscapeGenerationFlow',
+    inputSchema: z.string(),
+    outputSchema: z.string(),
+  },
+  async (prompt) => {
+    const { media } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash-preview-tts',
+      config: {
+        responseModalities: ['AUDIO'],
+        speechConfig: {
+          voiceConfig: {
+            prebuiltVoiceConfig: { voiceName: 'Algenib' },
+          },
+        },
+      },
+      prompt,
+    });
+
+    if (!media || !media.url) {
+        throw new Error("La IA no pudo generar un paisaje sonoro.");
+    }
+
+    const audioBuffer = Buffer.from(
+      media.url.substring(media.url.indexOf(',') + 1),
+      'base64'
+    );
+    
+    const wavBase64 = await toWav(audioBuffer);
+    return 'data:audio/wav;base64,' + wavBase64;
+  }
+);
+
 const workspaceHarmonizerFlow = ai.defineFlow(
   {
     name: 'workspaceHarmonizerFlow',
@@ -85,12 +148,17 @@ const workspaceHarmonizerFlow = ai.defineFlow(
     }
 
     const imagePrompt = `Un paisaje sonoro para ${input.intention} que transforma un estado de '${input.description}' en un ambiente de '${analysis.resonance}' usando ${analysis.strategy}.`;
-
-    const imageUrl = await imageGenerationFlow(imagePrompt);
+    const soundscapePrompt = `Hola, soy tu asistente de Armonia AI. Basado en tu intención de '${input.intention}' y tu descripción, he diseñado una estrategia para ayudarte a alcanzar tu objetivo. ${analysis.strategy} Espero que este paisaje sonoro te envuelva y te lleve a un estado de ${analysis.resonance}.`;
+    
+    const [imageUrl, soundscapeUrl] = await Promise.all([
+      imageGenerationFlow(imagePrompt),
+      soundscapeGenerationFlow(soundscapePrompt)
+    ]);
 
     return {
       analysis: analysis,
       imageUrl,
+      soundscapeUrl,
     };
   }
 );

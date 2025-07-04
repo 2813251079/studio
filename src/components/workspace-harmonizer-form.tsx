@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Loader2, Wand2, AlertCircle, Bot, Sparkles, Wind } from 'lucide-react';
+import { Loader2, Wand2, AlertCircle, Bot, Sparkles, Wind, Headphones } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { translations } from '@/lib/translations';
 
@@ -134,6 +134,18 @@ export default function WorkspaceHarmonizerForm() {
                     </div>
                 )}
                 
+                {state.data.soundscapeUrl && (
+                  <div className="space-y-2">
+                      <h3 className="font-semibold flex items-center gap-2">
+                          <Headphones className="h-4 w-4 text-primary" />
+                          {t('workspace_harmonizer.result.soundscape_title')}
+                      </h3>
+                      <audio controls src={state.data.soundscapeUrl} className="w-full">
+                          Tu navegador no soporta el elemento de audio.
+                      </audio>
+                  </div>
+                )}
+
                 <div className="space-y-4">
                     <div>
                         <h3 className="font-semibold flex items-center gap-2"><Sparkles className="h-4 w-4 text-primary" />{t('workspace_harmonizer.result.strategy_title')}</h3>
