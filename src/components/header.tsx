@@ -13,7 +13,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-4">
-          <Image src={logoUrl} width={88} height={88} alt={t('app.title')} className="rounded-full" data-ai-hint="logo guitar wave" />
+          <Image src={logoUrl} width={88} height={88} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
           <span className="font-bold text-3xl hidden sm:inline-block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">

@@ -13,7 +13,7 @@ export default function RegisterPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6">
        <Link href="/">
-        <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full" data-ai-hint="logo guitar wave" />
+        <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
       </Link>
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
