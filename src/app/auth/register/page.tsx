@@ -10,12 +10,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { translations } from "@/lib/translations";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertTriangle } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useAuth } from "@/hooks/use-auth";
-
+import { auth } from "@/lib/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -30,7 +32,8 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 export default function RegisterPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const { login } = useAuth();
+  const { isFirebaseConfigured } = useAuth();
+  
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -42,26 +45,44 @@ export default function RegisterPage() {
 
   const { isSubmitting } = form.formState;
 
-  const onSubmit = (values: RegisterFormValues) => {
-    // Mock register logic
-    login({
-        email: values.email,
-        displayName: values.name,
-        photoURL: 'https://placehold.co/100x100.png',
-    });
-    
-    toast({
-      title: "¡Cuenta creada!",
-      description: "Tu cuenta ha sido creada exitosamente.",
-    });
+  const onSubmit = async (values: RegisterFormValues) => {
+    if (!isFirebaseConfigured) return;
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+      
+      // Update the user's profile with their name
+      if (userCredential.user) {
+        await updateProfile(userCredential.user, {
+            displayName: values.name
+        });
+      }
 
-    const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-    sessionStorage.removeItem('redirectAfterLogin');
-    router.replace(redirectUrl);
+      toast({
+        title: "¡Cuenta creada!",
+        description: "Tu cuenta ha sido creada exitosamente.",
+      });
+
+      const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+      sessionStorage.removeItem('redirectAfterLogin');
+      router.replace(redirectUrl);
+
+    } catch (error: any) {
+      console.error(error);
+      let errorMessage = "Ha ocurrido un error inesperado.";
+      if (error.code === 'auth/email-already-in-use') {
+        errorMessage = "Este correo electrónico ya está registrado.";
+        form.setError("email", { type: "manual", message: errorMessage });
+      }
+      toast({
+        variant: 'destructive',
+        title: "Error de registro",
+        description: errorMessage,
+      });
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-6">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-4">
        <Link href="/">
         <Logo className="w-32 h-32" />
       </Link>
@@ -71,6 +92,15 @@ export default function RegisterPage() {
           <CardDescription className="text-center">{t('register.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
+          {!isFirebaseConfigured && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Servicio no disponible</AlertTitle>
+                <AlertDescription>
+                  La autenticación no está configurada. Por favor, contacta al administrador.
+                </AlertDescription>
+              </Alert>
+          )}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
                 <FormField
@@ -80,7 +110,7 @@ export default function RegisterPage() {
                     <FormItem>
                       <Label htmlFor="name">{t('register.name')}</Label>
                       <FormControl>
-                        <Input id="name" placeholder="Tu Nombre" {...field} />
+                        <Input id="name" placeholder="Tu Nombre" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -93,7 +123,7 @@ export default function RegisterPage() {
                     <FormItem>
                       <Label htmlFor="email">{t('register.email')}</Label>
                       <FormControl>
-                        <Input id="email" type="email" placeholder="m@ejemplo.com" {...field} />
+                        <Input id="email" type="email" placeholder="m@ejemplo.com" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -106,13 +136,13 @@ export default function RegisterPage() {
                     <FormItem>
                       <Label htmlFor="password">{t('register.password')}</Label>
                       <FormControl>
-                        <Input id="password" type="password" {...field} />
+                        <Input id="password" type="password" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
+              <Button type="submit" className="w-full" disabled={isSubmitting || !isFirebaseConfigured}>
                 {isSubmitting ? <Loader2 className="animate-spin" /> : t('register.button')}
               </Button>
             </form>

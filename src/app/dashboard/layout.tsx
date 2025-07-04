@@ -50,10 +50,10 @@ function DashboardHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
-  const { user, logout } = useAuth();
+  const { user, logout, isFirebaseConfigured } = useAuth();
 
   const handleLogout = async () => {
-    logout();
+    await logout();
     toast({
       title: "Sesión cerrada",
       description: "Has cerrado sesión correctamente.",
@@ -115,32 +115,34 @@ function DashboardHeader() {
         </nav>
 
         <div className="flex items-center gap-4">
-            <VoiceCommander />
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                        <Avatar className="h-10 w-10">
-                            {user?.photoURL && <AvatarImage src={user.photoURL} alt={user.displayName || 'Usuario'} data-ai-hint="person avatar" />}
-                            <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
-                        </Avatar>
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>{user?.displayName || user?.email || "Invitado"}</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                        <Link href="#" className="flex items-center gap-2">
-                            <UserCircle className="mr-2 h-4 w-4" />
-                            <span>{t('dashboard.sidebar.account')}</span>
-                        </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer">
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>{t('dashboard.sidebar.logout')}</span>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+            {isFirebaseConfigured && <VoiceCommander />}
+            {isFirebaseConfigured && user && (
+              <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                          <Avatar className="h-10 w-10">
+                              {user.photoURL && <AvatarImage src={user.photoURL} alt={user.displayName || 'Usuario'} data-ai-hint="person avatar" />}
+                              <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
+                          </Avatar>
+                      </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>{user.displayName || user.email || "Invitado"}</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem asChild>
+                          <Link href="#" className="flex items-center gap-2">
+                              <UserCircle className="mr-2 h-4 w-4" />
+                              <span>{t('dashboard.sidebar.account')}</span>
+                          </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer">
+                          <LogOut className="mr-2 h-4 w-4" />
+                          <span>{t('dashboard.sidebar.logout')}</span>
+                      </DropdownMenuItem>
+                  </DropdownMenuContent>
+              </DropdownMenu>
+            )}
             <div className="md:hidden">
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild>

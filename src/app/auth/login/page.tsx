@@ -10,17 +10,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { translations } from "@/lib/translations";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertTriangle } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useAuth } from "@/hooks/use-auth";
+import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const t = (key: any) => translations.es[key as any] || key;
 
 const loginSchema = z.object({
   email: z.string().email("Por favor, introduce un correo electrónico válido."),
-  password: z.string().min(1, "La contraseña no puede estar vacía."), // Kept for UI consistency
+  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres."),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -28,7 +31,8 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const { login } = useAuth();
+  const { isFirebaseConfigured } = useAuth();
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -37,29 +41,41 @@ export default function LoginPage() {
     },
   });
 
-  const { isSubmitting } = form.formState;
+  const { isSubmitting, setFocus } = form.formState;
 
-  const onSubmit = (values: LoginFormValues) => {
-    // Mock login logic
-    const userName = values.email.split('@')[0];
-    login({
-        email: values.email,
-        displayName: userName,
-        photoURL: 'https://placehold.co/100x100.png',
-    });
-    
-    toast({
-      title: "¡Bienvenido de nuevo!",
-      description: "Has iniciado sesión correctamente.",
-    });
+  const onSubmit = async (values: LoginFormValues) => {
+    if (!isFirebaseConfigured) return;
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      
+      toast({
+        title: "¡Bienvenido de nuevo!",
+        description: "Has iniciado sesión correctamente.",
+      });
 
-    const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-    sessionStorage.removeItem('redirectAfterLogin');
-    router.replace(redirectUrl);
+      const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+      sessionStorage.removeItem('redirectAfterLogin');
+      router.replace(redirectUrl);
+
+    } catch (error: any) {
+      console.error(error);
+      let errorMessage = "Ha ocurrido un error inesperado.";
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+        errorMessage = "El correo electrónico o la contraseña no son correctos.";
+        form.setError("email", { type: "manual", message: " " });
+        form.setError("password", { type: "manual", message: " " });
+        setTimeout(() => setFocus('email'), 0);
+      }
+      toast({
+        variant: 'destructive',
+        title: "Error de inicio de sesión",
+        description: errorMessage,
+      });
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-6">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-4">
       <Link href="/">
         <Logo className="w-32 h-32" />
       </Link>
@@ -69,6 +85,15 @@ export default function LoginPage() {
           <CardDescription className="text-center">{t('login.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
+          {!isFirebaseConfigured && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Servicio no disponible</AlertTitle>
+                <AlertDescription>
+                  La autenticación no está configurada. Por favor, contacta al administrador.
+                </AlertDescription>
+              </Alert>
+          )}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
                 <FormField
@@ -78,7 +103,7 @@ export default function LoginPage() {
                     <FormItem>
                       <Label htmlFor="email">{t('login.email')}</Label>
                       <FormControl>
-                        <Input id="email" type="email" placeholder="m@ejemplo.com" {...field} />
+                        <Input id="email" type="email" placeholder="m@ejemplo.com" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -91,13 +116,13 @@ export default function LoginPage() {
                     <FormItem>
                       <Label htmlFor="password">{t('login.password')}</Label>
                       <FormControl>
-                        <Input id="password" type="password" {...field} />
+                        <Input id="password" type="password" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
+              <Button type="submit" className="w-full" disabled={isSubmitting || !isFirebaseConfigured}>
                 {isSubmitting ? <Loader2 className="animate-spin" /> : t('login.button')}
               </Button>
             </form>
