@@ -4,7 +4,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, Waves, Wind, Video, BrainCircuit, Combine } from "lucide-react";
+import { ArrowRight, BrainCircuit, Combine } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -15,26 +15,12 @@ import {
 const t = (key: any) => translations.es[key as any] || key;
 
 export default function Home() {
-  const features = [
-    {
-      icon: <Waves className="h-12 w-12 text-white" />,
-      title: t('landing.features.frequency_library.title'),
-      description: t('landing.features.frequency_library.description'),
-      href: "/dashboard/frequencies"
-    },
-    {
-      icon: <Wind className="h-12 w-12 text-white" />,
-      title: t('landing.features.workspace_harmonizer.title'),
-      description: t('landing.features.workspace_harmonizer.description'),
-      href: "/dashboard/audio-enhancer"
-    },
-    {
-      icon: <Video className="h-12 w-12 text-white" />,
-      title: t('landing.features.video_harmonizer.title'),
-      description: t('landing.features.video_harmonizer.description'),
-      href: "/dashboard/video-harmonizer"
-    }
-  ];
+  const startFeature = {
+    icon: <ArrowRight className="h-12 w-12 text-white" />,
+    title: "Inicio",
+    description: "Comienza tu viaje hacia la armonía.",
+    href: "/auth/register"
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -63,23 +49,21 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
                 <p className="mt-4 text-muted-foreground">{t('landing.tools.subtitle')}</p>
             </div>
-            <div className="grid md:grid-cols-3 gap-12">
-                {features.map((feature, index) => (
-                <div key={index} className="flex flex-col items-center text-center group">
-                    <Link href="/auth/register">
+            <div className="flex justify-center">
+                <div className="flex flex-col items-center text-center group">
+                    <Link href={startFeature.href}>
                     <div className="relative w-40 h-40 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-primary/20 cursor-pointer overflow-hidden border-2 border-primary/20">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-70 group-hover:opacity-90 transition-opacity"></div>
                         <div className="absolute -top-4 -left-8 w-32 h-32 bg-white/20 rounded-full filter blur-xl opacity-50"></div>
                         <div className="absolute -bottom-4 -right-8 w-32 h-32 bg-white/20 rounded-full filter blur-xl opacity-50"></div>
                         <div className="relative z-10">
-                            {feature.icon}
+                            {startFeature.icon}
                         </div>
                     </div>
                     </Link>
-                    <h3 className="mt-6 text-xl font-bold">{feature.title}</h3>
-                    <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                    <h3 className="mt-6 text-xl font-bold">{startFeature.title}</h3>
+                    <p className="mt-2 text-muted-foreground">{startFeature.description}</p>
                 </div>
-                ))}
             </div>
         </section>
 

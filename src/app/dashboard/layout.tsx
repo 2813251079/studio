@@ -2,13 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import {
   SidebarProvider,
   Sidebar,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
   SidebarHeader,
   SidebarTrigger,
   SidebarInset,
@@ -21,16 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  Home,
-  Waves,
-  Wind,
-  Video,
-  UserCircle,
-  LogOut,
-  Puzzle,
-  SlidersHorizontal,
-} from 'lucide-react';
+import { UserCircle, LogOut } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 
@@ -41,41 +28,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
   const logoUrl = "https://placehold.co/128x128.png";
-
-  const menuItems = [
-    {
-      href: '/dashboard',
-      label: t('dashboard.sidebar.home'),
-      icon: <Home />,
-    },
-    {
-      href: '/dashboard/frequencies',
-      label: t('dashboard.sidebar.frequencies'),
-      icon: <Waves />,
-    },
-    {
-      href: '/dashboard/audio-enhancer',
-      label: t('dashboard.sidebar.workspace_harmonizer'),
-      icon: <Wind />,
-    },
-    {
-      href: '/dashboard/video-harmonizer',
-      label: t('dashboard.sidebar.video_harmonizer'),
-      icon: <Video />,
-    },
-    {
-      href: '/dashboard/inclusive-games',
-      label: t('dashboard.sidebar.inclusive_games'),
-      icon: <Puzzle />,
-    },
-    {
-      href: '/dashboard/production',
-      label: t('dashboard.sidebar.music_production'),
-      icon: <SlidersHorizontal />,
-    },
-  ];
 
   return (
     <SidebarProvider>
@@ -89,21 +42,6 @@ export default function DashboardLayout({
               <h1 className="text-lg font-semibold truncate bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
             </div>
           </SidebarHeader>
-          <SidebarMenu className="flex-1 p-2">
-            {menuItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <Link href={item.href}>
-                  <SidebarMenuButton
-                    isActive={pathname === item.href}
-                    tooltip={{ children: item.label }}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
         </Sidebar>
         <SidebarInset className="bg-background">
           <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-6">
