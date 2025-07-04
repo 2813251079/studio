@@ -116,7 +116,7 @@ export default function VideoHarmonizerForm() {
             <CardContent className="space-y-6">
                 {state.data.imageUrl && (
                     <div className="aspect-video relative w-full overflow-hidden rounded-lg border">
-                        <Image src={state.data.imageUrl} alt={t('video_harmonizer.result.image_alt')} fill={true} className="object-cover" data-ai-hint="cinematic landscape" />
+                        <Image src={state.data.imageUrl} alt={t('video_harmonizer.result.image_alt')} fill={true} className="object-cover transition-all duration-500 hover:scale-110" data-ai-hint="cinematic landscape" />
                     </div>
                 )}
                 

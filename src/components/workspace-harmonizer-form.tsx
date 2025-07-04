@@ -130,7 +130,7 @@ export default function WorkspaceHarmonizerForm() {
             <CardContent className="space-y-6">
                 {state.data.imageUrl && (
                     <div className="aspect-video relative w-full overflow-hidden rounded-lg border">
-                        <Image src={state.data.imageUrl} alt={t('workspace_harmonizer.result.image_alt')} fill={true} className="object-cover" data-ai-hint="abstract spiritual" />
+                        <Image src={state.data.imageUrl} alt={t('workspace_harmonizer.result.image_alt')} fill={true} className="object-cover transition-all duration-500 hover:scale-110" data-ai-hint="abstract spiritual" />
                     </div>
                 )}
                 
@@ -172,10 +172,10 @@ export default function WorkspaceHarmonizerForm() {
               </CardHeader>
               <CardContent>
                   <div className="grid grid-cols-2 gap-4">
-                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.focus')} className="rounded-lg aspect-square object-cover" data-ai-hint="focus study" />
-                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.relax')} className="rounded-lg aspect-square object-cover" data-ai-hint="calm beach" />
-                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.creativity')} className="rounded-lg aspect-square object-cover" data-ai-hint="creative paint" />
-                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.energy')} className="rounded-lg aspect-square object-cover" data-ai-hint="energy sunrise" />
+                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.focus')} className="rounded-lg aspect-square object-cover transition-transform duration-300 hover:scale-105" data-ai-hint="focus study" />
+                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.relax')} className="rounded-lg aspect-square object-cover transition-transform duration-300 hover:scale-105" data-ai-hint="calm beach" />
+                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.creativity')} className="rounded-lg aspect-square object-cover transition-transform duration-300 hover:scale-105" data-ai-hint="creative paint" />
+                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.energy')} className="rounded-lg aspect-square object-cover transition-transform duration-300 hover:scale-105" data-ai-hint="energy sunrise" />
                   </div>
               </CardContent>
             </Card>

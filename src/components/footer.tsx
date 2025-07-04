@@ -18,7 +18,7 @@ export default function Footer() {
     <footer className="w-full border-t border-border/40">
       <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <Image src={logoUrl} width={24} height={24} alt={t('app.title')} className="rounded-full" data-ai-hint="abstract geometric" />
+          <Image src={logoUrl} width={24} height={24} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
           <p className="text-center text-sm leading-loose md:text-left">
             © {new Date().getFullYear()} {t('app.title')}. {t('app.description')}.
           </p>
