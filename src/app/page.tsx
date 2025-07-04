@@ -42,7 +42,7 @@ export default function Home() {
       <main className="flex-1">
         <section className="container py-20 md:py-32 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-gradient-to-r from-primary via-accent to-orange-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               {t('landing.hero.title_new')}
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-8">
@@ -60,7 +60,7 @@ export default function Home() {
 
         <section id="what-is" className="container py-20 md:py-24 bg-secondary rounded-t-3xl">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-orange-400 bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
             <div className="mt-6 space-y-4 text-muted-foreground">
               <p>{t('landing.what_is.p1')}</p>
               <p>{t('landing.what_is.p2')}</p>
@@ -70,7 +70,7 @@ export default function Home() {
 
         <section id="sound-universe" className="container py-20 md:py-24">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-orange-400 bg-clip-text text-transparent">{t('landing.sound_universe.title')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.sound_universe.title')}</h2>
           </div>
           <div className="max-w-4xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
@@ -113,7 +113,7 @@ export default function Home() {
 
         <section id="features" className="container py-20 md:py-24">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-orange-400 bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
             <p className="mt-4 text-muted-foreground">{t('landing.tools.subtitle')}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-12">
@@ -153,7 +153,7 @@ export default function Home() {
         
         <section className="container py-20 md:py-24 text-center bg-secondary rounded-3xl">
            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-orange-400 bg-clip-text text-transparent">{t('pricing.title')}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.title')}</h2>
               <p className="mt-4 text-muted-foreground">{t('pricing.subtitle')}</p>
               <Button size="lg" variant="outline" className="mt-8" asChild>
                   <Link href="/pricing">Ver Planes de Precios</Link>
