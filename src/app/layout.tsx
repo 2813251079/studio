@@ -1,5 +1,5 @@
 import type {Metadata} from 'next';
-import { Inter } from 'next/font/google';
+import { PT_Sans } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { translations } from '@/lib/translations';
@@ -7,8 +7,9 @@ import BackgroundAudio from '@/components/background-audio';
 
 const t = (key: any) => translations.es[key as any] || key;
 
-const inter = Inter({
+const ptSans = PT_Sans({
   subsets: ['latin'],
+  weight: ['400', '700'],
   variable: '--font-body',
 });
 
@@ -25,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} dark`} style={{colorScheme: 'dark'}}>
+    <html lang="es" className={`${ptSans.variable} dark`} style={{colorScheme: 'dark'}}>
       <body className="font-body antialiased font-medium">
         <BackgroundAudio />
         {children}
