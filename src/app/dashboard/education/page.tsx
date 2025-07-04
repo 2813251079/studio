@@ -1,7 +1,6 @@
 'use client';
 
-import { useActionState, useRef, useEffect } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useActionState, useRef, useEffect, useTransition } from 'react';
 import { getKnowledgeInfo } from '@/app/actions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,7 +9,6 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, Search, AlertCircle, BookOpen, BrainCircuit, Waves, Star, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { translations } from '@/lib/translations';
-import * as React from 'react';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -20,8 +18,7 @@ const initialState = {
   fieldError: undefined,
 };
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
+function SubmitButton({ pending }: { pending: boolean }) {
   return (
     <Button type="submit" size="icon" disabled={pending}>
       {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
@@ -32,10 +29,9 @@ function SubmitButton() {
 
 export default function EducationPage() {
   const [state, formAction] = useActionState(getKnowledgeInfo, initialState);
+  const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
-  const [isPending, startTransition] = React.useTransition();
-
 
   useEffect(() => {
     if (state.error && !state.fieldError) {
@@ -45,7 +41,10 @@ export default function EducationPage() {
         description: state.error,
       });
     }
-  }, [state.error, state.fieldError, toast]);
+     if (state.data && formRef.current) {
+      formRef.current.reset();
+    }
+  }, [state, toast]);
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,9 +59,11 @@ export default function EducationPage() {
         const input = formRef.current.querySelector('input[name="query"]') as HTMLInputElement;
         if (input) {
             input.value = topic;
-            const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
-            formRef.current.dispatchEvent(submitEvent);
         }
+        const formData = new FormData(formRef.current);
+        startTransition(() => {
+            formAction(formData);
+        });
     }
   }
   
@@ -87,7 +88,7 @@ export default function EducationPage() {
           <CardContent>
             <form ref={formRef} onSubmit={handleFormSubmit} className="flex w-full items-center gap-2 mb-4">
               <Input name="query" placeholder={t('education_page.search_placeholder')} autoComplete="off" disabled={isPending} />
-              <SubmitButton />
+              <SubmitButton pending={isPending}/>
             </form>
             {state.fieldError && <p className="text-sm font-medium text-destructive mt-1">{state.fieldError}</p>}
             <div className="flex flex-wrap gap-2 mt-4">
