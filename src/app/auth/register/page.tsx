@@ -72,6 +72,8 @@ export default function RegisterPage() {
       if (error.code === 'auth/email-already-in-use') {
         errorMessage = "Este correo electrónico ya está registrado.";
         form.setError("email", { type: "manual", message: errorMessage });
+      } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
+        errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
       }
       toast({
         variant: 'destructive',
