@@ -35,14 +35,14 @@ export default function EducationPage() {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state.error && !state.fieldError) {
+    if (state?.error && !state.fieldError) {
       toast({
         variant: 'destructive',
         title: t('error.toast.title'),
         description: state.error,
       });
     }
-     if (state.data && formRef.current) {
+     if (state?.data && formRef.current) {
       formRef.current.reset();
     }
   }, [state, toast]);
@@ -91,7 +91,7 @@ export default function EducationPage() {
               <Input name="query" placeholder={t('education_page.search_placeholder')} autoComplete="off" disabled={isPending} />
               <SubmitButton pending={isPending}/>
             </form>
-            {state.fieldError && <p className="text-sm font-medium text-destructive mt-1">{state.fieldError}</p>}
+            {state?.fieldError && <p className="text-sm font-medium text-destructive mt-1">{state.fieldError}</p>}
             <div className="flex flex-wrap gap-2 mt-4">
                 {predefinedTopics.map(item => (
                     <Button key={item.topic} variant="outline" size="sm" onClick={() => handleTopicClick(item.topic)} disabled={isPending}>
@@ -110,7 +110,7 @@ export default function EducationPage() {
            </Card>
         )}
         
-        {state.error && !state.fieldError && !isPending && (
+        {state?.error && !state.fieldError && !isPending && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>{t('error.toast.title')}</AlertTitle>
@@ -118,7 +118,7 @@ export default function EducationPage() {
           </Alert>
         )}
 
-        {state.data && !isPending && (
+        {state?.data && !isPending && (
             <div className="space-y-8">
                 <Card>
                     <CardHeader>
@@ -164,7 +164,7 @@ export default function EducationPage() {
             </div>
         )}
 
-        {!isPending && !state.data && !state.error && (
+        {!isPending && !state?.data && !state?.error && (
             <Card className="flex h-full min-h-[400px] flex-col items-center justify-center p-8 text-center border-dashed">
                 <BookOpen className="h-12 w-12 text-muted-foreground mb-4" />
                 <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('education_page.placeholder_title')}</h3>

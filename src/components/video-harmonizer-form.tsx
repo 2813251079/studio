@@ -47,20 +47,17 @@ export default function VideoHarmonizerForm() {
   const formRef = useRef<HTMLFormElement>(null);
   
   useEffect(() => {
-    if (state.error && !state.fieldErrors) {
+    if (state?.error && !state.fieldErrors) {
       toast({
         variant: 'destructive',
         title: t('error.toast.title'),
         description: state.error,
       });
     }
-  }, [state, toast]);
-
-  useEffect(() => {
-    if (state.data) {
+    if (state?.data) {
       formRef.current?.reset();
     }
-  }, [state.data]);
+  }, [state, toast]);
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -81,7 +78,7 @@ export default function VideoHarmonizerForm() {
                 placeholder={t('video_harmonizer.form.scene_placeholder')}
                 rows={8}
               />
-              {state.fieldErrors?.description && <p className="text-sm font-medium text-destructive">{state.fieldErrors.description[0]}</p>}
+              {state?.fieldErrors?.description && <p className="text-sm font-medium text-destructive">{state.fieldErrors.description[0]}</p>}
             </div>
           </CardContent>
           <CardFooter>
@@ -100,7 +97,7 @@ export default function VideoHarmonizerForm() {
            </Card>
         )}
         
-        {state.error && !state.fieldErrors && (
+        {state?.error && !state.fieldErrors && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>{t('error.toast.title')}</AlertTitle>
@@ -108,7 +105,7 @@ export default function VideoHarmonizerForm() {
           </Alert>
         )}
 
-        {state.data && (
+        {state?.data && (
           <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -149,7 +146,7 @@ export default function VideoHarmonizerForm() {
           </Card>
         )}
 
-        {!useFormStatus().pending && !state.data && !state.error && (
+        {!useFormStatus().pending && !state?.data && !state?.error && (
             <Card className="flex h-full flex-col items-center justify-center p-8 text-center border-dashed">
                 <Bot className="h-12 w-12 text-muted-foreground mb-4" />
                 <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('video_harmonizer.result.placeholder_title')}</h3>

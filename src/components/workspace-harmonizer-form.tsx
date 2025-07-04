@@ -48,20 +48,17 @@ export default function WorkspaceHarmonizerForm() {
   const formRef = useRef<HTMLFormElement>(null);
   
   useEffect(() => {
-    if (state.error && !state.fieldErrors) {
+    if (state?.error && !state.fieldErrors) {
       toast({
         variant: 'destructive',
         title: t('error.toast.title'),
         description: state.error,
       });
     }
-  }, [state, toast]);
-
-  useEffect(() => {
-    if (state.data) {
+    if (state?.data) {
       formRef.current?.reset();
     }
-  }, [state.data]);
+  }, [state, toast]);
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -85,7 +82,7 @@ export default function WorkspaceHarmonizerForm() {
                   <SelectItem value="Energía">{t('workspace_harmonizer.intentions.energy')}</SelectItem>
                 </SelectContent>
               </Select>
-              {state.fieldErrors?.intention && <p className="text-sm font-medium text-destructive">{state.fieldErrors.intention[0]}</p>}
+              {state?.fieldErrors?.intention && <p className="text-sm font-medium text-destructive">{state.fieldErrors.intention[0]}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="description" className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('workspace_harmonizer.form.state_label')}</Label>
@@ -95,7 +92,7 @@ export default function WorkspaceHarmonizerForm() {
                 placeholder={t('workspace_harmonizer.form.state_placeholder')}
                 rows={5}
               />
-              {state.fieldErrors?.description && <p className="text-sm font-medium text-destructive">{state.fieldErrors.description[0]}</p>}
+              {state?.fieldErrors?.description && <p className="text-sm font-medium text-destructive">{state.fieldErrors.description[0]}</p>}
             </div>
           </CardContent>
           <CardFooter>
@@ -114,7 +111,7 @@ export default function WorkspaceHarmonizerForm() {
            </Card>
         )}
         
-        {state.error && !state.fieldErrors && (
+        {state?.error && !state.fieldErrors && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>{t('error.toast.title')}</AlertTitle>
@@ -122,7 +119,7 @@ export default function WorkspaceHarmonizerForm() {
           </Alert>
         )}
 
-        {state.data && (
+        {state?.data && (
           <Card className="overflow-hidden">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -167,7 +164,7 @@ export default function WorkspaceHarmonizerForm() {
           </Card>
         )}
 
-        {!useFormStatus().pending && !state.data && !state.error && (
+        {!useFormStatus().pending && !state?.data && !state?.error && (
             <Card className="h-full">
               <CardHeader>
                 <CardTitle className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('workspace_harmonizer.result.placeholder_title')}</CardTitle>
