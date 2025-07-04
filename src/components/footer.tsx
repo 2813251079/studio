@@ -28,10 +28,17 @@ export default function Footer() {
     <footer className="w-full">
       <div className="container flex flex-col items-center justify-between gap-6 py-10 md:h-24 md:flex-row md:py-0">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-4 md:px-0">
-          <Image src={logoUrl} width={96} height={96} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            © {year || '...'} {t('app.title')}. {t('footer.rights_reserved')}.
-          </p>
+          <Link href="/">
+            <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
+          </Link>
+          <div className="flex flex-col text-center md:text-left">
+            <p className="text-sm leading-loose text-muted-foreground">
+              © {year || '...'} {t('app.title')}. {t('footer.rights_reserved')}.
+            </p>
+            <Link href="/education" className="text-sm text-primary hover:underline">
+              {t('footer.education_link')}
+            </Link>
+          </div>
         </div>
         <div className="flex items-center gap-4">
             <Button asChild variant="ghost" size="icon" className="h-14 w-14">

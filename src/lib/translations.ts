@@ -5,6 +5,7 @@ export const translations = {
     
     'landing.header.features': 'Características',
     'landing.header.pricing': 'Precios',
+    'landing.header.education': 'Educación',
     'landing.header.login': 'Ingresar',
     'landing.header.get_started': 'Comenzar Gratis',
 
@@ -199,6 +200,18 @@ export const translations = {
     'music_production.guitar.current_note': 'Nota seleccionada',
     
     'footer.rights_reserved': 'Todos los derechos reservados',
+    'footer.education_link': 'Open Music Maitencillo',
+
+    'education.title': 'Universo Sonoro: El Poder de las Frecuencias',
+    'education.subtitle': 'Sumérgete en el conocimiento detrás de la música sanadora. Descubre cómo las vibraciones pueden transformar tu bienestar físico, mental y espiritual.',
+    'education.concepts.title': 'Conceptos Fundamentales',
+    'education.benefits.title': 'Beneficios y Aplicaciones',
+    'education.benefits.healing.title': 'Frecuencias Sanadoras y Curativas',
+    'education.benefits.healing.description': 'Las frecuencias sanadoras son vibraciones específicas que, al entrar en resonancia con el cuerpo, pueden ayudar a restaurar el equilibrio. Actúan a nivel celular para reducir el estrés, aliviar el dolor, mejorar el sueño y promover una sensación general de bienestar. Por ejemplo, la frecuencia de 528 Hz se asocia con la reparación del ADN y es conocida como la "frecuencia del amor".',
+    'education.benefits.regulatory.title': 'Frecuencias Reguladoras',
+    'education.benefits.regulatory.description': 'Estas frecuencias ayudan a regular los sistemas biológicos del cuerpo. Los tonos binaurales, por ejemplo, pueden guiar las ondas cerebrales a estados deseados como la relajación profunda (ondas Alpha) o la concentración intensa (ondas Beta). Ayudan a regular el ciclo del sueño, el estado de ánimo y la respuesta al estrés, actuando como un diapasón para tu sistema nervioso.',
+    'education.benefits.inclusive.title': 'Frecuencias y Herramientas Inclusivas',
+    'education.benefits.inclusive.description': 'El sonido es una herramienta poderosa para la inclusión. Las frecuencias y la música rítmica pueden ofrecer estímulos sensoriales predecibles y calmantes para personas en el espectro autista. Nuestras herramientas visuales, como los pictogramas y los planificadores de rutinas, complementan la experiencia sonora para apoyar la comunicación y la organización, creando un entorno de aprendizaje seguro y accesible para todos.',
 
     'pictos.want': 'Quiero',
     'pictos.happy': 'Feliz',

@@ -8,6 +8,10 @@ import {
   SidebarHeader,
   SidebarTrigger,
   SidebarInset,
+  SidebarContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
 } from '@/components/ui/sidebar';
 import {
   DropdownMenu,
@@ -17,7 +21,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut } from 'lucide-react';
+import { UserCircle, LogOut, Home, GraduationCap } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 
@@ -36,12 +40,32 @@ export default function DashboardLayout({
         <Sidebar collapsible="icon" className="">
           <SidebarHeader>
             <Link href="/dashboard" className="flex items-center gap-3 p-2">
-                <Image src={logoUrl} width={96} height={96} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
+                <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-2" data-ai-hint="logo guitar wave" />
                 <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
                      <h1 className="text-2xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
                 </div>
             </Link>
           </SidebarHeader>
+          <SidebarContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/dashboard">
+                    <Home />
+                    <span>{t('dashboard.sidebar.home')}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/education">
+                    <GraduationCap />
+                    <span>{t('landing.header.education')}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarContent>
         </Sidebar>
         <SidebarInset className="bg-background">
           <header className="sticky top-0 z-10 flex h-14 items-center gap-4 bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-6">
