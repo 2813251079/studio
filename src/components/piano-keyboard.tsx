@@ -113,7 +113,7 @@ export default function PianoKeyboard() {
                 onTouchEnd={() => handleInteractionEnd(note.freq)}
                 className={cn(
                   "relative h-full flex-1 cursor-pointer border-x border-t border-slate-300 dark:border-slate-600 bg-secondary rounded-b-md border-b-4 dark:border-b-slate-800",
-                  "flex items-end justify-center pb-4 text-foreground font-semibold shadow-inner transition-colors",
+                  "flex items-end justify-center pb-4 text-accent font-semibold shadow-inner transition-colors",
                   { "bg-primary/80 text-primary-foreground border-accent": activeNotes.has(note.freq) }
                 )}
               >
