@@ -15,10 +15,16 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       </linearGradient>
     </defs>
     <circle cx="60" cy="60" r="60" fill="url(#logoGradient)" />
-    <g transform="translate(0, 2)">
-      <circle cx="60" cy="60" r="28" stroke="white" strokeWidth="6" fill="none" />
+    <g transform="translate(2,0)">
+       <path
+        d="M 25 50 C 45 15, 75 85, 95 50"
+        stroke="white"
+        strokeWidth="12"
+        fill="none"
+        strokeLinecap="round"
+      />
       <path
-        d="M 42 68 Q 51 52 60 63 T 78 68"
+        d="M 20 75 C 40 40, 70 110, 90 75"
         stroke="white"
         strokeWidth="6"
         fill="none"
