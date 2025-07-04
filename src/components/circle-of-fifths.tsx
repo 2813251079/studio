@@ -122,7 +122,14 @@ export default function CircleOfFifths() {
                                         y={majorY}
                                         textAnchor="middle"
                                         dominantBaseline="middle"
-                                        className={cn("text-lg font-bold fill-foreground", selectedKey?.major === keyInfo.major && "fill-primary-foreground")}
+                                        className={cn(
+                                            "text-lg font-bold",
+                                            selectedKey?.major === keyInfo.major
+                                                ? "fill-primary-foreground"
+                                                : i % 2 === 0
+                                                ? "fill-accent"
+                                                : "fill-primary"
+                                        )}
                                     >
                                         {keyInfo.major}
                                     </text>
