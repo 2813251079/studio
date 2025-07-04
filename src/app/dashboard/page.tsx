@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Waves, Wind, Video, Puzzle, SlidersHorizontal } from "lucide-react";
+import { Waves, Wind, Video, Puzzle, SlidersHorizontal } from "lucide-react";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -68,9 +68,6 @@ export default function DashboardPage() {
                         <h3 className="text-lg font-semibold">{feature.title}</h3>
                         <p className="text-muted-foreground text-sm mt-1">{feature.description}</p>
                       </div>
-                    </div>
-                    <div className="shrink-0 self-end sm:self-center">
-                      <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
                     </div>
                   </Link>
                 </li>
