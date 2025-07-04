@@ -10,7 +10,7 @@ import {
   Speaker,
   Radio,
   Drumstick,
-  Trumpet,
+  Zap,
   Music,
   Headphones,
   AudioWaveform,
@@ -69,7 +69,7 @@ export default function EducationPage() {
       {
         title: t('education.brainwaves.gamma.title'),
         description: t('education.brainwaves.gamma.description'),
-        icon: <Trumpet className="h-8 w-8 text-primary" />
+        icon: <Zap className="h-8 w-8 text-primary" />
       },
   ];
 
