@@ -10,9 +10,10 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Check if all Firebase config values are provided
-if (!firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY_HERE") {
-    console.error("Firebase API Key is missing. Please check your .env file and make sure NEXT_PUBLIC_FIREBASE_API_KEY is set correctly.");
+// ACCIÓN REQUERIDA: Si la app no funciona, asegúrate de que las variables de entorno
+// en el archivo `.env` estén configuradas con tus credenciales de Firebase.
+if (!firebaseConfig.apiKey || firebaseConfig.apiKey.includes("YOUR_API_KEY")) {
+    console.error("ACCIÓN REQUERIDA: Las claves de API de Firebase no están configuradas. Por favor, abre el archivo `.env` en el panel izquierdo, y rellena las variables con las credenciales de tu proyecto de Firebase.");
 }
 
 
