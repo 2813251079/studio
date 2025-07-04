@@ -4,7 +4,13 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, Waves, Wind, Video } from "lucide-react";
+import { ArrowRight, Waves, Wind, Video, Music4, BrainCircuit, Combine } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -59,6 +65,49 @@ export default function Home() {
               <p>{t('landing.what_is.p1')}</p>
               <p>{t('landing.what_is.p2')}</p>
             </div>
+          </div>
+        </section>
+
+        <section id="sound-universe" className="container py-20 md:py-24">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.sound_universe.title')}</h2>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-xl hover:no-underline">
+                  <div className="flex items-center gap-4">
+                    <Music4 className="h-6 w-6 text-primary" />
+                    <span>{t('landing.sound_universe.solfeggio.title')}</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-base">
+                  {t('landing.sound_universe.solfeggio.description')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger className="text-xl hover:no-underline">
+                  <div className="flex items-center gap-4">
+                    <BrainCircuit className="h-6 w-6 text-primary" />
+                    <span>{t('landing.sound_universe.binaural.title')}</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-base">
+                  {t('landing.sound_universe.binaural.description')}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger className="text-xl hover:no-underline">
+                  <div className="flex items-center gap-4">
+                    <Combine className="h-6 w-6 text-primary" />
+                    <span>{t('landing.sound_universe.synesthesia.title')}</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-base">
+                  {t('landing.sound_universe.synesthesia.description')}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </section>
 

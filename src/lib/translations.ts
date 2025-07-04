@@ -15,8 +15,16 @@ export const translations = {
     
     'landing.what_is.title': '¿Qué son las Frecuencias Sanadoras?',
     'landing.what_is.p1': 'Las frecuencias sonoras han sido utilizadas desde tiempos ancestrales en diversas culturas por su capacidad para influir en el estado de ánimo, la mente y el cuerpo. Se basan en el principio de resonancia, la idea de que todo en el universo vibra a una frecuencia particular. Al exponernos a frecuencias específicas, podemos ayudar a restaurar el equilibrio y la armonía en nuestro propio campo energético.',
-    'landing.what_is.p2': 'Explora desde las antiguas frecuencias Solfeggio, como la de 528 Hz asociada a la transformación y los milagros, hasta los modernos tonos binaurales diseñados para sincronizar tus ondas cerebrales y potenciar estados de enfoque, relajación o meditación profunda.',
+    'landing.what_is.p2': 'Nuestra plataforma te invita a explorar este universo sonoro, desde las antiguas frecuencias Solfeggio hasta los modernos tonos binaurales, para que encuentres la vibración perfecta para tu bienestar.',
 
+    'landing.sound_universe.title': 'Explora el Universo del Sonido Sanador',
+    'landing.sound_universe.solfeggio.title': 'Frecuencias Solfeggio: Los Tonos Ancestrales',
+    'landing.sound_universe.solfeggio.description': 'Las Frecuencias Solfeggio son una escala de tonos utilizada en cantos sagrados desde la antigüedad. Se cree que estos tonos tienen propiedades curativas y espirituales específicas, ayudando a equilibrar la energía del cuerpo, la mente y el espíritu. Cada frecuencia corresponde a una nota de la escala y se asocia con un beneficio particular, como la liberación de miedos (396 Hz) o la facilitación del cambio y la transformación (528 Hz).',
+    'landing.sound_universe.binaural.title': 'Tonos Binaurales: Sincroniza tu Cerebro',
+    'landing.sound_universe.binaural.description': 'Los tonos binaurales son una ilusión auditiva creada por el cerebro cuando escuchas dos frecuencias ligeramente diferentes, una en cada oído. El cerebro percibe un tercer tono fantasma, cuya frecuencia es la diferencia entre los dos originales. Esta técnica se utiliza para guiar al cerebro hacia estados de ondas cerebrales específicas (Delta, Theta, Alpha, Beta), ayudando a mejorar la concentración, promover la relajación profunda, facilitar la meditación o estimular la creatividad.',
+    'landing.sound_universe.synesthesia.title': 'Sinestesia Musical: Ver los Sonidos',
+    'landing.sound_universe.synesthesia.description': "La sinestesia es un fascinante fenómeno neurológico donde la estimulación de un sentido provoca una experiencia automática en otro. En la sinestesia musical, una persona puede 'ver' colores, formas o texturas al escuchar música. Nuestras herramientas de armonización se inspiran en este concepto, buscando crear una experiencia multisensorial donde el sonido y la imagen se fusionan, generando una resonancia visual que complementa y potencia el efecto de las frecuencias sanadoras.",
+    
     'landing.tools.title': 'Nuestras Herramientas Sónicas',
     'landing.tools.subtitle': 'Diseñadas para guiarte en tu viaje hacia el bienestar.',
 
