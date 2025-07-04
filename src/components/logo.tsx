@@ -18,7 +18,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     <circle cx="60" cy="60" r="60" fill="url(#darkTurquoiseGradient)" />
 
     {/* Guitar Headstock */}
-    <g transform="translate(30, 20)">
+    <g transform="translate(34, 20)">
         {/* Vertical black neck/headstock */}
         <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="#1C1C1C" />
         <rect x="-5" y="40" width="10" height="50" fill="#1C1C1C" />
@@ -36,7 +36,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Pentagram and Fa Key */}
-    <g transform="translate(50, 50)">
+    <g transform="translate(46, 50)">
         <g stroke="hsl(195, 30%, 70%)" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
