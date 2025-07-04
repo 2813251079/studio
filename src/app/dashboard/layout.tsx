@@ -48,11 +48,9 @@ function DashboardHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
-         <Link href="/dashboard" className="flex items-center gap-4">
-            <Logo className="w-20 h-20" />
-        </Link>
+         <div className="w-20 flex-shrink-0" aria-hidden="true" />
         
         <nav className="hidden md:flex items-center gap-2">
             <DropdownMenu>
@@ -173,6 +171,13 @@ export default function DashboardLayout({
     <div className="flex flex-col min-h-screen bg-background">
       <DashboardHeader />
       <main className="flex-1 container py-8">{children}</main>
+      <Link 
+        href="/dashboard" 
+        className="fixed bottom-6 left-6 z-50 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95"
+        aria-label={t('dashboard.sidebar.home')}
+      >
+        <Logo className="h-20 w-20 drop-shadow-lg" />
+      </Link>
     </div>
   );
 }
