@@ -32,7 +32,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const logoUrl = "https://storage.googleapis.com/project-spark-348216.appspot.com/users%2FlD5sgrj92eaW42rAAnZ01c8U5kh1%2Flabs%2FM_tE-GwtwWd215bT3tO2s%2Flogo.png";
+  const logoUrl = "https://placehold.co/128x128.png";
 
   const menuItems = [
     {
@@ -64,7 +64,7 @@ export default function DashboardLayout({
           <SidebarHeader>
             <div className="flex items-center gap-2 p-2">
               <Link href="/dashboard" className="flex items-center gap-2">
-                 <Image src={logoUrl} width={40} height={40} alt={t('app.title')} className="rounded-full" />
+                 <Image src={logoUrl} width={40} height={40} alt={t('app.title')} className="rounded-full" data-ai-hint="abstract geometric" />
               </Link>
               <h1 className="text-lg font-semibold truncate bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
             </div>
