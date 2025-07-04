@@ -38,7 +38,7 @@ const features = [
     { href: '/dashboard/production', title: t('dashboard.sidebar.music_production'), icon: <SlidersHorizontal /> },
     { href: '/dashboard/tuner', title: t('dashboard.sidebar.tuner'), icon: <Brain /> },
     { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), icon: <BookOpen /> },
-    { href: '/education', title: t('dashboard.sidebar.education'), icon: <BrainCircuit /> },
+    { href: '/education', title: t('dashboard.sidebar.healing_frequencies'), icon: <BrainCircuit /> },
     { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), icon: <Star /> },
 ];
 

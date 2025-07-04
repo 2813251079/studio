@@ -15,7 +15,7 @@ const features = [
     { href: '/dashboard/production', title: t('dashboard.sidebar.music_production'), description: t('music_production.subtitle'), icon: <SlidersHorizontal className="h-10 w-10 text-primary" /> },
     { href: '/dashboard/tuner', title: t('dashboard.sidebar.tuner'), description: t('tuner.subtitle'), icon: <Brain className="h-10 w-10 text-accent" />},
     { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), description: t('education_page.description'), icon: <BookOpen className="h-10 w-10 text-primary" /> },
-    { href: '/education', title: t('dashboard.sidebar.education'), description: t('education.subtitle'), icon: <BrainCircuit className="h-10 w-10 text-accent" /> },
+    { href: '/education', title: t('dashboard.sidebar.healing_frequencies'), description: t('healing_frequencies.subtitle'), icon: <BrainCircuit className="h-10 w-10 text-accent" /> },
     { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), description: t('coming_soon.description'), icon: <Star className="h-10 w-10 text-primary" /> },
 ];
 

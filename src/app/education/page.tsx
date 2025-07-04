@@ -2,7 +2,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { translations } from "@/lib/translations";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BrainCircuit, Combine, Layers, Waves, HeartHandshake, Accessibility, Star } from "lucide-react";
+import { BrainCircuit, Combine, Layers, Waves, HeartHandshake, Accessibility, Star, Activity, BarChart, Zap, GitCommitHorizontal } from "lucide-react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -28,6 +28,34 @@ export default function EducationPage() {
       description: <div dangerouslySetInnerHTML={{ __html: t('landing.sound_universe.consciousness.description') }} />,
       icon: <Layers className="h-8 w-8 text-primary" />
     }
+  ];
+
+  const brainwaves = [
+      {
+        title: t('education.brainwaves.delta.title'),
+        description: t('education.brainwaves.delta.description'),
+        icon: <GitCommitHorizontal className="h-8 w-8 text-primary" />
+      },
+      {
+        title: t('education.brainwaves.theta.title'),
+        description: t('education.brainwaves.theta.description'),
+        icon: <Activity className="h-8 w-8 text-primary" />
+      },
+      {
+        title: t('education.brainwaves.alpha.title'),
+        description: t('education.brainwaves.alpha.description'),
+        icon: <Waves className="h-8 w-8 text-primary" />
+      },
+      {
+        title: t('education.brainwaves.beta.title'),
+        description: t('education.brainwaves.beta.description'),
+        icon: <BarChart className="h-8 w-8 text-primary" />
+      },
+      {
+        title: t('education.brainwaves.gamma.title'),
+        description: t('education.brainwaves.gamma.description'),
+        icon: <Zap className="h-8 w-8 text-primary" />
+      },
   ];
 
   const benefits = [
@@ -72,6 +100,23 @@ export default function EducationPage() {
                 </CardHeader>
                 <CardContent className="flex-1 text-muted-foreground text-lg">
                   {concept.description}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        <section id="brainwaves" className="mb-24">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-center mb-12 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('education.brainwaves.title')}</h2>
+          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+            {brainwaves.map((wave, index) => (
+              <Card key={index} className="flex flex-col">
+                <CardHeader className="flex-row items-center gap-4">
+                  <div className="flex-shrink-0">{wave.icon}</div>
+                  <CardTitle>{wave.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="flex-1 text-muted-foreground text-lg">
+                  {wave.description}
                 </CardContent>
               </Card>
             ))}
