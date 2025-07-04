@@ -63,7 +63,11 @@ const imageGenerationFlow = ai.defineFlow(
         responseModalities: ['TEXT', 'IMAGE'],
       },
     });
-    return media!.url;
+
+    if (!media || !media.url) {
+        throw new Error("La IA no pudo generar una imagen para la armonización.");
+    }
+    return media.url;
   }
 );
 
@@ -76,12 +80,16 @@ const workspaceHarmonizerFlow = ai.defineFlow(
   async (input) => {
     const { output: analysis } = await analysisPrompt(input);
     
-    const imagePrompt = `Un paisaje sonoro para ${input.intention} que transforma un estado de '${input.description}' en un ambiente de '${analysis!.resonance}' usando ${analysis!.strategy}.`;
+    if (!analysis) {
+        throw new Error("La IA no pudo generar el análisis. Por favor, intenta de nuevo con una descripción diferente.");
+    }
+
+    const imagePrompt = `Un paisaje sonoro para ${input.intention} que transforma un estado de '${input.description}' en un ambiente de '${analysis.resonance}' usando ${analysis.strategy}.`;
 
     const imageUrl = await imageGenerationFlow(imagePrompt);
 
     return {
-      analysis: analysis!,
+      analysis: analysis,
       imageUrl,
     };
   }
