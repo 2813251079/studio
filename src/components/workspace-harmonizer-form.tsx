@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import {
   Card,
   CardContent,
@@ -15,7 +15,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { getHarmonizedWorkspace } from "@/app/actions";
 import { AlertCircle, Loader2, Wand2, FolderKanban } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useSettings } from "@/hooks/use-settings";
 import { translations } from "@/lib/translations";
@@ -45,7 +45,7 @@ function SubmitButton() {
 }
 
 export default function WorkspaceHarmonizerForm() {
-  const [state, formAction] = useFormState(getHarmonizedWorkspace, initialState);
+  const [state, formAction] = useActionState(getHarmonizedWorkspace, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const { language } = useSettings();
