@@ -36,9 +36,9 @@ export default function DashboardLayout({
         <Sidebar collapsible="icon" className="">
           <SidebarHeader>
             <Link href="/dashboard" className="flex items-center gap-3 p-2">
-                <Image src={logoUrl} width={64} height={64} alt={t('app.title')} className="rounded-full flex-shrink-0" data-ai-hint="logo soundwave" />
+                <Image src={logoUrl} width={80} height={80} alt={t('app.title')} className="rounded-full flex-shrink-0" data-ai-hint="logo soundwave" />
                 <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
-                     <h1 className="text-2xl font-semibold truncate bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
+                     <h1 className="text-2xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
                 </div>
             </Link>
           </SidebarHeader>

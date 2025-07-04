@@ -47,7 +47,7 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col items-start justify-start w-full p-4 md:p-8">
         <div className="text-left mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               {t('dashboard.home.title')}
             </h1>
             <p className="mt-4 text-foreground/80 text-xl max-w-3xl">
@@ -57,7 +57,7 @@ export default function DashboardPage() {
         <div className="flex flex-wrap justify-start items-center gap-10 md:gap-16 w-full">
           {features.map((feature) => (
             <Link href={feature.href} key={feature.href} className="group">
-              <div className="flex h-64 w-64 md:h-72 md:w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
+              <div className="flex h-72 w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
                   <div className="mb-4 flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
                     {feature.icon}
                   </div>

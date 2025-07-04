@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,14 +7,18 @@ import { Label } from "@/components/ui/label";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
+const logoUrl = "https://placehold.co/128x128.png";
 
 export default function LoginPage() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-6">
+      <Link href="/">
+        <Image src={logoUrl} width={80} height={80} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
+      </Link>
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
-          <CardTitle className="text-2xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('login.title')}</CardTitle>
-          <CardDescription>{t('login.subtitle')}</CardDescription>
+          <CardTitle className="text-2xl text-center bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('login.title')}</CardTitle>
+          <CardDescription className="text-center">{t('login.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
