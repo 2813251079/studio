@@ -4,7 +4,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, BrainCircuit, Combine, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star } from "lucide-react";
+import { ArrowRight, BrainCircuit, Combine, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Layers } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -139,6 +139,17 @@ export default function Home() {
                         </AccordionTrigger>
                         <AccordionContent className="text-muted-foreground text-lg">
                         {t('landing.sound_universe.synesthesia.description')}
+                        </AccordionContent>
+                    </AccordionItem>
+                     <AccordionItem value="item-4">
+                        <AccordionTrigger className="text-xl hover:no-underline">
+                        <div className="flex items-center gap-4">
+                            <Layers className="h-6 w-6 text-primary" />
+                            <span>{t('landing.sound_universe.consciousness.title')}</span>
+                        </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground text-lg">
+                            <div dangerouslySetInnerHTML={{ __html: t('landing.sound_universe.consciousness.description') }} />
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
