@@ -2,12 +2,19 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import {
   SidebarProvider,
   Sidebar,
   SidebarTrigger,
   SidebarInset,
   SidebarContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
 } from '@/components/ui/sidebar';
 import {
   DropdownMenu,
@@ -16,12 +23,50 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut } from 'lucide-react';
+import { UserCircle, LogOut, Home, BookOpen, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, ChevronDown, Music } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 
 const t = (key: any) => translations.es[key as any] || key;
+
+const features = [
+    {
+      href: '/dashboard/frequencies',
+      title: t('dashboard.sidebar.frequencies'),
+      icon: <Waves />,
+    },
+    {
+      href: '/dashboard/audio-enhancer',
+      title: t('dashboard.sidebar.workspace_harmonizer'),
+      icon: <Wind />,
+    },
+    {
+      href: '/dashboard/video-harmonizer',
+      title: t('dashboard.sidebar.video_harmonizer'),
+      icon: <Video />,
+    },
+    {
+      href: '/dashboard/inclusive-games',
+      title: t('dashboard.sidebar.inclusive_games'),
+      icon: <Puzzle />,
+    },
+    {
+      href: '/dashboard/production',
+      title: t('dashboard.sidebar.music_production'),
+      icon: <SlidersHorizontal />,
+    },
+    {
+      href: '/pricing',
+      title: t('dashboard.sidebar.coming_soon'),
+      icon: <Star />,
+    },
+  ];
 
 export default function DashboardLayout({
   children,
@@ -30,16 +75,62 @@ export default function DashboardLayout({
 }) {
   const logoUrl = "https://placehold.co/120x120.png";
   const smallLogoUrl = "https://placehold.co/48x48.png";
+  const pathname = usePathname();
+  const [isCollapsibleOpen, setIsCollapsibleOpen] = useState(true);
 
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">
         <Sidebar collapsible="icon" className="">
-          <SidebarContent className="p-0 flex flex-col items-center">
+          <SidebarContent className="p-0 flex flex-col">
              <Link href="/dashboard" className="flex items-center justify-center p-2 h-20 group-data-[collapsible=icon]:h-16">
                 <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-1 group-data-[collapsible=icon]:hidden" data-ai-hint="logo guitar wave" />
                 <Image src={smallLogoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full hidden flex-shrink-0 bg-slate-200 p-1 group-data-[collapsible=icon]:block" data-ai-hint="logo guitar wave" />
              </Link>
+             <SidebarMenu className="w-full flex-1 overflow-y-auto">
+                <Collapsible open={isCollapsibleOpen} onOpenChange={setIsCollapsibleOpen}>
+                  <SidebarMenuItem>
+                    <CollapsibleTrigger asChild>
+                        <SidebarMenuButton className="w-full justify-between" variant="ghost">
+                          <div className="flex items-center gap-2">
+                            <Music />
+                            <span>Open Music</span>
+                          </div>
+                          <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 data-[state=open]:rotate-180" />
+                        </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                  </SidebarMenuItem>
+                  <CollapsibleContent asChild>
+                    <SidebarMenuSub>
+                        <SidebarMenuItem>
+                            <Link href="/dashboard" asChild>
+                                <SidebarMenuSubButton isActive={pathname === '/dashboard'}>
+                                   <Home /> <span>{t('dashboard.sidebar.home')}</span>
+                                </SidebarMenuSubButton>
+                            </Link>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <Link href="/education" asChild>
+                                <SidebarMenuSubButton isActive={pathname === '/education'}>
+                                    <BookOpen /> <span>{t('dashboard.sidebar.education')}</span>
+                                </SidebarMenuSubButton>
+                            </Link>
+                        </SidebarMenuItem>
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                {features.map((feature) => (
+                    <SidebarMenuItem key={feature.href}>
+                        <Link href={feature.href} asChild>
+                            <SidebarMenuButton isActive={pathname === feature.href} tooltip={{children: feature.title, side: "right"}}>
+                                {feature.icon}
+                                <span>{feature.title}</span>
+                            </SidebarMenuButton>
+                        </Link>
+                    </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
           </SidebarContent>
         </Sidebar>
         <SidebarInset className="bg-background">

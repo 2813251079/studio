@@ -54,7 +54,7 @@ export default function DashboardPage() {
               {t('dashboard.home.subtitle')}
             </p>
         </div>
-        <div className="flex flex-wrap justify-start items-center gap-10 md:gap-16 w-full">
+        <div className="flex flex-col items-center gap-10 w-full">
           {features.map((feature) => (
             <Link href={feature.href} key={feature.href} className="group">
               <div className="flex h-72 w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
