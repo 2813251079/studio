@@ -58,15 +58,15 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1">
-        <section className="container flex items-center justify-center text-center min-h-[calc(100vh-3.5rem)] py-20 md:py-32">
-          <div className="max-w-5xl mx-auto">
+        <section className="container flex items-center text-left min-h-[calc(100vh-6rem)] py-20 md:py-32">
+          <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               {t('landing.hero.title_new')}
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-10">
               {t('landing.hero.subtitle_new')}
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-start gap-4">
               <Button size="lg" asChild>
                 <Link href="/auth/register">
                   {t('landing.header.get_started')} <ArrowRight className="ml-2 h-5 w-5" />
@@ -77,11 +77,11 @@ export default function Home() {
         </section>
 
         <section id="features" className="container py-20 md:py-32">
-            <div className="text-center max-w-3xl mx-auto mb-20">
+            <div className="text-left max-w-3xl mb-20">
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
                 <p className="mt-4 text-lg text-muted-foreground">{t('landing.tools.subtitle')}</p>
             </div>
-             <div className="flex flex-wrap items-center justify-center gap-12">
+             <div className="flex flex-wrap items-center justify-start gap-12">
                 {features.slice(0, -1).map((feature) => ( // Show all but last one
                     <Link key={feature.href} href="/auth/login" className="group">
                         <div className="flex h-72 w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
