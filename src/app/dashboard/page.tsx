@@ -39,7 +39,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-16 p-4 md:p-8">
+    <div className="w-full max-w-5xl mx-auto space-y-16 p-4 md:p-8">
       <div>
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
           {t('dashboard.home.title')}
@@ -56,21 +56,19 @@ export default function DashboardPage() {
             {t('dashboard.home.features_subtitle')}
           </p>
         </div>
-        <ul className="space-y-12">
+        <div className="grid md:grid-cols-2 gap-8">
           {features.map((feature) => (
-            <li key={feature.href}>
-              <Link href={feature.href} className="group flex items-start gap-6 p-2 -m-2 rounded-lg transition-colors hover:bg-secondary/10">
-                <div className="flex-shrink-0 bg-secondary rounded-full p-4 flex items-center justify-center transition-colors group-hover:bg-secondary/80">
-                  {feature.icon}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-3xl font-semibold group-hover:text-primary transition-colors">{feature.title}</h3>
-                  <p className="text-foreground/80 text-lg mt-2">{feature.description}</p>
-                </div>
-              </Link>
-            </li>
+            <Link href={feature.href} key={feature.href} className="group block">
+              <div className="h-full p-8 rounded-3xl bg-secondary transition-all duration-300 hover:bg-card hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2">
+                  <div className="flex-shrink-0 bg-background rounded-full p-4 w-16 h-16 flex items-center justify-center mb-6 transition-colors group-hover:bg-secondary">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-3xl font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
+                  <p className="text-foreground/80 text-lg">{feature.description}</p>
+              </div>
+            </Link>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );

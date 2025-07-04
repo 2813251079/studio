@@ -155,6 +155,7 @@ export const translations = {
     'inclusive_games.subtitle': 'Utiliza herramientas visuales para la comunicación y la organización de rutinas diarias.',
     'inclusive_games.tabs.communicator': 'Comunicador Visual',
     'inclusive_games.tabs.planner': 'Planificador de Rutinas',
+    'inclusive_games.tabs.simon': 'Juego de Simón',
     
     'inclusive_games.communicator.title': 'Comunicador Visual (CAA)',
     'inclusive_games.communicator.subtitle': 'Utiliza los pictogramas para construir frases y comunicarte. Es un sistema de Comunicación Aumentativa y Alternativa.',
@@ -175,6 +176,14 @@ export const translations = {
     'inclusive_games.planner.remove_step': 'Quitar paso',
     'inclusive_games.planner.check_step': 'Marcar como completado',
     'inclusive_games.planner.uncheck_step': 'Marcar como no completado',
+
+    'simon_game.title': 'Juego de Memoria "Simón"',
+    'simon_game.subtitle': 'Sigue la secuencia de luces y sonidos. ¡Pon a prueba tu memoria y atención!',
+    'simon_game.start_button': 'Empezar Juego',
+    'simon_game.play_again': 'Jugar de Nuevo',
+    'simon_game.level': 'Nivel',
+    'simon_game.score': 'Puntos',
+    'simon_game.game_over': '¡Juego Terminado!',
 
     'music_production.title': 'Estudio de Producción Musical',
     'music_production.subtitle': 'Herramientas para crear, explorar y afinar tu música frecuencial.',

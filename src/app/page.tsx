@@ -4,7 +4,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, BrainCircuit, Combine } from "lucide-react";
+import { ArrowRight, BrainCircuit, Combine, Waves, Wind, Video, Puzzle, SlidersHorizontal } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -15,12 +15,38 @@ import {
 const t = (key: any) => translations.es[key as any] || key;
 
 export default function Home() {
-  const startFeature = {
-    icon: <ArrowRight className="h-12 w-12 text-white" />,
-    title: "Inicio",
-    description: "Comienza tu viaje hacia la armonía.",
-    href: "/auth/register"
-  };
+    const features = [
+    {
+      href: '/dashboard/frequencies',
+      title: t('dashboard.sidebar.frequencies'),
+      description: t('frequencies.subtitle'),
+      icon: <Waves className="h-8 w-8 text-primary" />,
+    },
+    {
+      href: '/dashboard/audio-enhancer',
+      title: t('dashboard.sidebar.workspace_harmonizer'),
+      description: t('workspace_harmonizer.subtitle'),
+      icon: <Wind className="h-8 w-8 text-accent" />,
+    },
+    {
+      href: '/dashboard/video-harmonizer',
+      title: t('dashboard.sidebar.video_harmonizer'),
+      description: t('video_harmonizer.subtitle'),
+      icon: <Video className="h-8 w-8 text-primary" />,
+    },
+    {
+      href: '/dashboard/inclusive-games',
+      title: t('dashboard.sidebar.inclusive_games'),
+      description: t('inclusive_games.subtitle'),
+      icon: <Puzzle className="h-8 w-8 text-accent" />,
+    },
+    {
+      href: '/dashboard/production',
+      title: t('dashboard.sidebar.music_production'),
+      description: t('music_production.subtitle'),
+      icon: <SlidersHorizontal className="h-8 w-8 text-primary" />,
+    },
+  ];
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -49,21 +75,18 @@ export default function Home() {
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
                 <p className="mt-4 text-lg text-muted-foreground">{t('landing.tools.subtitle')}</p>
             </div>
-            <div className="flex justify-center">
-                <div className="flex flex-col items-center text-center group">
-                    <Link href={startFeature.href}>
-                    <div className="relative w-48 h-48 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-primary/20 cursor-pointer overflow-hidden border-primary/20">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-70 group-hover:opacity-90 transition-opacity"></div>
-                        <div className="absolute -top-4 -left-8 w-32 h-32 bg-white/20 rounded-full filter blur-xl opacity-50"></div>
-                        <div className="absolute -bottom-4 -right-8 w-32 h-32 bg-white/20 rounded-full filter blur-xl opacity-50"></div>
-                        <div className="relative z-10">
-                            {startFeature.icon}
+             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {features.slice(0, -1).map((feature) => ( // Show all but last one
+                    <Link key={feature.href} href="/auth/login" className="group">
+                        <div className="h-full p-8 rounded-3xl bg-secondary transition-all duration-300 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-2">
+                           <div className="flex-shrink-0 bg-background rounded-full p-4 w-16 h-16 flex items-center justify-center mb-6 transition-colors group-hover:bg-secondary">
+                             {feature.icon}
+                           </div>
+                           <h3 className="text-2xl font-bold mb-2">{feature.title}</h3>
+                           <p className="text-muted-foreground">{feature.description}</p>
                         </div>
-                    </div>
                     </Link>
-                    <h3 className="mt-8 text-2xl font-bold">{startFeature.title}</h3>
-                    <p className="mt-2 text-base text-muted-foreground">{startFeature.description}</p>
-                </div>
+                ))}
             </div>
         </section>
 

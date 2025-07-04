@@ -1,14 +1,10 @@
 'use client';
 
-import { useState, useEffect, type ReactNode } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
-import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed, Angry, Home, School, Bath, HelpCircle, Ban, Shirt, Sparkles } from 'lucide-react';
-import { translations } from "@/lib/translations";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import VisualRoutinePlanner from '@/components/visual-routine-planner';
-
-const t = (key: any) => translations.es[key as any] || key;
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { Play, RotateCw } from 'lucide-react';
 
 export type Pictogram = {
   id: string;
@@ -16,152 +12,145 @@ export type Pictogram = {
   icon: ReactNode;
 };
 
-const availablePictograms: Pictogram[] = [
-  { id: 'want', labelKey: 'pictos.want', icon: <Hand className="h-12 w-12" /> },
-  { id: 'no', labelKey: 'pictos.no', icon: <Ban className="h-12 w-12" /> },
-  { id: 'help', labelKey: 'pictos.help', icon: <HelpCircle className="h-12 w-12" /> },
-  { id: 'happy', labelKey: 'pictos.happy', icon: <Smile className="h-12 w-12" /> },
-  { id: 'sad', labelKey: 'pictos.sad', icon: <Frown className="h-12 w-12" /> },
-  { id: 'angry', labelKey: 'pictos.angry', icon: <Angry className="h-12 w-12" /> },
-  { id: 'home', labelKey: 'pictos.home', icon: <Home className="h-12 w-12" /> },
-  { id: 'school', labelKey: 'pictos.school', icon: <School className="h-12 w-12" /> },
-  { id: 'bath', labelKey: 'pictos.bath', icon: <Bath className="h-12 w-12" /> },
-  { id: 'water', labelKey: 'pictos.water', icon: <GlassWater className="h-12 w-12" /> },
-  { id: 'eat', labelKey: 'pictos.eat', icon: <Utensils className="h-12 w-12" /> },
-  { id: 'sleep', labelKey: 'pictos.sleep', icon: <Bed className="h-12 w-12" /> },
-  { id: 'play', labelKey: 'pictos.play', icon: <ToyBrick className="h-12 w-12" /> },
-  { id: 'music', labelKey: 'pictos.music', icon: <Music className="h-12 w-12" /> },
-  { id: 'read', labelKey: 'pictos.read', icon: <BookOpen className="h-12 w-12" /> },
-  { id: 'dress', labelKey: 'pictos.dress', icon: <Shirt className="h-12 w-12" /> },
-  { id: 'wash_hands', labelKey: 'pictos.wash_hands', icon: <Sparkles className="h-12 w-12" /> },
+interface SimonGameProps {
+  pictograms: Pictogram[];
+  t: (key: string) => string;
+}
+
+const GAME_COLORS = [
+  'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500',
+  'bg-purple-500', 'bg-pink-500', 'bg-indigo-500', 'bg-teal-500'
 ];
 
-function VisualCommunicator() {
-  const [sentence, setSentence] = useState<Pictogram[]>([]);
-  const [speechSynthesis, setSpeechSynthesis] = useState<SpeechSynthesis | null>(null);
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setSpeechSynthesis(window.speechSynthesis);
+export default function SimonGame({ pictograms, t }: SimonGameProps) {
+  const [sequence, setSequence] = useState<number[]>([]);
+  const [playerSequence, setPlayerSequence] = useState<number[]>([]);
+  const [activeButton, setActiveButton] = useState<number | null>(null);
+  const [gameState, setGameState] = useState<'idle' | 'showing' | 'playing' | 'gameover'>('idle');
+  const [score, setScore] =useState(0);
+  const gamePictograms = pictograms.slice(0, 8);
+
+  const playSound = useCallback((index: number) => {
+    if (typeof window === 'undefined') return;
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
     }
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    oscillator.type = 'sine';
+    const frequencies = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25];
+    oscillator.frequency.value = frequencies[index % frequencies.length];
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.5, audioContext.currentTime + 0.05);
+    oscillator.start(audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+    oscillator.stop(audioContext.currentTime + 0.3);
   }, []);
 
-  const handlePictoClick = (picto: Pictogram) => {
-    setSentence(prev => [...prev, picto]);
-  };
+  const showSequence = useCallback(async () => {
+    setGameState('showing');
+    await sleep(700);
+    for (const index of sequence) {
+      setActiveButton(index);
+      playSound(index);
+      await sleep(500);
+      setActiveButton(null);
+      await sleep(200);
+    }
+    setGameState('playing');
+  }, [sequence, playSound]);
 
-  const handleSpeak = () => {
-    if (speechSynthesis && sentence.length > 0) {
-      const textToSpeak = sentence.map(p => t(p.labelKey)).join(' ');
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.lang = 'es-ES';
-      speechSynthesis.speak(utterance);
+  const nextLevel = useCallback(() => {
+    const nextIndex = Math.floor(Math.random() * gamePictograms.length);
+    setPlayerSequence([]);
+    setSequence(prev => [...prev, nextIndex]);
+  }, [gamePictograms.length]);
+
+  const startGame = () => {
+    setSequence([]);
+    setPlayerSequence([]);
+    setScore(0);
+    setGameState('showing');
+    const firstIndex = Math.floor(Math.random() * gamePictograms.length);
+    setSequence([firstIndex]);
+  };
+  
+  const handlePlayerClick = (index: number) => {
+    if (gameState !== 'playing') return;
+
+    playSound(index);
+    const newPlayerSequence = [...playerSequence, index];
+    setPlayerSequence(newPlayerSequence);
+
+    if (newPlayerSequence[newPlayerSequence.length - 1] !== sequence[newPlayerSequence.length - 1]) {
+      setGameState('gameover');
+      return;
+    }
+
+    if (newPlayerSequence.length === sequence.length) {
+      setScore(prev => prev + 1);
+      setTimeout(() => {
+        nextLevel();
+      }, 1000);
     }
   };
 
-  const handleClear = () => {
-    setSentence([]);
-  };
-  
-  const handleRemoveItem = (indexToRemove: number) => {
-    setSentence(prev => prev.filter((_, index) => index !== indexToRemove));
-  };
-  
-  const handlePictoKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, picto: Pictogram) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      handlePictoClick(picto);
+  useEffect(() => {
+    if (gameState === 'showing' && sequence.length > 0) {
+      showSequence();
     }
-  };
+  }, [sequence, gameState, showSequence]);
 
   return (
-    <div className="space-y-6">
-      <Card className="min-h-[160px]">
-        <CardHeader>
-          <CardTitle className="text-lg">{t('inclusive_games.communicator.sentence_strip_title')}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-4 flex-wrap">
-            {sentence.map((picto, index) => (
-              <button 
-                key={`${picto.id}-${index}`} 
-                onClick={() => handleRemoveItem(index)}
-                aria-label={`${t('inclusive_games.communicator.remove_pictogram')}: ${t(picto.labelKey)}`}
-                className="relative flex flex-col items-center gap-2 p-3 rounded-lg bg-secondary text-secondary-foreground transition-transform hover:scale-105 group">
-                {picto.icon}
-                <span className="text-sm">{t(picto.labelKey)}</span>
-                <div className="absolute -top-2 -right-2 bg-background rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                    <XCircle className="h-6 w-6 text-destructive" />
-                </div>
+    <div className="space-y-6 flex flex-col items-center">
+      <Card className="w-full max-w-2xl text-center">
+        <CardContent className="p-6">
+          <div className="flex justify-around items-center mb-6">
+            <div className="text-xl font-bold">{t('simon_game.level')}: {sequence.length}</div>
+            <div className="text-xl font-bold">{t('simon_game.score')}: {score}</div>
+          </div>
+          <div className="grid grid-cols-4 gap-4 aspect-square">
+            {gamePictograms.map((picto, index) => (
+              <button
+                key={picto.id}
+                onClick={() => handlePlayerClick(index)}
+                disabled={gameState !== 'playing'}
+                aria-label={t(picto.labelKey)}
+                className={cn(
+                  'rounded-lg flex items-center justify-center text-white transition-all duration-200 transform disabled:cursor-not-allowed disabled:opacity-60',
+                  GAME_COLORS[index % GAME_COLORS.length],
+                  activeButton === index ? 'scale-110 brightness-125' : 'scale-100',
+                  'hover:scale-105 active:scale-95'
+                )}
+              >
+                <div className="transform scale-75 md:scale-100">{picto.icon}</div>
               </button>
             ))}
-            {sentence.length === 0 && (
-                <p className="text-muted-foreground">{t('inclusive_games.communicator.sentence_strip_placeholder')}</p>
-            )}
           </div>
         </CardContent>
       </Card>
-      
-      <div className="flex gap-4">
-        <Button onClick={handleSpeak} disabled={sentence.length === 0}>
-          <Volume2 className="mr-2 h-4 w-4" />
-          {t('inclusive_games.communicator.speak_button')}
+
+      {gameState === 'idle' && (
+        <Button onClick={startGame} size="lg">
+          <Play className="mr-2 h-5 w-5" />
+          {t('simon_game.start_button')}
         </Button>
-        <Button onClick={handleClear} variant="outline" disabled={sentence.length === 0}>
-          <XCircle className="mr-2 h-4 w-4" />
-          {t('inclusive_games.communicator.clear_button')}
-        </Button>
-      </div>
+      )}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {availablePictograms.map((picto) => (
-          <Card 
-            key={picto.id} 
-            role="button"
-            tabIndex={0}
-            onClick={() => handlePictoClick(picto)}
-            onKeyDown={(e) => handlePictoKeyDown(e, picto)}
-            aria-label={`${t('inclusive_games.communicator.add_pictogram')}: ${t(picto.labelKey)}`}
-            className="flex flex-col items-center justify-center p-6 text-center cursor-pointer transition-all hover:ring-2 hover:ring-primary hover:shadow-lg active:scale-95"
-          >
-            {picto.icon}
-            <p className="mt-2 font-medium">{t(picto.labelKey)}</p>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
-export default function InclusiveGamesPage() {
-  return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('inclusive_games.title')}</h1>
-        <p className="text-muted-foreground">{t('inclusive_games.subtitle')}</p>
-      </div>
-      
-      <Tabs defaultValue="communicator" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="communicator">{t('inclusive_games.tabs.communicator')}</TabsTrigger>
-          <TabsTrigger value="planner">{t('inclusive_games.tabs.planner')}</TabsTrigger>
-        </TabsList>
-        <TabsContent value="communicator">
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold">{t('inclusive_games.communicator.title')}</h2>
-            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.communicator.subtitle')}</p>
-            <VisualCommunicator />
-          </div>
-        </TabsContent>
-        <TabsContent value="planner">
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold">{t('inclusive_games.planner.title')}</h2>
-            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.planner.subtitle')}</p>
-            <VisualRoutinePlanner pictograms={availablePictograms} t={t} />
-          </div>
-        </TabsContent>
-      </Tabs>
+      {gameState === 'gameover' && (
+        <div className="text-center space-y-4">
+            <p className="text-2xl font-bold text-destructive">{t('simon_game.game_over')}</p>
+            <Button onClick={startGame} size="lg">
+              <RotateCw className="mr-2 h-5 w-5" />
+              {t('simon_game.play_again')}
+            </Button>
+        </div>
+      )}
     </div>
   );
 }
