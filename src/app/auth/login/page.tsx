@@ -65,6 +65,8 @@ export default function LoginPage() {
         form.setError("email", { type: "manual", message: " " });
         form.setError("password", { type: "manual", message: " " });
         setTimeout(() => setFocus('email'), 0);
+      } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
+        errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
       }
       toast({
         variant: 'destructive',
