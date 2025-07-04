@@ -15,7 +15,7 @@ const SpotifyIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export default function Footer() {
   const logoUrl = "https://placehold.co/120x120.png";
   const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite";
-  const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=36cb695127734fd5";
+  const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=c7fb8f473f324663";
 
   return (
     <footer className="w-full">
