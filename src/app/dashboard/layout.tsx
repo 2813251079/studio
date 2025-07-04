@@ -14,7 +14,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuGroup,
 } from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit, Smile } from 'lucide-react';
 import { translations } from '@/lib/translations';
@@ -126,6 +126,9 @@ function DashboardHeader() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right">
+                  <SheetHeader>
+                    <SheetTitle className="sr-only">Menú de Navegación</SheetTitle>
+                  </SheetHeader>
                   <nav className="flex flex-col gap-4 pt-10">
                      <Link href="/dashboard" className="font-bold text-lg mb-4" onClick={() => setMobileMenuOpen(false)}>Open Music Academy</Link>
                      {features.map((feature) => (

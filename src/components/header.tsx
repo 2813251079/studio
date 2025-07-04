@@ -9,6 +9,8 @@ import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 import SpotifyIcon from "@/components/spotify-icon";
@@ -62,6 +64,9 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Menú Principal</SheetTitle>
+              </SheetHeader>
               <nav className="flex flex-col gap-6 pt-10">
                 <Button asChild>
                   <Link href="/auth/login" onClick={() => setOpen(false)}>{t('landing.header.login')}</Link>
