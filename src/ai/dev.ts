@@ -1,4 +1,4 @@
 import { config } from 'dotenv';
 config();
 
-import '@/ai/flows/audio-enhancer.ts';
+import '@/ai/flows/workspace-harmonizer.ts';

@@ -1,59 +1,88 @@
 'use server';
 
 /**
- * @fileOverview An AI-powered tool that "enhances" audio by describing how it would add healing frequencies.
+ * @fileOverview An AI-powered tool to harmonize a user's workspace or mental state by generating a descriptive soundscape and a visual representation.
  * 
- * - audioEnhancer - A function that handles the audio enhancement process.
- * - AudioEnhancerInput - The input type for the audioEnhancer function.
- * - AudioEnhancerOutput - The return type for the audioEnhancer function.
+ * - workspaceHarmonizer - A function that handles the workspace harmonization process.
+ * - WorkspaceHarmonizerInput - The input type for the workspaceHarmonizer function.
+ * - WorkspaceHarmonizerOutput - The return type for the workspaceHarmonizer function.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-const AudioEnhancerInputSchema = z.object({
-  audioDataUri: z
-    .string()
-    .describe(
-      "A placeholder for the audio file as a data URI. The content is not used, only its presence."
-    ),
-  targetFrequency: z.string().describe("The healing frequency to apply, e.g., '528hz'."),
+const WorkspaceHarmonizerInputSchema = z.object({
+  intention: z.string().describe("The user's desired state or goal (e.g., Focus, Relaxation, Creativity)."),
+  description: z.string().describe("A description of the user's current environment or mental state."),
 });
-export type AudioEnhancerInput = z.infer<typeof AudioEnhancerInputSchema>;
+export type WorkspaceHarmonizerInput = z.infer<typeof WorkspaceHarmonizerInputSchema>;
 
-const AudioEnhancerOutputSchema = z.object({
-  enhancementDetails: z.string().describe("A detailed description of how the audio was 'enhanced' by the AI."),
-  processedAudioUri: z.string().describe("A placeholder for the processed audio data URI."),
+const WorkspaceHarmonizerOutputSchema = z.object({
+  analysis: z.object({
+    keyElements: z.string().describe("Key disharmonious elements identified from the user's description."),
+    strategy: z.string().describe("The proposed harmonization strategy, describing the soundscape to be created."),
+    resonance: z.string().describe("The expected emotional and mental resonance of the harmonized space."),
+  }),
+  imageUrl: z.string().describe("A data URI of a generated image representing the harmonized soundscape."),
 });
-export type AudioEnhancerOutput = z.infer<typeof AudioEnhancerOutputSchema>;
+export type WorkspaceHarmonizerOutput = z.infer<typeof WorkspaceHarmonizerOutputSchema>;
 
-export async function audioEnhancer(input: AudioEnhancerInput): Promise<AudioEnhancerOutput> {
-  return audioEnhancerFlow(input);
+
+export async function workspaceHarmonizer(input: WorkspaceHarmonizerInput): Promise<WorkspaceHarmonizerOutput> {
+  return workspaceHarmonizerFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'audioEnhancerPrompt',
-  input: { schema: AudioEnhancerInputSchema },
-  output: { schema: AudioEnhancerOutputSchema },
-  prompt: `Eres un ingeniero de sonido experto en sonoterapia y frecuencias curativas. Has recibido un archivo de audio y una frecuencia objetivo.
+const analysisPrompt = ai.definePrompt({
+    name: 'workspaceAnalysisPrompt',
+    input: { schema: WorkspaceHarmonizerInputSchema },
+    output: { schema: WorkspaceHarmonizerOutputSchema.shape.analysis },
+    prompt: `Eres un experto en sonoterapia y diseño de ambientes acústicos para el bienestar. Analiza el estado actual del usuario y su intención para proponer un paisaje sonoro armonizador.
 
-Tu tarea es describir, de manera poética y técnica, cómo has mejorado el audio. No realices la mejora, solo descríbela.
+    **Intención del Usuario:** {{{intention}}}
+    **Descripción del Estado Actual:** {{{description}}}
 
-Frecuencia objetivo: {{{targetFrequency}}}
-
-Describe cómo has tejido sutilmente esta frecuencia en el audio original, qué efectos psicoacústicos podría tener y qué capas armónicas has añadido para crear una experiencia auditiva profundamente sanadora y envolvente. Sé creativo y evocador en tu descripción.
-
-Al final de tu respuesta, en el campo 'processedAudioUri', simplemente devuelve la cadena 'placeholder_uri' ya que este es un ejercicio descriptivo.`,
+    Basado en esta información, genera el siguiente análisis:
+    1.  **Elementos Clave de Disonancia:** Identifica los principales puntos de estrés, distracción o desequilibrio en la descripción del usuario.
+    2.  **Estrategia de Armonización Propuesta:** Describe de forma evocadora el paisaje sonoro que crearías. Menciona tipos de sonidos (ej. tonos binaurales, sonidos de la naturaleza, frecuencias Solfeggio específicas), su tempo, y cómo contrarrestarán la disonancia.
+    3.  **Resonancia Emocional Esperada:** Explica el estado mental y emocional que el usuario puede esperar alcanzar con este paisaje sonoro (ej. calma profunda, concentración láser, flujo creativo).
+    
+    Sé técnico pero también poético en tus descripciones. El objetivo es que el usuario sienta el cambio antes de escucharlo.`,
 });
 
-const audioEnhancerFlow = ai.defineFlow(
+const imageGenerationFlow = ai.defineFlow(
   {
-    name: 'audioEnhancerFlow',
-    inputSchema: AudioEnhancerInputSchema,
-    outputSchema: AudioEnhancerOutputSchema,
+    name: 'workspaceImageGenerationFlow',
+    inputSchema: z.string(),
+    outputSchema: z.string(),
+  },
+  async (prompt) => {
+    const { media } = await ai.generate({
+      model: 'googleai/gemini-2.0-flash-preview-image-generation',
+      prompt: `Genera una imagen abstracta y serena que represente visualmente el siguiente concepto: ${prompt}. Utiliza colores suaves, formas fluidas y una atmósfera etérea. Evita texto o figuras humanas.`,
+      config: {
+        responseModalities: ['TEXT', 'IMAGE'],
+      },
+    });
+    return media!.url;
+  }
+);
+
+const workspaceHarmonizerFlow = ai.defineFlow(
+  {
+    name: 'workspaceHarmonizerFlow',
+    inputSchema: WorkspaceHarmonizerInputSchema,
+    outputSchema: WorkspaceHarmonizerOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
-    return output!;
+    const { output: analysis } = await analysisPrompt(input);
+    
+    const imagePrompt = `Un paisaje sonoro para ${input.intention} que transforma un estado de '${input.description}' en un ambiente de '${analysis!.resonance}' usando ${analysis!.strategy}.`;
+
+    const imageUrl = await imageGenerationFlow(imagePrompt);
+
+    return {
+      analysis: analysis!,
+      imageUrl,
+    };
   }
 );

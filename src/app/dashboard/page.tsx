@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Waves, Music } from "lucide-react";
+import { ArrowRight, Waves, Wind } from "lucide-react";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -33,10 +33,10 @@ export default function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Music className="h-6 w-6 text-accent" />
-              {t('dashboard.sidebar.audio_enhancer')}
+              <Wind className="h-6 w-6 text-accent" />
+              {t('dashboard.sidebar.workspace_harmonizer')}
             </CardTitle>
-            <CardDescription>{t('audio_enhancer.subtitle')}</CardDescription>
+            <CardDescription>{t('workspace_harmonizer.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent>
             <Button asChild>

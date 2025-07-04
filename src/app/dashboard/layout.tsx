@@ -15,7 +15,7 @@ import {
 import {
   Home,
   Waves,
-  Music,
+  Wind,
   Video,
   UserCircle,
   LogOut,
@@ -46,8 +46,8 @@ export default function DashboardLayout({
     },
     {
       href: '/dashboard/audio-enhancer',
-      label: t('dashboard.sidebar.audio_enhancer'),
-      icon: <Music />,
+      label: t('dashboard.sidebar.workspace_harmonizer'),
+      icon: <Wind />,
     },
     {
       href: '/dashboard/video-harmonizer',

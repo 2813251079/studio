@@ -5,7 +5,7 @@ import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { translations } from "@/lib/translations";
-import { ArrowRight, Waves, Music, Video } from "lucide-react";
+import { ArrowRight, Waves, Wind, Video } from "lucide-react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -17,9 +17,9 @@ export default function Home() {
       description: t('landing.features.frequency_library.description'),
     },
     {
-      icon: <Music className="h-8 w-8 text-primary" />,
-      title: t('landing.features.audio_enhancer.title'),
-      description: t('landing.features.audio_enhancer.description'),
+      icon: <Wind className="h-8 w-8 text-primary" />,
+      title: t('landing.features.workspace_harmonizer.title'),
+      description: t('landing.features.workspace_harmonizer.description'),
     },
     {
       icon: <Video className="h-8 w-8 text-primary" />,
