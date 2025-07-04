@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState, useEffect, useCallback, ReactNode } from 'react';
+import { useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -27,10 +28,23 @@ export default function SimonGame() {
   const [activeButton, setActiveButton] = useState<number | null>(null);
   const [gameState, setGameState] = useState<'idle' | 'showing' | 'playing' | 'gameover'>('idle');
   const [score, setScore] = useState(0);
+  const audioContextRef = useRef<AudioContext | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    return () => {
+        if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+            audioContextRef.current.close();
+        }
+    };
+  }, []);
 
   const playSound = useCallback((freq: number) => {
-    if (typeof window === 'undefined') return;
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const audioContext = audioContextRef.current;
+    if (!audioContext) return;
+    
     if (audioContext.state === 'suspended') {
       audioContext.resume();
     }

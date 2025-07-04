@@ -2,10 +2,10 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed, Angry, Home, School, Bath, HelpCircle, Ban, Shirt, Sparkles } from 'lucide-react';
+import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed, Angry, Home, School, Bath, HelpCircle, Ban, Shirt, Sparkles, CheckSquare, Square, Undo2 } from 'lucide-react';
 import { translations } from "@/lib/translations";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VisualRoutinePlanner from '@/components/visual-routine-planner';
@@ -43,37 +43,51 @@ const availablePictograms: Pictogram[] = [
 
 function VisualCommunicator() {
   const [sentence, setSentence] = useState<Pictogram[]>([]);
-  const [speechSynthesis, setSpeechSynthesis] = useState<SpeechSynthesis | null>(null);
+  const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setSpeechSynthesis(window.speechSynthesis);
+      speechSynthesisRef.current = window.speechSynthesis;
     }
+    return () => {
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close();
+      }
+    };
   }, []);
 
-  const playClickSound = () => {
-    if (typeof window !== 'undefined') {
-        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-        if (audioContext.state === 'suspended') {
-            audioContext.resume();
-        }
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        oscillator.type = 'sine';
-        oscillator.frequency.value = 600;
-        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
-        oscillator.start(audioContext.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.1);
-        oscillator.stop(audioContext.currentTime + 0.1);
+  const getAudioContext = () => {
+    if (typeof window === 'undefined') return null;
+    if (!audioContextRef.current || audioContextRef.current.state === 'closed') {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
+    return audioContextRef.current;
+  };
+
+  const playClickSound = () => {
+    const audioContext = getAudioContext();
+    if (!audioContext) return;
+
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    oscillator.type = 'sine';
+    oscillator.frequency.value = 600;
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+    oscillator.start(audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.1);
+    oscillator.stop(audioContext.currentTime + 0.1);
   };
 
   const triggerHapticFeedback = () => {
     if (typeof window !== 'undefined' && window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate(50);
+      window.navigator.vibrate(50);
     }
   };
 
@@ -84,10 +98,12 @@ function VisualCommunicator() {
   };
 
   const handleSpeak = () => {
+    const speechSynthesis = speechSynthesisRef.current;
     if (speechSynthesis && sentence.length > 0) {
       const textToSpeak = sentence.map(p => t(p.labelKey)).join(' ');
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
       utterance.lang = 'es-ES';
+      speechSynthesis.cancel(); // Cancel any previous speech
       speechSynthesis.speak(utterance);
     }
   };
