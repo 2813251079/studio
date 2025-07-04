@@ -1,7 +1,7 @@
 'use client';
 
-import { useActionState, useRef, useEffect, type ReactNode } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useRef, useEffect, type ReactNode } from 'react';
+import { useFormStatus, useFormState } from 'react-dom';
 import { Bot, User, Send, Loader2 } from 'lucide-react';
 import { getCompanionResponse } from '@/app/actions';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -30,7 +30,7 @@ function SubmitButton() {
 }
 
 export default function EmotionalCompanion() {
-  const [state, formAction] = useActionState(getCompanionResponse, initialState);
+  const [state, formAction] = useFormState(getCompanionResponse, initialState);
   const formRef = useRef<HTMLFormElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { pending } = useFormStatus();

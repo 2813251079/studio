@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { useActionState } from 'react-dom';
+import { useFormState } from 'react-dom';
 import Link from 'next/link';
 import { getFacialAnalysis } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
@@ -20,7 +20,7 @@ const initialState = {
 };
 
 export default function FacialWellnessPage() {
-  const [state, formAction] = useActionState(getFacialAnalysis, initialState);
+  const [state, formAction] = useFormState(getFacialAnalysis, initialState);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);

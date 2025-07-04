@@ -1,6 +1,7 @@
 'use client';
 
-import { useActionState, useRef, useEffect, useTransition } from 'react';
+import { useRef, useEffect, useTransition } from 'react';
+import { useFormState } from 'react-dom';
 import { getKnowledgeInfo } from '@/app/actions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -28,7 +29,7 @@ function SubmitButton({ pending }: { pending: boolean }) {
 }
 
 export default function EducationPage() {
-  const [state, formAction] = useActionState(getKnowledgeInfo, initialState);
+  const [state, formAction] = useFormState(getKnowledgeInfo, initialState);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);

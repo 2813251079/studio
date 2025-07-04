@@ -1,7 +1,7 @@
 'use client';
 
-import { useActionState, useEffect, useRef } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useEffect, useRef } from 'react';
+import { useFormState, useFormStatus } from 'react-dom';
 import Image from 'next/image';
 import { getHarmonizedWorkspace } from '@/app/actions';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -43,7 +43,7 @@ function SubmitButton() {
 }
 
 export default function WorkspaceHarmonizerForm() {
-  const [state, formAction] = useActionState(getHarmonizedWorkspace, initialState);
+  const [state, formAction] = useFormState(getHarmonizedWorkspace, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   
