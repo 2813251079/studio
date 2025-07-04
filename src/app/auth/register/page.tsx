@@ -5,8 +5,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, firebaseEnabled } from "@/lib/firebase";
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,9 +12,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { translations } from "@/lib/translations";
-import { Loader2, AlertTriangle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { useAuth } from "@/hooks/use-auth";
+
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -31,6 +30,7 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 export default function RegisterPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { login } = useAuth();
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -43,38 +43,20 @@ export default function RegisterPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: RegisterFormValues) => {
-    if (!firebaseEnabled || !auth) {
-        toast({
-            variant: "destructive",
-            title: "Configuración Incompleta",
-            description: "El registro está deshabilitado. Por favor, configura Firebase en el archivo .env.",
-        });
-        return;
-    }
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
-      if (userCredential.user) {
-        await updateProfile(userCredential.user, {
-          displayName: values.name,
-        });
-      }
-      toast({
-        title: "¡Cuenta creada!",
-        description: "Tu cuenta ha sido creada exitosamente.",
-      });
-      router.push('/dashboard');
-    } catch (error: any) {
-      console.error("Registration error:", error);
-      let errorMessage = "Ha ocurrido un error al registrar la cuenta. Por favor, inténtalo de nuevo.";
-      if (error.code === 'auth/email-already-in-use') {
-        errorMessage = "Este correo electrónico ya está registrado.";
-      }
-      toast({
-        variant: "destructive",
-        title: "Error de registro",
-        description: errorMessage,
-      });
-    }
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Mock register logic
+    login({
+        email: values.email,
+        displayName: values.name,
+    });
+    
+    toast({
+      title: "¡Cuenta creada!",
+      description: "Tu cuenta ha sido creada exitosamente.",
+    });
+    router.push('/dashboard');
   };
 
   return (
@@ -88,18 +70,8 @@ export default function RegisterPage() {
           <CardDescription className="text-center">{t('register.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-          {!firebaseEnabled && (
-            <Alert variant="destructive" className="mb-4">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertTitle>Configuración Requerida</AlertTitle>
-              <AlertDescription>
-                El registro está deshabilitado. Añade tus credenciales de Firebase en el archivo .env para activarlo.
-              </AlertDescription>
-            </Alert>
-          )}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
-              <fieldset disabled={!firebaseEnabled || isSubmitting} className="grid gap-4">
                 <FormField
                   control={form.control}
                   name="name"
@@ -139,8 +111,7 @@ export default function RegisterPage() {
                     </FormItem>
                   )}
                 />
-              </fieldset>
-              <Button type="submit" className="w-full" disabled={!firebaseEnabled || isSubmitting}>
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? <Loader2 className="animate-spin" /> : t('register.button')}
               </Button>
             </form>

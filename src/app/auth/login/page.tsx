@@ -5,8 +5,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, firebaseEnabled } from "@/lib/firebase";
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,15 +12,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { translations } from "@/lib/translations";
-import { Loader2, AlertTriangle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { useAuth } from "@/hooks/use-auth";
 
 const t = (key: any) => translations.es[key as any] || key;
 
 const loginSchema = z.object({
   email: z.string().email("Por favor, introduce un correo electrónico válido."),
-  password: z.string().min(1, "La contraseña no puede estar vacía."),
+  password: z.string().min(1, "La contraseña no puede estar vacía."), // Kept for UI consistency
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -30,6 +28,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { login } = useAuth();
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -41,33 +40,24 @@ export default function LoginPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: LoginFormValues) => {
-    if (!firebaseEnabled || !auth) {
-        toast({
-            variant: "destructive",
-            title: "Configuración Incompleta",
-            description: "La autenticación está deshabilitada. Por favor, configura Firebase en el archivo .env.",
-        });
-        return;
-    }
-    try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
-      toast({
-        title: "¡Bienvenido de nuevo!",
-        description: "Has iniciado sesión correctamente.",
-      });
-      router.push('/dashboard');
-    } catch (error: any) {
-      console.error("Login error:", error);
-      let errorMessage = "Ha ocurrido un error al iniciar sesión. Por favor, inténtalo de nuevo.";
-      if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        errorMessage = "El correo o la contraseña son incorrectos.";
-      }
-      toast({
-        variant: "destructive",
-        title: "Error de inicio de sesión",
-        description: errorMessage,
-      });
-    }
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Mock login logic
+    const userName = values.email.split('@')[0];
+    login({
+        email: values.email,
+        displayName: userName,
+    });
+    
+    toast({
+      title: "¡Bienvenido de nuevo!",
+      description: "Has iniciado sesión correctamente.",
+    });
+
+    const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+    sessionStorage.removeItem('redirectAfterLogin');
+    router.push(redirectUrl);
   };
 
   return (
@@ -81,18 +71,8 @@ export default function LoginPage() {
           <CardDescription className="text-center">{t('login.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-           {!firebaseEnabled && (
-            <Alert variant="destructive" className="mb-4">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertTitle>Configuración Requerida</AlertTitle>
-              <AlertDescription>
-                La autenticación está deshabilitada. Añade tus credenciales de Firebase en el archivo .env para activarla.
-              </AlertDescription>
-            </Alert>
-          )}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
-              <fieldset disabled={!firebaseEnabled || isSubmitting} className="grid gap-4">
                 <FormField
                   control={form.control}
                   name="email"
@@ -119,8 +99,7 @@ export default function LoginPage() {
                     </FormItem>
                   )}
                 />
-              </fieldset>
-              <Button type="submit" className="w-full" disabled={!firebaseEnabled || isSubmitting}>
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? <Loader2 className="animate-spin" /> : t('login.button')}
               </Button>
             </form>

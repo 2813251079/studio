@@ -23,9 +23,7 @@ import SpotifyIcon from '@/components/spotify-icon';
 import InstagramIcon from '@/components/instagram-icon';
 import YoutubeIcon from '@/components/youtube-icon';
 import VoiceCommander from '@/components/voice-commander';
-import { useRequireAuth } from '@/hooks/use-auth';
-import { auth, firebaseEnabled } from '@/lib/firebase';
-import { signOut } from 'firebase/auth';
+import { useRequireAuth, useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -52,32 +50,15 @@ function DashboardHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
-  const { user } = useRequireAuth();
+  const { user, logout } = useAuth();
 
   const handleLogout = async () => {
-    if (!firebaseEnabled || !auth) {
-        toast({
-            variant: "destructive",
-            title: "Funcionalidad deshabilitada",
-            description: "La autenticación de Firebase no está configurada.",
-        });
-        return;
-    }
-    try {
-      await signOut(auth);
-      toast({
-        title: "Sesión cerrada",
-        description: "Has cerrado sesión correctamente.",
-      });
-      router.push('/');
-    } catch (error) {
-      console.error("Logout error:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "No se pudo cerrar la sesión. Por favor, inténtalo de nuevo.",
-      });
-    }
+    logout();
+    toast({
+      title: "Sesión cerrada",
+      description: "Has cerrado sesión correctamente.",
+    });
+    router.push('/');
   };
 
   const getAvatarFallback = () => {
@@ -137,7 +118,7 @@ function DashboardHeader() {
             <VoiceCommander />
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full" disabled={!firebaseEnabled}>
+                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                         <Avatar className="h-10 w-10">
                             <AvatarImage src={user?.photoURL || ''} alt={user?.displayName || 'Usuario'} data-ai-hint="person avatar" />
                             <AvatarFallback>{getAvatarFallback()}</AvatarFallback>
@@ -147,14 +128,14 @@ function DashboardHeader() {
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>{user?.displayName || user?.email || "Invitado"}</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild disabled={!firebaseEnabled}>
+                    <DropdownMenuItem asChild>
                         <Link href="#" className="flex items-center gap-2">
                             <UserCircle className="mr-2 h-4 w-4" />
                             <span>{t('dashboard.sidebar.account')}</span>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer" disabled={!firebaseEnabled}>
+                    <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 cursor-pointer">
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>{t('dashboard.sidebar.logout')}</span>
                     </DropdownMenuItem>
@@ -213,14 +194,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, loading } = useRequireAuth();
-
-  if (loading && firebaseEnabled) {
-    // The loading screen is handled by the AuthProvider,
-    // and the redirect is handled by the useRequireAuth hook.
-    // So we can just return null here, but only if firebase is enabled.
-    return null;
-  }
+  useRequireAuth();
 
   return (
     <div className="flex flex-col min-h-screen bg-background">

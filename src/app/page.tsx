@@ -83,7 +83,7 @@ export default function Home() {
             </div>
              <div className="flex flex-wrap items-center justify-start gap-12">
                 {features.slice(0, -1).map((feature) => ( // Show all but last one
-                    <Link key={feature.href} href="/auth/login" className="group">
+                    <Link key={feature.href} href={feature.href} className="group">
                         <div className="flex h-72 w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
                            <div className="mb-4 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
                              {feature.icon}

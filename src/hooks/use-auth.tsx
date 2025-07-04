@@ -1,14 +1,21 @@
 'use client';
 
-import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth, firebaseEnabled } from '@/lib/firebase';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, createContext, useContext, ReactNode, useCallback } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
+
+// A mock user type. In a real app, this would be more complex.
+type User = {
+  displayName: string | null;
+  email: string | null;
+  photoURL?: string;
+};
 
 type AuthContextType = {
   user: User | null;
   loading: boolean;
+  login: (user: User) => void;
+  logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,22 +24,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Check for a mock user in localStorage on initial load
   useEffect(() => {
-    if (firebaseEnabled && auth) {
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        setUser(user);
-        setLoading(false);
-      });
-      return () => unsubscribe();
-    } else {
-      // If Firebase is not configured, we are not loading and there is no user.
-      setLoading(false);
-      setUser(null);
+    try {
+        const storedUser = localStorage.getItem('mockUser');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    } catch (error) {
+        console.error("Could not parse mock user from localStorage", error);
+        localStorage.removeItem('mockUser');
     }
+    setLoading(false);
+  }, []);
+
+  const login = useCallback((userData: User) => {
+    localStorage.setItem('mockUser', JSON.stringify(userData));
+    setUser(userData);
+  }, []);
+
+  const logout = useCallback(() => {
+    localStorage.removeItem('mockUser');
+    setUser(null);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
       {loading ? (
         <div className="flex items-center justify-center min-h-screen">
           <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -55,13 +72,18 @@ export function useAuth() {
 export function useRequireAuth(redirectUrl = '/auth/login') {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    // Only redirect if firebase is enabled.
-    if (firebaseEnabled && !loading && !user) {
-      router.push(redirectUrl);
+    // If loading is finished and there is no user, redirect.
+    if (!loading && !user) {
+        // We can store the attempted path to redirect back after login.
+        if (pathname !== redirectUrl) {
+            sessionStorage.setItem('redirectAfterLogin', pathname);
+        }
+        router.push(redirectUrl);
     }
-  }, [user, loading, router, redirectUrl]);
+  }, [user, loading, router, redirectUrl, pathname]);
 
   return { user, loading };
 }
