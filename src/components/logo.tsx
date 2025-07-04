@@ -17,7 +17,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </defs>
     
     {/* Guitar Body */}
-    <g transform="translate(60, 82) scale(0.4) translate(-150, -235)">
+    <g transform="translate(60, 82) scale(0.35) translate(-150, -235)">
       <path
         d="M 150 305 C 80 320, 70 260, 105 220 C 120 195, 180 195, 195 220 C 230 260, 220 320, 150 305 Z"
         fill="url(#guitarGradient)"
@@ -56,15 +56,15 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           {/* F-Clef shape */}
           <path
             d="M12,24 C 25,10 25,45 12,45"
-            stroke="hsl(var(--primary))"
+            stroke="hsl(var(--accent))"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="12" cy="24" r="5" fill="hsl(var(--primary))" />
+          <circle cx="12" cy="24" r="5" fill="hsl(var(--accent))" />
           {/* Two dots for the F-clef */}
-          <circle cx="30" cy="20" r="3" fill="hsl(var(--primary))" />
-          <circle cx="30" cy="28" r="3" fill="hsl(var(--primary))" />
+          <circle cx="30" cy="20" r="3" fill="hsl(var(--accent))" />
+          <circle cx="30" cy="28" r="3" fill="hsl(var(--accent))" />
         </g>
     </g>
   </svg>
