@@ -14,14 +14,19 @@ const firebaseConfig = {
 let app: FirebaseApp;
 let auth: Auth;
 
+// A more robust check to ensure config values are not undefined or placeholders
+const isConfigValueValid = (value: string | undefined): value is string => {
+  return value !== undefined && value !== '' && !value.startsWith('<your-');
+};
+
 // Check that all required Firebase config values are present and are not just placeholders.
 const isFirebaseConfigured =
-  firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith('NEXT_PUBLIC_') &&
-  firebaseConfig.authDomain && !firebaseConfig.authDomain.startsWith('NEXT_PUBLIC_') &&
-  firebaseConfig.projectId && !firebaseConfig.projectId.startsWith('NEXT_PUBLIC_') &&
-  firebaseConfig.storageBucket && !firebaseConfig.storageBucket.startsWith('NEXT_PUBLIC_') &&
-  firebaseConfig.messagingSenderId && !firebaseConfig.messagingSenderId.startsWith('NEXT_PUBLIC_') &&
-  firebaseConfig.appId && !firebaseConfig.appId.startsWith('NEXT_PUBLIC_');
+  isConfigValueValid(firebaseConfig.apiKey) &&
+  isConfigValueValid(firebaseConfig.authDomain) &&
+  isConfigValueValid(firebaseConfig.projectId) &&
+  isConfigValueValid(firebaseConfig.storageBucket) &&
+  isConfigValueValid(firebaseConfig.messagingSenderId) &&
+  isConfigValueValid(firebaseConfig.appId);
 
 if (isFirebaseConfigured) {
     try {
