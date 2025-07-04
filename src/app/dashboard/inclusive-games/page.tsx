@@ -1,13 +1,11 @@
 
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, type ReactNode, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed, Angry, Home, School, Bath, HelpCircle, Ban, Shirt, Sparkles, CheckSquare, Square, Undo2 } from 'lucide-react';
 import { translations } from "@/lib/translations";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VisualRoutinePlanner from '@/components/visual-routine-planner';
 import SimonGame from '@/components/simon-game';
 import EmotionalCompanion from '@/components/emotional-companion';
@@ -184,12 +182,6 @@ function VisualCommunicator() {
 
 
 export default function InclusiveGamesPage() {
-  const searchParams = useSearchParams();
-  const tab = searchParams.get('tab');
-  
-  const validTabs = ['communicator', 'planner', 'simon', 'puzzle', 'companion'];
-  const defaultTab = tab && validTabs.includes(tab) ? tab : 'communicator';
-  
   return (
     <div className="space-y-8">
       <div>
@@ -197,50 +189,57 @@ export default function InclusiveGamesPage() {
         <p className="text-muted-foreground">{t('inclusive_games.subtitle')}</p>
       </div>
       
-      <Tabs defaultValue={defaultTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="communicator">{t('inclusive_games.tabs.communicator')}</TabsTrigger>
-          <TabsTrigger value="planner">{t('inclusive_games.tabs.planner')}</TabsTrigger>
-          <TabsTrigger value="simon">{t('inclusive_games.tabs.simon')}</TabsTrigger>
-          <TabsTrigger value="puzzle">{t('inclusive_games.tabs.puzzle')}</TabsTrigger>
-          <TabsTrigger value="companion">{t('inclusive_games.tabs.companion')}</TabsTrigger>
-        </TabsList>
-        <TabsContent value="communicator">
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold">{t('inclusive_games.communicator.title')}</h2>
-            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.communicator.subtitle')}</p>
+      <div className="space-y-12">
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('inclusive_games.communicator.title')}</CardTitle>
+            <CardDescription>{t('inclusive_games.communicator.subtitle')}</CardDescription>
+          </CardHeader>
+          <CardContent>
             <VisualCommunicator />
-          </div>
-        </TabsContent>
-        <TabsContent value="planner">
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold">{t('inclusive_games.planner.title')}</h2>
-            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.planner.subtitle')}</p>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('inclusive_games.planner.title')}</CardTitle>
+            <CardDescription>{t('inclusive_games.planner.subtitle')}</CardDescription>
+          </CardHeader>
+          <CardContent>
             <VisualRoutinePlanner pictograms={availablePictograms} t={t} />
-          </div>
-        </TabsContent>
-        <TabsContent value="simon">
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold">{t('simon_game.title')}</h2>
-            <p className="text-muted-foreground mt-1 mb-4">{t('simon_game.subtitle')}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('simon_game.title')}</CardTitle>
+            <CardDescription>{t('simon_game.subtitle')}</CardDescription>
+          </CardHeader>
+          <CardContent>
             <SimonGame />
-          </div>
-        </TabsContent>
-        <TabsContent value="puzzle">
-          <div className="mt-6">
-            <h2 className="text-xl font-semibold">{t('inclusive_games.puzzle.title')}</h2>
-            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.puzzle.subtitle')}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('inclusive_games.puzzle.title')}</CardTitle>
+            <CardDescription>{t('inclusive_games.puzzle.subtitle')}</CardDescription>
+          </CardHeader>
+          <CardContent>
             <ShapePuzzle />
-          </div>
-        </TabsContent>
-        <TabsContent value="companion">
-           <div className="mt-6">
-            <h2 className="text-xl font-semibold">{t('inclusive_games.companion.page_title')}</h2>
-            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.companion.subtitle')}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('inclusive_games.companion.page_title')}</CardTitle>
+            <CardDescription>{t('inclusive_games.companion.subtitle')}</CardDescription>
+          </CardHeader>
+          <CardContent>
             <EmotionalCompanion />
-          </div>
-        </TabsContent>
-      </Tabs>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
