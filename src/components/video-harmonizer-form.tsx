@@ -91,8 +91,10 @@ export default function VideoHarmonizerForm() {
 
       <div className="space-y-4">
         {useFormStatus().pending && (
-           <Card className="flex h-full flex-col items-center justify-center p-8 text-center animate-pulse">
-                <Loader2 className="h-10 w-10 text-primary animate-spin mb-4" />
+           <Card className="flex h-full flex-col items-center justify-center p-8 text-center">
+                <div className="animate-pulse mb-4">
+                    <Image src="https://placehold.co/128x128.png" width={80} height={80} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
+                </div>
                 <p className="text-muted-foreground text-lg">{t('video_harmonizer.result.loading')}</p>
            </Card>
         )}
