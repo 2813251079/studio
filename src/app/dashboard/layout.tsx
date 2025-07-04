@@ -33,7 +33,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">
-        <Sidebar collapsible="icon" className="border-r border-sidebar-border">
+        <Sidebar collapsible="icon" className="">
           <SidebarHeader>
             <div className="flex items-center gap-2 p-2">
               <Link href="/dashboard" className="flex items-center gap-2">
@@ -44,7 +44,7 @@ export default function DashboardLayout({
           </SidebarHeader>
         </Sidebar>
         <SidebarInset className="bg-background">
-          <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-6">
+          <header className="sticky top-0 z-10 flex h-14 items-center gap-4 bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-6">
             <div className="md:hidden">
               <SidebarTrigger />
             </div>

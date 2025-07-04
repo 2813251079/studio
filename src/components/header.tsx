@@ -10,7 +10,7 @@ const t = (key: any) => translations.es[key as any] || key;
 export default function Header() {
   const logoUrl = "https://placehold.co/128x128.png";
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image src={logoUrl} width={40} height={40} alt={t('app.title')} className="rounded-full" data-ai-hint="logo soundwave" />
