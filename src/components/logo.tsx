@@ -9,18 +9,12 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <defs>
-      <radialGradient id="darkTurquoiseGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-        <stop offset="0%" style={{ stopColor: "hsl(195, 83%, 25%)" }} />
-        <stop offset="100%" style={{ stopColor: "hsl(195, 83%, 15%)" }} />
-      </radialGradient>
       <radialGradient id="guitarGradient" cx="50%" cy="50%" r="50%">
         <stop offset="0%" stopColor="hsl(35, 80%, 55%)" />
         <stop offset="100%" stopColor="hsl(90, 30%, 20%)" />
       </radialGradient>
     </defs>
     
-    <circle cx="60" cy="60" r="60" fill="url(#darkTurquoiseGradient)" />
-
     {/* Guitar Body */}
     <g transform="translate(60, 82) scale(0.4) translate(-150, -235)">
       <path
@@ -31,25 +25,25 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
 
     {/* Guitar Headstock */}
     <g transform="translate(39, 15)">
-        {/* Vertical black neck/headstock */}
-        <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="#1C1C1C" />
-        <rect x="-5" y="40" width="10" height="50" fill="#1C1C1C" />
+        {/* Vertical neck/headstock */}
+        <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="hsl(var(--foreground))" />
+        <rect x="-5" y="40" width="10" height="50" fill="hsl(var(--foreground))" />
         
         {/* Pegs */}
-        <circle cx="-10" cy="10" r="3" fill="#B0B0B0"/>
-        <circle cx="-10" cy="10" r="1" fill="black"/>
-        <circle cx="-10" cy="25" r="3" fill="#B0B0B0"/>
-        <circle cx="-10" cy="25" r="1" fill="black"/>
+        <circle cx="-10" cy="10" r="3" fill="hsl(var(--muted-foreground))"/>
+        <circle cx="-10" cy="10" r="1" fill="hsl(var(--background))"/>
+        <circle cx="-10" cy="25" r="3" fill="hsl(var(--muted-foreground))"/>
+        <circle cx="-10" cy="25" r="1" fill="hsl(var(--background))"/>
         
-        <circle cx="10" cy="10" r="3" fill="#B0B0B0"/>
-        <circle cx="10" cy="10" r="1" fill="black"/>
-        <circle cx="10" cy="25" r="3" fill="#B0B0B0"/>
-        <circle cx="10" cy="25" r="1" fill="black"/>
+        <circle cx="10" cy="10" r="3" fill="hsl(var(--muted-foreground))"/>
+        <circle cx="10" cy="10" r="1" fill="hsl(var(--background))"/>
+        <circle cx="10" cy="25" r="3" fill="hsl(var(--muted-foreground))"/>
+        <circle cx="10" cy="25" r="1" fill="hsl(var(--background))"/>
     </g>
 
     {/* Pentagram and F-Clef */}
     <g transform="translate(39, 53)">
-        <g stroke="hsl(195, 30%, 70%)" strokeWidth="1.5">
+        <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
           <path d="M 0 16 H 55" />
