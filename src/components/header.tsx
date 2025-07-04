@@ -32,15 +32,6 @@ export default function Header() {
           <span className="font-bold text-3xl hidden sm:inline-block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">
-          <Button variant="link" asChild>
-            <Link href="/#features">{t('landing.header.features')}</Link>
-          </Button>
-          <Button variant="link" asChild>
-            <Link href="/education">{t('landing.header.education')}</Link>
-          </Button>
-          <Button variant="link" asChild>
-            <Link href="/pricing">{t('landing.header.pricing')}</Link>
-          </Button>
           <Button variant="ghost" asChild>
             <Link href="/auth/login">{t('landing.header.login')}</Link>
           </Button>
@@ -68,10 +59,6 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent side="right">
               <nav className="flex flex-col gap-6 pt-10">
-                <Link href="/#features" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-primary">{t('landing.header.features')}</Link>
-                <Link href="/education" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-primary">{t('landing.header.education')}</Link>
-                <Link href="/pricing" onClick={() => setOpen(false)} className="text-lg font-medium hover:text-primary">{t('landing.header.pricing')}</Link>
-                <hr className="border-border"/>
                 <Button asChild>
                   <Link href="/auth/login" onClick={() => setOpen(false)}>{t('landing.header.login')}</Link>
                 </Button>

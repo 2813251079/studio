@@ -2,22 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
 import {
   SidebarProvider,
   Sidebar,
   SidebarTrigger,
   SidebarInset,
   SidebarContent,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
 } from '@/components/ui/sidebar';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,10 +17,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut, Home, GraduationCap, ChevronRight } from 'lucide-react';
+import { UserCircle, LogOut } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -40,50 +30,16 @@ export default function DashboardLayout({
 }) {
   const logoUrl = "https://placehold.co/120x120.png";
   const smallLogoUrl = "https://placehold.co/48x48.png";
-  const [isNavOpen, setIsNavOpen] = useState(true);
 
   return (
     <SidebarProvider>
       <div className="flex min-h-screen">
         <Sidebar collapsible="icon" className="">
-          <SidebarContent className="p-0">
-            <Collapsible open={isNavOpen} onOpenChange={setIsNavOpen} className="w-full">
-              <CollapsibleTrigger asChild>
-                <button className="flex items-center justify-between w-full p-2 text-left hover:bg-sidebar-accent group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:h-16">
-                    <div className="flex items-center gap-3">
-                        <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-1 group-data-[collapsible=icon]:hidden" data-ai-hint="logo guitar wave" />
-                        <Image src={smallLogoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full hidden flex-shrink-0 bg-slate-200 p-1 group-data-[collapsible=icon]:block" data-ai-hint="logo guitar wave" />
-
-                        <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
-                            <h1 className="text-xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('app.title')}</h1>
-                        </div>
-                    </div>
-                    <ChevronRight className={cn("h-5 w-5 transition-transform duration-200 group-data-[collapsible=icon]:hidden", isNavOpen && "rotate-90")} />
-                </button>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <div className="group-data-[collapsible=icon]:hidden">
-                  <SidebarMenu className="px-2">
-                    <SidebarMenuItem>
-                      <SidebarMenuButton asChild>
-                        <Link href="/dashboard">
-                          <Home />
-                          <span>{t('dashboard.sidebar.home')}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton asChild>
-                        <Link href="/education">
-                          <GraduationCap />
-                          <span>{t('landing.header.education')}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenu>
-                </div>
-              </CollapsibleContent>
-            </Collapsible>
+          <SidebarContent className="p-0 flex flex-col items-center">
+             <Link href="/dashboard" className="flex items-center justify-center p-2 h-20 group-data-[collapsible=icon]:h-16">
+                <Image src={logoUrl} width={120} height={120} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-1 group-data-[collapsible=icon]:hidden" data-ai-hint="logo guitar wave" />
+                <Image src={smallLogoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full hidden flex-shrink-0 bg-slate-200 p-1 group-data-[collapsible=icon]:block" data-ai-hint="logo guitar wave" />
+             </Link>
           </SidebarContent>
         </Sidebar>
         <SidebarInset className="bg-background">
