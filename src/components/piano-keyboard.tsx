@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { translations } from '@/lib/translations';
 import { cn } from '@/lib/utils';
 import { speakNoteAction } from '@/app/actions';
@@ -111,62 +110,56 @@ export default function PianoKeyboard() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('music_production.piano.title')}</CardTitle>
-        <CardDescription>{t('music_production.piano.description')}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <audio ref={speechAudioRef} className="hidden" />
-        <div className="relative flex h-48 w-full select-none" role="application" aria-label="Piano Keyboard">
-          {notes
-            .filter(note => note.type === 'white')
-            .map((note) => (
+    <div>
+      <audio ref={speechAudioRef} className="hidden" />
+      <div className="relative flex h-56 w-full select-none" role="application" aria-label="Piano Keyboard">
+        {notes
+          .filter(note => note.type === 'white')
+          .map((note) => (
+            <div
+              key={note.name}
+              role="button"
+              aria-label={`Tecla de piano ${note.name}`}
+              onMouseDown={() => handleInteractionStart(note)}
+              onMouseUp={() => handleInteractionEnd(note.freq)}
+              onMouseLeave={() => handleInteractionEnd(note.freq)}
+              onTouchStart={(e) => { e.preventDefault(); handleInteractionStart(note); }}
+              onTouchEnd={() => handleInteractionEnd(note.freq)}
+              className={cn(
+                "relative h-full flex-1 cursor-pointer rounded-b-md bg-white shadow-sm",
+                "flex items-end justify-center pb-4 text-accent font-semibold text-2xl",
+                { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
+              )}
+            >
+              {note.name}
+            </div>
+          ))}
+        {notes
+          .filter(note => note.type === 'black')
+          .map((note, index) => {
+            const leftPositionMap: { [key: number]: string } = { 0: "14.28%", 1: "28.57%", 2: "57.14%", 3: "71.42%", 4: "85.71%" };
+            return (
               <div
                 key={note.name}
                 role="button"
                 aria-label={`Tecla de piano ${note.name}`}
-                onMouseDown={() => handleInteractionStart(note)}
-                onMouseUp={() => handleInteractionEnd(note.freq)}
-                onMouseLeave={() => handleInteractionEnd(note.freq)}
-                onTouchStart={(e) => { e.preventDefault(); handleInteractionStart(note); }}
-                onTouchEnd={() => handleInteractionEnd(note.freq)}
+                onMouseDown={(e) => { e.stopPropagation(); handleInteractionStart(note); }}
+                onMouseUp={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
+                onMouseLeave={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
+                onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); handleInteractionStart(note); }}
+                onTouchEnd={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
+                style={{ left: `calc(${leftPositionMap[index]} - 4%)` }}
                 className={cn(
-                  "relative h-full flex-1 cursor-pointer rounded-b-md border-2 border-primary/20 bg-white",
-                  "flex items-end justify-center pb-4 text-accent font-semibold text-2xl",
+                  "absolute top-0 h-2/3 w-[8%] cursor-pointer bg-neutral-900 rounded-b-md z-10 shadow-md",
+                  "flex items-end justify-center pb-2 text-primary-foreground text-xl font-semibold transition-colors",
                   { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
                 )}
               >
-                {note.name}
+                {note.name.replace('#','')}
               </div>
-            ))}
-          {notes
-            .filter(note => note.type === 'black')
-            .map((note, index) => {
-              const leftPositionMap: { [key: number]: string } = { 0: "14.28%", 1: "28.57%", 2: "57.14%", 3: "71.42%", 4: "85.71%" };
-              return (
-                <div
-                  key={note.name}
-                  role="button"
-                  aria-label={`Tecla de piano ${note.name}`}
-                  onMouseDown={(e) => { e.stopPropagation(); handleInteractionStart(note); }}
-                  onMouseUp={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
-                  onMouseLeave={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
-                  onTouchStart={(e) => { e.preventDefault(); e.stopPropagation(); handleInteractionStart(note); }}
-                  onTouchEnd={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
-                  style={{ left: `calc(${leftPositionMap[index]} - 4%)` }}
-                  className={cn(
-                    "absolute top-0 h-2/3 w-[8%] cursor-pointer bg-neutral-800 rounded-b-md z-10 border-2 border-primary/20",
-                    "flex items-end justify-center pb-2 text-primary-foreground text-xl font-semibold transition-colors",
-                    { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
-                  )}
-                >
-                  {note.name.replace('#','')}
-                </div>
-              )
-            })}
-        </div>
-      </CardContent>
-    </Card>
+            )
+          })}
+      </div>
+    </div>
   );
 }

@@ -26,12 +26,12 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1">
-        <section className="container py-20 md:py-32 text-center">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+        <section className="container flex items-center justify-center text-center min-h-[calc(100vh-3.5rem)] py-20 md:py-32">
+          <div className="max-w-5xl mx-auto">
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               {t('landing.hero.title_new')}
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10">
               {t('landing.hero.subtitle_new')}
             </p>
             <div className="flex justify-center gap-4">
@@ -44,15 +44,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="features" className="container py-20 md:py-24">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
-                <p className="mt-4 text-muted-foreground">{t('landing.tools.subtitle')}</p>
+        <section id="features" className="container py-20 md:py-32">
+            <div className="text-center max-w-3xl mx-auto mb-20">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
+                <p className="mt-4 text-lg text-muted-foreground">{t('landing.tools.subtitle')}</p>
             </div>
             <div className="flex justify-center">
                 <div className="flex flex-col items-center text-center group">
                     <Link href={startFeature.href}>
-                    <div className="relative w-40 h-40 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-primary/20 cursor-pointer overflow-hidden border-2 border-primary/20">
+                    <div className="relative w-48 h-48 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-primary/20 cursor-pointer overflow-hidden border-primary/20">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-70 group-hover:opacity-90 transition-opacity"></div>
                         <div className="absolute -top-4 -left-8 w-32 h-32 bg-white/20 rounded-full filter blur-xl opacity-50"></div>
                         <div className="absolute -bottom-4 -right-8 w-32 h-32 bg-white/20 rounded-full filter blur-xl opacity-50"></div>
@@ -61,32 +61,32 @@ export default function Home() {
                         </div>
                     </div>
                     </Link>
-                    <h3 className="mt-6 text-xl font-bold">{startFeature.title}</h3>
-                    <p className="mt-2 text-muted-foreground">{startFeature.description}</p>
+                    <h3 className="mt-8 text-2xl font-bold">{startFeature.title}</h3>
+                    <p className="mt-2 text-base text-muted-foreground">{startFeature.description}</p>
                 </div>
             </div>
         </section>
 
-        <section id="education" className="container py-20 md:py-24 bg-secondary rounded-3xl">
+        <section id="education" className="container py-20 md:py-32 bg-secondary rounded-3xl">
             <div className="text-center max-w-3xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
-                <div className="mt-6 space-y-4 text-muted-foreground">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
+                <div className="mt-6 space-y-4 text-lg text-muted-foreground">
                     <p>{t('landing.what_is.p1')}</p>
                     <p>{t('landing.what_is.p2')}</p>
                 </div>
             </div>
             
-            <div className="max-w-4xl mx-auto mt-16">
-                <h3 className="text-2xl md:text-3xl font-bold text-center mb-8 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.education.concepts_title')}</h3>
+            <div className="max-w-4xl mx-auto mt-20">
+                <h3 className="text-3xl md:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.education.concepts_title')}</h3>
                 <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1">
                         <AccordionTrigger className="text-xl hover:no-underline">
                         <div className="flex items-center gap-4">
-                            <Image src="https://placehold.co/128x128.png" width={32} height={32} alt="App Logo" className="rounded-full border" data-ai-hint="logo soundwave" />
+                            <Image src="https://placehold.co/128x128.png" width={32} height={32} alt="App Logo" className="rounded-full" data-ai-hint="logo soundwave" />
                             <span>{t('landing.sound_universe.solfeggio.title')}</span>
                         </div>
                         </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-base">
+                        <AccordionContent className="text-muted-foreground text-lg">
                         {t('landing.sound_universe.solfeggio.description')}
                         </AccordionContent>
                     </AccordionItem>
@@ -97,7 +97,7 @@ export default function Home() {
                             <span>{t('landing.sound_universe.binaural.title')}</span>
                         </div>
                         </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-base">
+                        <AccordionContent className="text-muted-foreground text-lg">
                         {t('landing.sound_universe.binaural.description')}
                         </AccordionContent>
                     </AccordionItem>
@@ -108,7 +108,7 @@ export default function Home() {
                             <span>{t('landing.sound_universe.synesthesia.title')}</span>
                         </div>
                         </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-base">
+                        <AccordionContent className="text-muted-foreground text-lg">
                         {t('landing.sound_universe.synesthesia.description')}
                         </AccordionContent>
                     </AccordionItem>
@@ -116,10 +116,10 @@ export default function Home() {
             </div>
         </section>
         
-        <section className="container py-20 md:py-24 text-center">
+        <section className="container py-20 md:py-32 text-center">
            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.title')}</h2>
-              <p className="mt-4 text-muted-foreground">{t('pricing.subtitle')}</p>
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.title')}</h2>
+              <p className="mt-4 text-lg text-muted-foreground">{t('pricing.subtitle')}</p>
               <Button size="lg" variant="outline" className="mt-8" asChild>
                   <Link href="/pricing">Ver Planes de Precios</Link>
               </Button>
