@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { Music4 } from "lucide-react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -12,8 +12,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <Music4 className="h-6 w-6 text-primary" />
-          <span className="font-bold text-lg">{t('app.title')}</span>
+          <Image src="https://placehold.co/40x40.png" width={40} height={40} alt={t('app.title')} className="rounded-full" data-ai-hint="logo" />
+          <span className="font-bold text-lg hidden sm:inline-block">{t('app.title')}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">
           <Button variant="link" asChild>

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   SidebarProvider,
@@ -19,7 +20,6 @@ import {
   Video,
   UserCircle,
   LogOut,
-  Music4,
 } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
@@ -63,9 +63,9 @@ export default function DashboardLayout({
           <SidebarHeader>
             <div className="flex items-center gap-2 p-2">
               <Link href="/dashboard" className="flex items-center gap-2">
-                 <Music4 className="h-6 w-6 text-primary" />
+                 <Image src="https://placehold.co/40x40.png" width={40} height={40} alt={t('app.title')} className="rounded-full" data-ai-hint="logo" />
               </Link>
-              <h1 className="text-lg font-semibold">{t('app.title')}</h1>
+              <h1 className="text-lg font-semibold truncate">{t('app.title')}</h1>
             </div>
           </SidebarHeader>
           <SidebarMenu className="flex-1 p-2">

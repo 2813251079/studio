@@ -1,7 +1,7 @@
 export const translations = {
   es: {
-    'app.title': 'Armonia AI',
-    'app.description': 'Eleva tu vibración con frecuencias sanadoras',
+    'app.title': 'Open Music Academy',
+    'app.description': 'Frecuencias Sanadoras y Curativas',
     
     'landing.header.features': 'Características',
     'landing.header.pricing': 'Precios',
@@ -45,7 +45,7 @@ export const translations = {
     'login.register': 'Regístrate',
 
     'register.title': 'Crea tu Cuenta',
-    'register.subtitle': 'Únete a la comunidad de Armonia AI.',
+    'register.subtitle': 'Únete a la comunidad de Open Music Academy.',
     'register.name': 'Nombre',
     'register.email': 'Correo Electrónico',
     'register.password': 'Contraseña',
@@ -84,7 +84,7 @@ export const translations = {
     'workspace_harmonizer.form.state_label': 'Describe tu estado o ambiente actual',
     'workspace_harmonizer.form.state_placeholder': 'Ej: "Mi oficina es ruidosa y me siento disperso", "Quiero relajarme después de un día largo"...',
     'workspace_harmonizer.form.submit_button': 'Armonizar mi Espacio',
-    'workspace_harmonizer.form.submit_button.loading': 'Generando Armonía...',
+    'workspace_harmonizer.form.submit_button.loading': 'Generando...',
     'workspace_harmonizer.result.loading': 'La IA está tejiendo frecuencias, colores y sonidos para tu bienestar...',
     'workspace_harmonizer.result.title': 'Análisis de Armonización de la IA',
     'workspace_harmonizer.result.image_alt': 'Representación visual abstracta de la armonía generada',

@@ -148,7 +148,7 @@ const workspaceHarmonizerFlow = ai.defineFlow(
     }
 
     const imagePrompt = `Un paisaje sonoro para ${input.intention} que transforma un estado de '${input.description}' en un ambiente de '${analysis.resonance}' usando ${analysis.strategy}.`;
-    const soundscapePrompt = `Hola, soy tu asistente de Armonia AI. Basado en tu intención de '${input.intention}' y tu descripción, he diseñado una estrategia para ayudarte a alcanzar tu objetivo. ${analysis.strategy} Espero que este paisaje sonoro te envuelva y te lleve a un estado de ${analysis.resonance}.`;
+    const soundscapePrompt = `Hola, soy tu asistente de Open Music Academy. Basado en tu intención de '${input.intention}' y tu descripción, he diseñado una estrategia para ayudarte a alcanzar tu objetivo. ${analysis.strategy} Espero que este paisaje sonoro te envuelva y te lleve a un estado de ${analysis.resonance}.`;
     
     const [imageUrl, soundscapeUrl] = await Promise.all([
       imageGenerationFlow(imagePrompt),
