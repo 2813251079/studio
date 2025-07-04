@@ -35,7 +35,6 @@ export function useSettings() {
     const initialTheme = storedTheme || 'light';
     setThemeState(initialTheme);
     document.documentElement.classList.add(initialTheme);
-    document.documentElement.lang = 'es';
 
     const storedFontSize = localStorage.getItem('fontSize') as FontSize | null;
     const initialFontSize = storedFontSize || 'base';
