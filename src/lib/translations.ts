@@ -17,6 +17,7 @@ export const translations = {
     'landing.what_is.p1': 'Las frecuencias sonoras han sido utilizadas desde tiempos ancestrales en diversas culturas por su capacidad para influir en el estado de ánimo, la mente y el cuerpo. Se basan en el principio de resonancia, la idea de que todo en el universo vibra a una frecuencia particular. Al exponernos a frecuencias específicas, podemos ayudar a restaurar el equilibrio y la armonía en nuestro propio campo energético.',
     'landing.what_is.p2': 'Nuestra plataforma te invita a explorar este universo sonoro, desde las antiguas frecuencias Solfeggio hasta los modernos tonos binaurales, para que encuentres la vibración perfecta para tu bienestar.',
 
+    'landing.education.concepts_title': 'Explora los Conceptos Clave',
     'landing.sound_universe.title': 'Explora el Universo del Sonido Sanador',
     'landing.sound_universe.solfeggio.title': 'Frecuencias Solfeggio: Los Tonos Ancestrales',
     'landing.sound_universe.solfeggio.description': 'Las Frecuencias Solfeggio son una escala de tonos utilizada en cantos sagrados desde la antigüedad. Se cree que estos tonos tienen propiedades curativas y espirituales específicas, ayudando a equilibrar la energía del cuerpo, la mente y el espíritu. Cada frecuencia corresponde a una nota de la escala y se asocia con un beneficio particular, como la liberación de miedos (396 Hz) o la facilitación del cambio y la transformación (528 Hz).',

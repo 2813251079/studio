@@ -58,100 +58,81 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="what-is" className="container py-20 md:py-24 bg-secondary rounded-t-3xl">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
-            <div className="mt-6 space-y-4 text-muted-foreground">
-              <p>{t('landing.what_is.p1')}</p>
-              <p>{t('landing.what_is.p2')}</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="sound-universe" className="container py-20 md:py-24">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.sound_universe.title')}</h2>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-xl hover:no-underline">
-                  <div className="flex items-center gap-4">
-                    <Image src="https://placehold.co/128x128.png" width={24} height={24} alt="App Logo" className="rounded-full" data-ai-hint="logo soundwave" />
-                    <span>{t('landing.sound_universe.solfeggio.title')}</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base">
-                  {t('landing.sound_universe.solfeggio.description')}
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger className="text-xl hover:no-underline">
-                  <div className="flex items-center gap-4">
-                    <BrainCircuit className="h-6 w-6 text-primary" />
-                    <span>{t('landing.sound_universe.binaural.title')}</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base">
-                  {t('landing.sound_universe.binaural.description')}
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger className="text-xl hover:no-underline">
-                  <div className="flex items-center gap-4">
-                    <Combine className="h-6 w-6 text-primary" />
-                    <span>{t('landing.sound_universe.synesthesia.title')}</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base">
-                  {t('landing.sound_universe.synesthesia.description')}
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </section>
-
         <section id="features" className="container py-20 md:py-24">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
-            <p className="mt-4 text-muted-foreground">{t('landing.tools.subtitle')}</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-12">
-            {features.map((feature, index) => (
-              <div key={index} className="flex flex-col items-center text-center group">
-                <Link href="/auth/register">
-                  <div className="relative w-40 h-40 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-primary/20 cursor-pointer overflow-hidden">
-                    {/* Vinyl record-like grooves */}
-                    <svg className="absolute inset-0 w-full h-full opacity-20" width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="80" cy="80" r="78" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="74" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="70" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="66" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="62" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="58" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="54" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="50" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="46" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="42" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="38" stroke="white" strokeWidth="0.5" fill="none" />
-                        <circle cx="80" cy="80" r="34" stroke="white" strokeWidth="0.5" fill="none" />
-                    </svg>
-                    {/* Center label */}
-                    <div className="absolute w-16 h-16 rounded-full bg-background/20 backdrop-blur-sm"></div>
-                    {/* Icon */}
-                    <div className="relative z-10">
-                        {feature.icon}
+            <div className="text-center max-w-3xl mx-auto mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
+                <p className="mt-4 text-muted-foreground">{t('landing.tools.subtitle')}</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-12">
+                {features.map((feature, index) => (
+                <div key={index} className="flex flex-col items-center text-center group">
+                    <Link href="/auth/register">
+                    <div className="relative w-40 h-40 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-primary/20 cursor-pointer overflow-hidden border-2 border-primary/20">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-70 group-hover:opacity-90 transition-opacity"></div>
+                        <div className="absolute -top-4 -left-8 w-32 h-32 bg-white/20 rounded-full filter blur-xl opacity-50"></div>
+                        <div className="absolute -bottom-4 -right-8 w-32 h-32 bg-white/20 rounded-full filter blur-xl opacity-50"></div>
+                        <div className="relative z-10">
+                            {feature.icon}
+                        </div>
                     </div>
-                  </div>
-                </Link>
-                <h3 className="mt-6 text-xl font-bold">{feature.title}</h3>
-                <p className="mt-2 text-muted-foreground">{feature.description}</p>
-              </div>
-            ))}
-          </div>
+                    </Link>
+                    <h3 className="mt-6 text-xl font-bold">{feature.title}</h3>
+                    <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                </div>
+                ))}
+            </div>
+        </section>
+
+        <section id="education" className="container py-20 md:py-24 bg-secondary rounded-3xl">
+            <div className="text-center max-w-3xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
+                <div className="mt-6 space-y-4 text-muted-foreground">
+                    <p>{t('landing.what_is.p1')}</p>
+                    <p>{t('landing.what_is.p2')}</p>
+                </div>
+            </div>
+            
+            <div className="max-w-4xl mx-auto mt-16">
+                <h3 className="text-2xl md:text-3xl font-bold text-center mb-8 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('landing.education.concepts_title')}</h3>
+                <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="item-1">
+                        <AccordionTrigger className="text-xl hover:no-underline">
+                        <div className="flex items-center gap-4">
+                            <Image src="https://placehold.co/128x128.png" width={24} height={24} alt="App Logo" className="rounded-full" data-ai-hint="logo soundwave" />
+                            <span>{t('landing.sound_universe.solfeggio.title')}</span>
+                        </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground text-base">
+                        {t('landing.sound_universe.solfeggio.description')}
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-2">
+                        <AccordionTrigger className="text-xl hover:no-underline">
+                        <div className="flex items-center gap-4">
+                            <BrainCircuit className="h-6 w-6 text-primary" />
+                            <span>{t('landing.sound_universe.binaural.title')}</span>
+                        </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground text-base">
+                        {t('landing.sound_universe.binaural.description')}
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-3">
+                        <AccordionTrigger className="text-xl hover:no-underline">
+                        <div className="flex items-center gap-4">
+                            <Combine className="h-6 w-6 text-primary" />
+                            <span>{t('landing.sound_universe.synesthesia.title')}</span>
+                        </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground text-base">
+                        {t('landing.sound_universe.synesthesia.description')}
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            </div>
         </section>
         
-        <section className="container py-20 md:py-24 text-center bg-secondary rounded-3xl">
+        <section className="container py-20 md:py-24 text-center">
            <div className="max-w-2xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.title')}</h2>
               <p className="mt-4 text-muted-foreground">{t('pricing.subtitle')}</p>
