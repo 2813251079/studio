@@ -35,7 +35,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <circle cx="10" cy="25" r="1" fill="black"/>
     </g>
 
-    {/* Pentagram and Fa Key */}
+    {/* Pentagram and F-Clef */}
     <g transform="translate(46, 50)">
         <g stroke="hsl(195, 30%, 70%)" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
@@ -45,17 +45,19 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           <path d="M 0 32 H 55" />
         </g>
 
-        <g transform="translate(10, -5)">
+        <g transform="translate(10, 0)">
+          {/* F-Clef shape */}
           <path
-            d="M 20 0 C 5 5, 5 35, 20 42"
+            d="M12,24 C 25,10 25,45 12,45"
             stroke="hsl(var(--primary))"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="20" cy="0" r="7" fill="hsl(var(--primary))" />
-          <circle cx="35" cy="18" r="4" fill="hsl(var(--primary))" />
-          <circle cx="35" cy="26" r="4" fill="hsl(var(--primary))" />
+          <circle cx="12" cy="24" r="5" fill="hsl(var(--primary))" />
+          {/* Two dots for the F-clef */}
+          <circle cx="30" cy="20" r="3" fill="hsl(var(--primary))" />
+          <circle cx="30" cy="28" r="3" fill="hsl(var(--primary))" />
         </g>
     </g>
   </svg>
