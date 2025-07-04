@@ -32,7 +32,7 @@ export default function PricingPage() {
           <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
             <Card className="flex flex-col shadow-lg">
               <CardHeader>
-                <CardTitle className="text-3xl">{t('pricing.free.title')}</CardTitle>
+                <CardTitle className="text-3xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.free.title')}</CardTitle>
                 <CardDescription className="text-base">{t('pricing.free.description')}</CardDescription>
                 <div className="text-5xl font-bold pt-4">{t('pricing.free.price')}</div>
               </CardHeader>
@@ -54,7 +54,7 @@ export default function PricingPage() {
             </Card>
             <Card className="flex flex-col shadow-lg shadow-primary/20">
               <CardHeader>
-                <CardTitle className="text-3xl">{t('pricing.pro.title')}</CardTitle>
+                <CardTitle className="text-3xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.pro.title')}</CardTitle>
                 <CardDescription className="text-base">{t('pricing.pro.description')}</CardDescription>
                 <div className="text-5xl font-bold pt-4">{t('pricing.pro.price')}</div>
               </CardHeader>

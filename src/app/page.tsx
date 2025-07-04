@@ -88,7 +88,7 @@ export default function Home() {
                            <div className="mb-4 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
                              {feature.icon}
                            </div>
-                           <h3 className="mb-2 text-xl font-bold transition-colors group-hover:text-primary">{feature.title}</h3>
+                           <h3 className="mb-2 text-xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{feature.title}</h3>
                            <p className="text-sm text-muted-foreground">{feature.description}</p>
                         </div>
                     </Link>

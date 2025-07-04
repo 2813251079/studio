@@ -61,7 +61,7 @@ export default function DashboardPage() {
                   <div className="mb-4 flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
                     {feature.icon}
                   </div>
-                  <h3 className="mb-2 text-xl md:text-2xl font-semibold transition-colors group-hover:text-primary">{feature.title}</h3>
+                  <h3 className="mb-2 text-xl md:text-2xl font-semibold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{feature.title}</h3>
                   <p className="text-sm md:text-base text-muted-foreground">{feature.description}</p>
               </div>
             </Link>
