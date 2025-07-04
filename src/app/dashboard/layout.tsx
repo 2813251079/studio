@@ -48,7 +48,7 @@ export default function DashboardLayout({
           <SidebarContent className="p-0">
             <Collapsible open={isNavOpen} onOpenChange={setIsNavOpen} className="w-full">
               <CollapsibleTrigger asChild>
-                <div className="flex items-center justify-between w-full p-2 cursor-pointer hover:bg-sidebar-accent group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:h-16">
+                <button className="flex items-center justify-between w-full p-2 text-left hover:bg-sidebar-accent group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:h-16">
                     <div className="flex items-center gap-3">
                         <Image src={logoUrl} width={48} height={48} alt={t('app.title')} className="rounded-full flex-shrink-0 bg-slate-200 p-1" data-ai-hint="logo guitar wave" />
                         <div className="flex flex-col overflow-hidden group-data-[collapsible=icon]:hidden">
@@ -56,7 +56,7 @@ export default function DashboardLayout({
                         </div>
                     </div>
                     <ChevronRight className={cn("h-5 w-5 transition-transform duration-200 group-data-[collapsible=icon]:hidden", isNavOpen && "rotate-90")} />
-                </div>
+                </button>
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <div className="group-data-[collapsible=icon]:hidden">
