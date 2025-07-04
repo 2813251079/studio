@@ -88,8 +88,8 @@ export default function CircleOfFifths() {
             <CardContent className="flex flex-col items-center gap-6">
                 <div className="relative w-[320px] h-[320px]">
                     <svg viewBox="0 0 320 320" className="w-full h-full">
-                        <circle cx={center} cy={center} r={radius} fill="none" stroke="hsl(var(--border))" strokeWidth="1" />
-                        <circle cx={center} cy={center} r={radius * 0.6} fill="none" stroke="hsl(var(--border))" strokeWidth="1" />
+                        <circle cx={center} cy={center} r={radius} fill="none" stroke="hsl(var(--border))" strokeWidth="0" />
+                        <circle cx={center} cy={center} r={radius * 0.6} fill="none" stroke="hsl(var(--border))" strokeWidth="0" />
                         {circleKeys.map((keyInfo, i) => {
                             const angle = (i / 12) * 2 * Math.PI - Math.PI / 2 - Math.PI / 12;
                             const nextAngle = ((i + 1) / 12) * 2 * Math.PI - Math.PI / 2 - Math.PI / 12;
@@ -115,8 +115,8 @@ export default function CircleOfFifths() {
                                     <path
                                         d={pathData}
                                         fill={fillColor}
-                                        stroke={isSelected ? 'hsl(var(--ring))' : 'hsl(var(--border))'}
-                                        strokeWidth={isSelected ? 3 : 2}
+                                        stroke={isSelected ? 'hsl(var(--ring))' : 'transparent'}
+                                        strokeWidth={isSelected ? 3 : 0}
                                         className="transition-all group-hover:opacity-80"
                                     />
                                     <text

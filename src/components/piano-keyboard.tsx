@@ -130,9 +130,9 @@ export default function PianoKeyboard() {
                 onTouchStart={(e) => { e.preventDefault(); handleInteractionStart(note); }}
                 onTouchEnd={() => handleInteractionEnd(note.freq)}
                 className={cn(
-                  "relative h-full flex-1 cursor-pointer border-x border-t border-neutral-300 bg-white rounded-b-md border-b-4 border-neutral-400",
+                  "relative h-full flex-1 cursor-pointer bg-white rounded-b-md",
                   "flex items-end justify-center pb-4 text-accent font-semibold shadow-inner",
-                  { "bg-primary text-primary-foreground border-b-primary-foreground": activeNotes.has(note.freq) }
+                  { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
                 )}
               >
                 {note.name}
@@ -154,9 +154,9 @@ export default function PianoKeyboard() {
                   onTouchEnd={(e) => { e.stopPropagation(); handleInteractionEnd(note.freq); }}
                   style={{ left: `calc(${leftPositionMap[index]} - 4%)` }}
                   className={cn(
-                    "absolute top-0 h-2/3 w-[8%] cursor-pointer border border-black bg-gradient-to-b from-neutral-800 to-black rounded-b-md z-10",
+                    "absolute top-0 h-2/3 w-[8%] cursor-pointer bg-gradient-to-b from-neutral-800 to-black rounded-b-md z-10",
                     "flex items-end justify-center pb-2 text-accent text-xs font-semibold transition-colors",
-                    { "bg-primary border-primary text-primary-foreground": activeNotes.has(note.freq) }
+                    { "bg-primary text-primary-foreground": activeNotes.has(note.freq) }
                   )}
                 >
                   {note.name}
