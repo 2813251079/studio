@@ -1,5 +1,7 @@
+
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, type ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
@@ -166,6 +168,12 @@ function VisualCommunicator() {
 
 
 export default function InclusiveGamesPage() {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
+  
+  const validTabs = ['communicator', 'planner', 'simon', 'puzzle', 'companion'];
+  const defaultTab = tab && validTabs.includes(tab) ? tab : 'communicator';
+  
   return (
     <div className="space-y-8">
       <div>
@@ -173,7 +181,7 @@ export default function InclusiveGamesPage() {
         <p className="text-muted-foreground">{t('inclusive_games.subtitle')}</p>
       </div>
       
-      <Tabs defaultValue="communicator" className="w-full">
+      <Tabs defaultValue={defaultTab} className="w-full">
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="communicator">{t('inclusive_games.tabs.communicator')}</TabsTrigger>
           <TabsTrigger value="planner">{t('inclusive_games.tabs.planner')}</TabsTrigger>
