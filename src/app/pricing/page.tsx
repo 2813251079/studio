@@ -19,6 +19,12 @@ export default function PricingPage() {
     t('pricing.pro.feature3'),
     t('pricing.pro.feature4'),
   ];
+  const customPlanFeatures = [
+    t('pricing.custom.feature1'),
+    t('pricing.custom.feature2'),
+    t('pricing.custom.feature3'),
+    t('pricing.custom.feature4'),
+  ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -75,6 +81,36 @@ export default function PricingPage() {
               </CardFooter>
             </Card>
           </div>
+
+           <div className="max-w-2xl mx-auto mt-16">
+             <Card className="flex flex-col shadow-lg border-2 border-accent">
+              <CardHeader>
+                <CardTitle className="text-3xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('pricing.custom.title')}</CardTitle>
+                <CardDescription className="text-base">{t('pricing.custom.description')}</CardDescription>
+                <div className="text-5xl font-bold pt-4">{t('pricing.custom.price')}</div>
+              </CardHeader>
+              <CardContent className="flex-1">
+                <p className="font-semibold mb-4">{t('pricing.custom.includes')}</p>
+                <ul className="space-y-4 text-lg">
+                  {customPlanFeatures.map((feature, index) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <Check className="h-6 w-6 text-accent" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+              <CardFooter className="flex-col sm:flex-row gap-4">
+                <Button size="lg" className="w-full" asChild>
+                  <Link href="mailto:eloallende.openmusicacademy@gmail.com">{t('pricing.custom.cta_email')}</Link>
+                </Button>
+                <Button size="lg" variant="outline" className="w-full" asChild>
+                  <Link href="https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite" target="_blank" rel="noopener noreferrer">{t('pricing.custom.cta_instagram')}</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+
         </section>
       </main>
       <Footer />
