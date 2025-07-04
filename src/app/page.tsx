@@ -58,7 +58,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="what-is" className="container py-20 md:py-24 bg-secondary dark:bg-black rounded-t-3xl">
+        <section id="what-is" className="container py-20 md:py-24 bg-secondary rounded-t-3xl">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-orange-400 bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
             <div className="mt-6 space-y-4 text-muted-foreground">
@@ -151,7 +151,7 @@ export default function Home() {
           </div>
         </section>
         
-        <section className="container py-20 md:py-24 text-center bg-secondary dark:bg-black rounded-3xl">
+        <section className="container py-20 md:py-24 text-center bg-secondary rounded-3xl">
            <div className="max-w-2xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-orange-400 bg-clip-text text-transparent">{t('pricing.title')}</h2>
               <p className="mt-4 text-muted-foreground">{t('pricing.subtitle')}</p>

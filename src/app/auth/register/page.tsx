@@ -9,7 +9,7 @@ const t = (key: any) => translations.es[key as any] || key;
 
 export default function RegisterPage() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-secondary dark:bg-black">
+    <div className="flex items-center justify-center min-h-screen">
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
           <CardTitle className="text-2xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{t('register.title')}</CardTitle>
