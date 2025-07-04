@@ -96,7 +96,7 @@ function DashboardHeader() {
                     <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                         <Avatar className="h-10 w-10">
                             <AvatarImage src="https://placehold.co/32x32.png" alt="@user" data-ai-hint="person avatar" />
-                            <AvatarFallback>U</AvatarFallback>
+                            <AvatarFallback></AvatarFallback>
                         </Avatar>
                     </Button>
                 </DropdownMenuTrigger>
