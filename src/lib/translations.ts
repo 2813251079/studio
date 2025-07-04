@@ -125,7 +125,7 @@ export const translations = {
     'workspace_harmonizer.result.placeholder_title': 'Tu análisis aparecerá aquí',
     'workspace_harmonizer.result.placeholder_subtitle': 'Completa el formulario y presiona "Armonizar mi Espacio" para que la IA genere tu solución personalizada.',
 
-    'video_harmonizer.title': 'Creador de Escenas con IA',
+    'video_harmonizer.title': 'Creador de escenas con IA Frecuencias musicales.',
     'video_harmonizer.subtitle': 'Convierte tus ideas en una experiencia audiovisual. Describe una escena y la IA generará una imagen y una banda sonora.',
     'video_harmonizer.form.title': 'Describe tu Escena',
     'video_harmonizer.form.description': 'Escribe una idea, un sentimiento o un lugar, y la IA lo convertirá en arte.',

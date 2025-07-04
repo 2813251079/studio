@@ -71,7 +71,9 @@ export default function VideoHarmonizerForm() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="description">{t('video_harmonizer.form.scene_label')}</Label>
+              <Label htmlFor="description" className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                {t('video_harmonizer.form.scene_label')}
+              </Label>
               <Textarea
                 id="description"
                 name="description"
