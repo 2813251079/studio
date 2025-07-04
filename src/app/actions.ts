@@ -1,11 +1,13 @@
 "use server";
 
 import { workspaceHarmonizer, WorkspaceHarmonizerInput, WorkspaceHarmonizerOutput } from "@/ai/flows/workspace-harmonizer";
+import { Language, translations } from "@/lib/translations";
 import { z } from "zod";
 
-const inputSchema = z.object({
-  workspaceElements: z.string().min(3, "Por favor, introduce al menos un elemento."),
+const getValidationSchema = (lang: Language) => z.object({
+  workspaceElements: z.string().min(3, translations[lang]['error.validation.min']),
 });
+
 
 type HarmonizerState = {
   data?: WorkspaceHarmonizerOutput;
@@ -16,13 +18,15 @@ type HarmonizerState = {
 }
 
 export async function getHarmonizedWorkspace(prevState: HarmonizerState, formData: FormData): Promise<HarmonizerState> {
-  const validatedFields = inputSchema.safeParse({
+  const lang = (formData.get('lang') as Language) || 'es';
+  
+  const validatedFields = getValidationSchema(lang).safeParse({
     workspaceElements: formData.get('workspaceElements'),
   });
 
   if (!validatedFields.success) {
     return {
-      error: "Error de validación.",
+      error: translations[lang]['error.validation.generic'],
       fieldErrors: validatedFields.error.flatten().fieldErrors,
     };
   }
@@ -32,6 +36,6 @@ export async function getHarmonizedWorkspace(prevState: HarmonizerState, formDat
     return { data: result };
   } catch (e) {
     console.error(e);
-    return { error: "Ha ocurrido un error al contactar con la IA. Por favor, inténtalo de nuevo más tarde." };
+    return { error: translations[lang]['error.ai'] };
   }
 }

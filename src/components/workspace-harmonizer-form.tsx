@@ -17,22 +17,27 @@ import { getHarmonizedWorkspace } from "@/app/actions";
 import { AlertCircle, Loader2, Wand2, FolderKanban } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useSettings } from "@/hooks/use-settings";
+import { translations } from "@/lib/translations";
 
 const initialState = {};
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const { language } = useSettings();
+  const t = (key: any) => translations[language]?.[key] || translations['en'][key];
+  
   return (
     <Button type="submit" disabled={pending} className="w-full sm:w-auto">
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          Armonizando...
+          {t('form.submit_button.loading')}
         </>
       ) : (
         <>
           <Wand2 className="mr-2 h-4 w-4" />
-          Armonizar
+          {t('form.submit_button')}
         </>
       )}
     </Button>
@@ -43,16 +48,18 @@ export default function WorkspaceHarmonizerForm() {
   const [state, formAction] = useFormState(getHarmonizedWorkspace, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
+  const { language } = useSettings();
+  const t = (key: any) => translations[language]?.[key] || translations['en'][key];
 
   useEffect(() => {
     if (state.error && !state.fieldErrors) {
       toast({
         variant: "destructive",
-        title: "Error",
+        title: t('error.toast.title'),
         description: state.error,
       });
     }
-  }, [state, toast]);
+  }, [state, toast, t]);
   
   useEffect(() => {
     if (state.data) {
@@ -66,18 +73,19 @@ export default function WorkspaceHarmonizerForm() {
         <CardHeader>
           <CardTitle className="font-headline text-2xl md:text-3xl flex items-center gap-3">
             <Wand2 className="h-8 w-8 text-primary" />
-            <span>Armonizador de Espacios de Trabajo con IA</span>
+            <span>{t('form.title')}</span>
           </CardTitle>
           <CardDescription>
-            Introduce los elementos de tu espacio de trabajo para organizarlos en categorías lógicas y crear un flujo armonioso.
+            {t('form.description')}
           </CardDescription>
         </CardHeader>
         <form ref={formRef} action={formAction}>
+          <input type="hidden" name="lang" value={language} />
           <CardContent>
             <div className="grid w-full gap-2">
               <Textarea
                 name="workspaceElements"
-                placeholder="Ej: portátil, monitor, teclado, ratón, documentos, taza de café, auriculares..."
+                placeholder={t('form.placeholder')}
                 className="min-h-[120px] text-base"
                 aria-describedby="elements-error"
               />
@@ -90,7 +98,7 @@ export default function WorkspaceHarmonizerForm() {
           </CardContent>
           <CardFooter className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <p className="text-xs text-muted-foreground">
-              Separa cada elemento con una coma.
+              {t('form.helper_text')}
             </p>
             <SubmitButton />
           </CardFooter>
@@ -102,16 +110,16 @@ export default function WorkspaceHarmonizerForm() {
           <CardHeader>
             <CardTitle className="font-headline text-2xl flex items-center gap-3">
                 <FolderKanban className="h-8 w-8 text-accent" />
-                <span>Tu Espacio de Trabajo Armonizado</span>
+                <span>{t('results.title')}</span>
             </CardTitle>
             <CardDescription>
-                La IA ha organizado tus elementos en las siguientes categorías.
+                {t('results.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {state.data.categories.map((category, index) => (
-                    <div key={index} className="p-4 bg-background rounded-lg border shadow-sm flex flex-col">
+                    <div key={index} className="p-4 bg-background rounded-lg border shadow-sm flex-col">
                         <h3 className="font-semibold text-lg mb-3 text-primary">{category.category}</h3>
                         <div className="flex flex-wrap gap-2">
                             {category.elements.map((element, i) => (
@@ -130,7 +138,7 @@ export default function WorkspaceHarmonizerForm() {
       {state.error && !state.fieldErrors && (
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Error Inesperado</AlertTitle>
+            <AlertTitle>{t('error.unexpected')}</AlertTitle>
             <AlertDescription>
                 {state.error}
             </AlertDescription>

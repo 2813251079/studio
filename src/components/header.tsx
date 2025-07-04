@@ -27,6 +27,7 @@ import {
   Video,
   Check,
 } from "lucide-react";
+import { translations } from "@/lib/translations";
 
 export default function Header() {
   const {
@@ -37,7 +38,11 @@ export default function Header() {
     setFontSize,
     animationsEnabled,
     setAnimationsEnabled,
+    language,
+    setLanguage,
   } = useSettings();
+
+  const t = (key: any) => translations[language]?.[key] || translations['en'][key];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -45,7 +50,7 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <WandIcon className="h-6 w-6" />
           <h1 className="font-headline text-xl font-bold tracking-tight">
-            Workspace Symphony
+            {t('app.title')}
           </h1>
         </div>
         <div className="flex items-center gap-2">
@@ -53,17 +58,17 @@ export default function Header() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Globe className="h-5 w-5" />
-                <span className="sr-only">Seleccionar idioma</span>
+                <span className="sr-only">{t('header.select_language')}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Idioma</DropdownMenuLabel>
-              <DropdownMenuRadioGroup value="es">
+              <DropdownMenuLabel>{t('header.language')}</DropdownMenuLabel>
+              <DropdownMenuRadioGroup value={language} onValueChange={(value) => setLanguage(value as any)}>
                 <DropdownMenuRadioItem value="es">
-                  Español
+                  {t('header.spanish')}
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="en" disabled>
-                  English
+                <DropdownMenuRadioItem value="en">
+                  {t('header.english')}
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
@@ -73,29 +78,29 @@ export default function Header() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Settings className="h-5 w-5" />
-                <span className="sr-only">Ajustes sensoriales</span>
+                <span className="sr-only">{t('header.sensory_settings')}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Ajustes Sensoriales</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('header.sensory_settings')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {isMounted && (
                 <>
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <Monitor className="mr-2 h-4 w-4" />
-                      <span>Tema</span>
+                      <span>{t('header.theme')}</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
                         <DropdownMenuItem onClick={() => setTheme("light")}>
                           <Sun className="mr-2 h-4 w-4" />
-                          <span>Claro</span>
+                          <span>{t('header.light')}</span>
                           {theme === "light" && <Check className="ml-auto h-4 w-4" />}
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => setTheme("dark")}>
                           <Moon className="mr-2 h-4 w-4" />
-                          <span>Oscuro</span>
+                          <span>{t('header.dark')}</span>
                           {theme === "dark" && <Check className="ml-auto h-4 w-4" />}
                         </DropdownMenuItem>
                       </DropdownMenuSubContent>
@@ -104,21 +109,21 @@ export default function Header() {
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <Type className="mr-2 h-4 w-4" />
-                      <span>Tamaño de Fuente</span>
+                      <span>{t('header.font_size')}</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
                         <DropdownMenuRadioGroup value={fontSize} onValueChange={(value) => setFontSize(value as any)}>
-                          <DropdownMenuRadioItem value="sm">Pequeño</DropdownMenuRadioItem>
-                          <DropdownMenuRadioItem value="base">Normal</DropdownMenuRadioItem>
-                          <DropdownMenuRadioItem value="lg">Grande</DropdownMenuRadioItem>
+                          <DropdownMenuRadioItem value="sm">{t('header.font_size.sm')}</DropdownMenuRadioItem>
+                          <DropdownMenuRadioItem value="base">{t('header.font_size.base')}</DropdownMenuRadioItem>
+                          <DropdownMenuRadioItem value="lg">{t('header.font_size.lg')}</DropdownMenuRadioItem>
                         </DropdownMenuRadioGroup>
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                   </DropdownMenuSub>
                   <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                     <Video className="mr-2 h-4 w-4" />
-                    <span>Animaciones</span>
+                    <span>{t('header.animations')}</span>
                     <Switch
                       className="ml-auto"
                       checked={animationsEnabled}
