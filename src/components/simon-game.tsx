@@ -1,38 +1,34 @@
 'use client';
 
-import { useState, useEffect, useCallback, type ReactNode } from 'react';
+import { useState, useEffect, useCallback, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { Play, RotateCw } from 'lucide-react';
+import { Play, RotateCw, Music } from 'lucide-react';
+import { translations } from '@/lib/translations';
+import { noteFrequencies } from '@/lib/noteFrequencies';
 
-export type Pictogram = {
-  id: string;
-  labelKey: string;
-  icon: ReactNode;
-};
+const t = (key: any) => translations.es[key as any] || key;
 
-interface SimonGameProps {
-  pictograms: Pictogram[];
-  t: (key: string) => string;
-}
-
-const GAME_COLORS = [
-  'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500',
-  'bg-purple-500', 'bg-pink-500', 'bg-indigo-500', 'bg-teal-500'
+const musicalButtons = [
+    { name: 'Do', freq: noteFrequencies['Do'], color: 'bg-red-500' },
+    { name: 'Re', freq: noteFrequencies['Re'], color: 'bg-orange-500' },
+    { name: 'Mi', freq: noteFrequencies['Mi'], color: 'bg-yellow-400' },
+    { name: 'Fa', freq: noteFrequencies['Fa'], color: 'bg-green-500' },
+    { name: 'Sol', freq: noteFrequencies['Sol'], color: 'bg-blue-500' },
+    { name: 'La', freq: noteFrequencies['La'], color: 'bg-indigo-500' },
 ];
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export default function SimonGame({ pictograms, t }: SimonGameProps) {
+export default function SimonGame() {
   const [sequence, setSequence] = useState<number[]>([]);
   const [playerSequence, setPlayerSequence] = useState<number[]>([]);
   const [activeButton, setActiveButton] = useState<number | null>(null);
   const [gameState, setGameState] = useState<'idle' | 'showing' | 'playing' | 'gameover'>('idle');
-  const [score, setScore] =useState(0);
-  const gamePictograms = pictograms.slice(0, 8);
+  const [score, setScore] = useState(0);
 
-  const playSound = useCallback((index: number) => {
+  const playSound = useCallback((freq: number) => {
     if (typeof window === 'undefined') return;
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     if (audioContext.state === 'suspended') {
@@ -43,8 +39,7 @@ export default function SimonGame({ pictograms, t }: SimonGameProps) {
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
     oscillator.type = 'sine';
-    const frequencies = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25];
-    oscillator.frequency.value = frequencies[index % frequencies.length];
+    oscillator.frequency.value = freq;
     gainNode.gain.setValueAtTime(0, audioContext.currentTime);
     gainNode.gain.linearRampToValueAtTime(0.5, audioContext.currentTime + 0.05);
     oscillator.start(audioContext.currentTime);
@@ -57,8 +52,8 @@ export default function SimonGame({ pictograms, t }: SimonGameProps) {
     await sleep(700);
     for (const index of sequence) {
       setActiveButton(index);
-      playSound(index);
-      await sleep(500);
+      playSound(musicalButtons[index].freq);
+      await sleep(600);
       setActiveButton(null);
       await sleep(200);
     }
@@ -66,24 +61,24 @@ export default function SimonGame({ pictograms, t }: SimonGameProps) {
   }, [sequence, playSound]);
 
   const nextLevel = useCallback(() => {
-    const nextIndex = Math.floor(Math.random() * gamePictograms.length);
+    const nextIndex = Math.floor(Math.random() * musicalButtons.length);
     setPlayerSequence([]);
     setSequence(prev => [...prev, nextIndex]);
-  }, [gamePictograms.length]);
+  }, []);
 
   const startGame = () => {
     setSequence([]);
     setPlayerSequence([]);
     setScore(0);
     setGameState('showing');
-    const firstIndex = Math.floor(Math.random() * gamePictograms.length);
+    const firstIndex = Math.floor(Math.random() * musicalButtons.length);
     setSequence([firstIndex]);
   };
   
   const handlePlayerClick = (index: number) => {
     if (gameState !== 'playing') return;
 
-    playSound(index);
+    playSound(musicalButtons[index].freq);
     const newPlayerSequence = [...playerSequence, index];
     setPlayerSequence(newPlayerSequence);
 
@@ -114,21 +109,22 @@ export default function SimonGame({ pictograms, t }: SimonGameProps) {
             <div className="text-xl font-bold">{t('simon_game.level')}: {sequence.length}</div>
             <div className="text-xl font-bold">{t('simon_game.score')}: {score}</div>
           </div>
-          <div className="grid grid-cols-4 gap-4 aspect-square">
-            {gamePictograms.map((picto, index) => (
+          <div className="grid grid-cols-3 gap-4 aspect-square">
+            {musicalButtons.map((button, index) => (
               <button
-                key={picto.id}
+                key={button.name}
                 onClick={() => handlePlayerClick(index)}
                 disabled={gameState !== 'playing'}
-                aria-label={t(picto.labelKey)}
+                aria-label={button.name}
                 className={cn(
-                  'rounded-lg flex items-center justify-center text-white transition-all duration-200 transform disabled:cursor-not-allowed disabled:opacity-60',
-                  GAME_COLORS[index % GAME_COLORS.length],
+                  'rounded-lg flex flex-col items-center justify-center text-white text-2xl font-bold transition-all duration-200 transform disabled:cursor-not-allowed disabled:opacity-60',
+                  button.color,
                   activeButton === index ? 'scale-110 brightness-125' : 'scale-100',
                   'hover:scale-105 active:scale-95'
                 )}
               >
-                <div className="transform scale-75 md:scale-100">{picto.icon}</div>
+                <Music className="h-8 w-8 mb-2" />
+                {button.name}
               </button>
             ))}
           </div>

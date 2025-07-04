@@ -195,7 +195,7 @@ export default function InclusiveGamesPage() {
           <div className="mt-6">
             <h2 className="text-xl font-semibold">{t('simon_game.title')}</h2>
             <p className="text-muted-foreground mt-1 mb-4">{t('simon_game.subtitle')}</p>
-            <SimonGame pictograms={availablePictograms} t={t} />
+            <SimonGame />
           </div>
         </TabsContent>
       </Tabs>

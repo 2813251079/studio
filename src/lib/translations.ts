@@ -24,10 +24,10 @@ export const translations = {
     'landing.sound_universe.solfeggio.description': 'Las Frecuencias Solfeggio son una escala de tonos utilizada en cantos sagrados desde la antigüedad. Se cree que estos tonos tienen propiedades curativas y espirituales específicas, ayudando a equilibrar la energía del cuerpo, la mente y el espíritu. Cada frecuencia corresponde a una nota de la escala y se asocia con un beneficio particular, como la liberación de miedos (396 Hz) o la facilitación del cambio y la transformación (528 Hz).',
     'landing.sound_universe.binaural.title': 'Tonos Binaurales: Sincroniza tu Cerebro',
     'landing.sound_universe.binaural.description': 'Los tonos binaurales son una ilusión auditiva creada por el cerebro cuando escuchas dos frecuencias ligeramente diferentes, una en cada oído. El cerebro percibe un tercer tono fantasma, cuya frecuencia es la diferencia entre los dos originales. Esta técnica se utiliza para guiar al cerebro hacia estados de ondas cerebrales específicas (Delta, Theta, Alpha, Beta), ayudando a mejorar la concentración, promover la relajación profunda, facilitar la meditación o estimular la creatividad.',
-    'landing.sound_universe.synesthesia.title': 'Sinestesia Musical: Ver los Sonidos',
-    'landing.sound_universe.synesthesia.description': "La sinestesia es un fascinante fenómeno neurológico donde la estimulación de un sentido provoca una experiencia automática en otro. En la sinestesia música-color, la más común, una persona puede literalmente 'ver' colores, formas y texturas al escuchar música. Cada nota, acorde o timbre puede tener un color y una forma específicos. Esta unión de sentidos no es una metáfora, sino una experiencia perceptual real y consistente para el sinestésico. Nuestras herramientas se inspiran en este concepto, buscando crear una experiencia multisensorial donde el sonido y la imagen se fusionan, generando una resonancia visual que complementa y potencia el efecto de las frecuencias sanadoras, permitiéndote 'sentir' la música de una forma más profunda.",
-    'landing.sound_universe.consciousness.title': 'Música y los Niveles de la Mente',
-    'landing.sound_universe.consciousness.description': "La música y las frecuencias son llaves maestras que pueden acceder a diferentes niveles de nuestra mente, influyendo en nuestros pensamientos, emociones y conexión espiritual. <br/><br/><strong>Conciencia:</strong> Es nuestro estado de vigilia y alerta. Ciertas frecuencias (ondas Beta) y tipos de música pueden agudizar nuestro enfoque, mejorar la concentración y la capacidad para resolver problemas. Es la música que nos activa y nos mantiene presentes en el aquí y el ahora.<br/><br/><strong>Subconciencia:</strong> Este es el reino de nuestras memorias, hábitos y emociones más profundas. Las frecuencias más bajas (ondas Theta y Alpha) y las melodías hipnóticas pueden calmar la mente consciente, permitiéndonos acceder a este nivel. Aquí, la música puede ayudar a reprogramar patrones de pensamiento, liberar traumas emocionales y potenciar la creatividad que fluye desde el interior.<br/><br/><strong>Supraconciencia:</strong> También conocida como la Mente Superior o Conciencia Universal. Este nivel trasciende el yo individual y nos conecta con una sabiduría e intuición más elevada. Frecuencias específicas, como las Solfeggio más altas (963 Hz), y sonidos armónicos complejos (ondas Gamma) se utilizan en meditación profunda para facilitar experiencias de unidad, claridad espiritual y una profunda sensación de paz y conexión con el todo.",
+    'landing.sound_universe.synesthesia.title': 'Sinestesia Musical: Ver los Sonidos, Sentir los Colores',
+    'landing.sound_universe.synesthesia.description': "La sinestesia es un fascinante fenómeno neurológico donde la estimulación de un sentido (como el oído) provoca una experiencia automática en otro (como la vista). En la sinestesia música-color, la más común, una persona puede literalmente 'ver' colores, formas y texturas al escuchar música. Cada nota, acorde o timbre puede tener un color y una forma específicos, creando un paisaje visual interno. Esta unión de sentidos no es una metáfora, sino una experiencia perceptual real y consistente. Nuestras herramientas se inspiran en este concepto para crear una experiencia multisensorial donde el sonido y la imagen se fusionan, generando una resonancia visual que complementa y potencia el efecto de las frecuencias sanadoras.",
+    'landing.sound_universe.consciousness.title': 'Música y los Niveles de la Mente: Conciencia, Subconciencia y Supraconciencia',
+    'landing.sound_universe.consciousness.description': "La música y las frecuencias son llaves maestras que pueden acceder a diferentes niveles de nuestra mente, influyendo en nuestros pensamientos, emociones y conexión espiritual. <br/><br/><strong>Conciencia (Mente Consciente - Ondas Beta):</strong> Es nuestro estado de vigilia, el director de orquesta de nuestra realidad diaria. Se ocupa del pensamiento lógico, el análisis y la toma de decisiones. Ciertas frecuencias (12-30 Hz) y tipos de música complejos y rítmicos pueden agudizar nuestro enfoque, mejorar la concentración y la capacidad para resolver problemas. Es la música que nos activa para las tareas cotidianas.<br/><br/><strong>Subconciencia (Mente Subconsciente - Ondas Alfa y Theta):</strong> Este es el vasto archivo de nuestras memorias, hábitos, creencias arraigadas y emociones profundas. Las frecuencias más bajas (Alfa: 8-12 Hz para relajación y creatividad; Theta: 4-8 Hz para meditación profunda y sueños) y las melodías hipnóticas pueden calmar al 'director de orquesta', permitiéndonos acceder a este nivel. Aquí, la música puede ayudar a reprogramar patrones de pensamiento, sanar heridas emocionales y desbloquear la creatividad que fluye desde el interior.<br/><br/><strong>Supraconciencia (Mente Supraconsciente - Ondas Gamma y Delta):</strong> También conocida como la Mente Superior o Conciencia Universal, trasciende el yo individual. Es la fuente de la intuición, la inspiración súbita ('insights') y las experiencias cumbre. Frecuencias específicas como las Solfeggio más altas (963 Hz) y sonidos armónicos complejos (Gamma: 30-100 Hz), junto con el silencio profundo asociado a las ondas Delta (0.5-4 Hz), se utilizan en meditación para facilitar estados de unidad, claridad espiritual y una profunda sensación de paz y conexión con el todo.",
 
     'landing.tools.title': 'Nuestras Herramientas Sónicas',
     'landing.tools.subtitle': 'Diseñadas para guiarte en tu viaje hacia el bienestar.',
@@ -161,7 +161,7 @@ export const translations = {
     'inclusive_games.subtitle': 'Utiliza herramientas visuales para la comunicación y la organización de rutinas diarias.',
     'inclusive_games.tabs.communicator': 'Comunicador Visual',
     'inclusive_games.tabs.planner': 'Planificador de Rutinas',
-    'inclusive_games.tabs.simon': 'Juego de Simón',
+    'inclusive_games.tabs.simon': 'Simón Musical',
     
     'inclusive_games.communicator.title': 'Comunicador Visual (CAA)',
     'inclusive_games.communicator.subtitle': 'Utiliza los pictogramas para construir frases y comunicarte. Es un sistema de Comunicación Aumentativa y Alternativa.',
@@ -183,8 +183,8 @@ export const translations = {
     'inclusive_games.planner.check_step': 'Marcar como completado',
     'inclusive_games.planner.uncheck_step': 'Marcar como no completado',
 
-    'simon_game.title': 'Juego de Memoria "Simón"',
-    'simon_game.subtitle': 'Sigue la secuencia de luces y sonidos. ¡Pon a prueba tu memoria y atención!',
+    'simon_game.title': 'Simón Musical',
+    'simon_game.subtitle': 'Sigue la secuencia de notas y sonidos. ¡Pon a prueba tu memoria auditiva y atención!',
     'simon_game.start_button': 'Empezar Juego',
     'simon_game.play_again': 'Jugar de Nuevo',
     'simon_game.level': 'Nivel',
@@ -198,9 +198,16 @@ export const translations = {
     'music_production.guitar.title': 'Guitarra Acústica Interactiva',
     'music_production.guitar.description': 'Explora las notas en el mástil de una guitarra. Haz clic en un traste para escuchar su sonido y ver su nombre.',
     'music_production.guitar.current_note': 'Nota seleccionada',
+    'music_production.circle_of_fifths.title': 'Círculo de Quintas Interactivo',
+    'music_production.circle_of_fifths.description': 'Explora las relaciones armónicas entre las tonalidades. Toca una tonalidad para escucharla y ver su relativo menor.',
+
+    'circle_of_fifths.key.major': '{key} Mayor',
+    'circle_of_fifths.key.minor': '{key} menor',
+    'circle_of_fifths.current_key': 'Tonalidad Activa',
+    'circle_of_fifths.no_key': 'Selecciona una tonalidad',
     
     'footer.rights_reserved': 'Todos los derechos reservados',
-    'footer.education_link': 'Open Music Maitencillo',
+    'footer.education_link': 'Open Music',
 
     'education.title': 'Universo Sonoro: El Poder de las Frecuencias',
     'education.subtitle': 'Sumérgete en el conocimiento detrás de la música sanadora. Descubre cómo las vibraciones pueden transformar tu bienestar físico, mental y espiritual.',

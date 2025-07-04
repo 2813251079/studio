@@ -1,4 +1,5 @@
 import AcousticGuitar from "@/components/acoustic-guitar";
+import CircleOfFifths from "@/components/circle-of-fifths";
 import PianoKeyboard from "@/components/piano-keyboard";
 import { translations } from "@/lib/translations";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -13,6 +14,15 @@ export default function MusicProductionPage() {
         <p className="mt-4 text-foreground/80 text-xl">{t('music_production.subtitle')}</p>
       </div>
       <div className="grid grid-cols-1 gap-8 items-start">
+        <Card>
+          <CardHeader>
+              <CardTitle>{t('music_production.circle_of_fifths.title')}</CardTitle>
+              <CardDescription>{t('music_production.circle_of_fifths.description')}</CardDescription>
+          </CardHeader>
+          <CardContent>
+              <CircleOfFifths />
+          </CardContent>
+        </Card>
         <Card>
           <CardHeader>
               <CardTitle>{t('music_production.guitar.title')}</CardTitle>
