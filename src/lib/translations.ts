@@ -75,6 +75,7 @@ export const translations = {
     'dashboard.sidebar.workspace_harmonizer': 'Armonizar Espacio',
     'dashboard.sidebar.video_harmonizer': 'Armonizar Video',
     'dashboard.sidebar.inclusive_games': 'Herramientas Inclusivas',
+    'dashboard.sidebar.music_production': 'Producción Musical',
     'dashboard.sidebar.account': 'Cuenta',
     'dashboard.sidebar.logout': 'Cerrar Sesión',
 
@@ -173,6 +174,11 @@ export const translations = {
     'inclusive_games.planner.remove_step': 'Quitar paso',
     'inclusive_games.planner.check_step': 'Marcar como completado',
     'inclusive_games.planner.uncheck_step': 'Marcar como no completado',
+
+    'music_production.title': 'Estudio de Producción Musical',
+    'music_production.subtitle': 'Herramientas para crear, explorar y afinar tu música frecuencial.',
+    'music_production.piano.title': 'Piano Virtual Frecuencial',
+    'music_production.piano.description': 'Toca notas musicales y explora sus frecuencias correspondientes.',
 
     'pictos.want': 'Quiero',
     'pictos.happy': 'Feliz',

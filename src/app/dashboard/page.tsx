@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Waves, Wind, Video, Puzzle } from "lucide-react";
+import { ArrowRight, Waves, Wind, Video, Puzzle, SlidersHorizontal } from "lucide-react";
 import { translations } from "@/lib/translations";
 import { Button } from "@/components/ui/button";
 
@@ -31,6 +31,12 @@ export default function DashboardPage() {
       title: t('dashboard.sidebar.inclusive_games'),
       description: t('inclusive_games.subtitle'),
       icon: <Puzzle className="h-8 w-8 text-accent" />,
+    },
+    {
+      href: '/dashboard/production',
+      title: t('dashboard.sidebar.music_production'),
+      description: t('music_production.subtitle'),
+      icon: <SlidersHorizontal className="h-8 w-8 text-primary" />,
     },
   ];
 

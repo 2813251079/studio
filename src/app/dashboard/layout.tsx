@@ -29,6 +29,7 @@ import {
   UserCircle,
   LogOut,
   Puzzle,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
@@ -68,6 +69,11 @@ export default function DashboardLayout({
       href: '/dashboard/inclusive-games',
       label: t('dashboard.sidebar.inclusive_games'),
       icon: <Puzzle />,
+    },
+    {
+      href: '/dashboard/production',
+      label: t('dashboard.sidebar.music_production'),
+      icon: <SlidersHorizontal />,
     },
   ];
 
