@@ -3,14 +3,14 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed, Angry, Home, School, Bath, HelpCircle, Ban } from 'lucide-react';
+import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed, Angry, Home, School, Bath, HelpCircle, Ban, Shirt, Sparkles } from 'lucide-react';
 import { translations } from "@/lib/translations";
-import SimonGame from '@/components/simon-game';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import VisualRoutinePlanner from '@/components/visual-routine-planner';
 
 const t = (key: any) => translations.es[key as any] || key;
 
-type Pictogram = {
+export type Pictogram = {
   id: string;
   labelKey: string;
   icon: ReactNode;
@@ -32,6 +32,8 @@ const availablePictograms: Pictogram[] = [
   { id: 'play', labelKey: 'pictos.play', icon: <ToyBrick className="h-12 w-12" /> },
   { id: 'music', labelKey: 'pictos.music', icon: <Music className="h-12 w-12" /> },
   { id: 'read', labelKey: 'pictos.read', icon: <BookOpen className="h-12 w-12" /> },
+  { id: 'dress', labelKey: 'pictos.dress', icon: <Shirt className="h-12 w-12" /> },
+  { id: 'wash_hands', labelKey: 'pictos.wash_hands', icon: <Sparkles className="h-12 w-12" /> },
 ];
 
 function VisualCommunicator() {
@@ -143,7 +145,7 @@ export default function InclusiveGamesPage() {
       <Tabs defaultValue="communicator" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="communicator">{t('inclusive_games.tabs.communicator')}</TabsTrigger>
-          <TabsTrigger value="simon">{t('inclusive_games.tabs.simon')}</TabsTrigger>
+          <TabsTrigger value="planner">{t('inclusive_games.tabs.planner')}</TabsTrigger>
         </TabsList>
         <TabsContent value="communicator">
           <div className="mt-6">
@@ -152,9 +154,11 @@ export default function InclusiveGamesPage() {
             <VisualCommunicator />
           </div>
         </TabsContent>
-        <TabsContent value="simon">
+        <TabsContent value="planner">
           <div className="mt-6">
-            <SimonGame />
+            <h2 className="text-xl font-semibold">{t('inclusive_games.planner.title')}</h2>
+            <p className="text-muted-foreground mt-1 mb-4">{t('inclusive_games.planner.subtitle')}</p>
+            <VisualRoutinePlanner pictograms={availablePictograms} t={t} />
           </div>
         </TabsContent>
       </Tabs>
