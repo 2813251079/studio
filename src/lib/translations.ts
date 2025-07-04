@@ -10,7 +10,16 @@ export const translations = {
 
     'landing.hero.title': 'Descubre el Poder de las Frecuencias Sanadoras con IA',
     'landing.hero.subtitle': 'Transforma tu bienestar auditivo y visual. Sube tus archivos, elige una frecuencia y deja que nuestra IA cree una experiencia inmersiva y armoniosa para ti.',
+    'landing.hero.title_new': 'Eleva tu Vibración con Armonía AI',
+    'landing.hero.subtitle_new': 'Una plataforma revolucionaria que fusiona la ciencia del sonido con inteligencia artificial para crear experiencias auditivas y visuales que sanan, equilibran y transforman.',
     
+    'landing.what_is.title': '¿Qué son las Frecuencias Sanadoras?',
+    'landing.what_is.p1': 'Las frecuencias sonoras han sido utilizadas desde tiempos ancestrales en diversas culturas por su capacidad para influir en el estado de ánimo, la mente y el cuerpo. Se basan en el principio de resonancia, la idea de que todo en el universo vibra a una frecuencia particular. Al exponernos a frecuencias específicas, podemos ayudar a restaurar el equilibrio y la armonía en nuestro propio campo energético.',
+    'landing.what_is.p2': 'Explora desde las antiguas frecuencias Solfeggio, como la de 528 Hz asociada a la transformación y los milagros, hasta los modernos tonos binaurales diseñados para sincronizar tus ondas cerebrales y potenciar estados de enfoque, relajación o meditación profunda.',
+
+    'landing.tools.title': 'Nuestras Herramientas Sónicas',
+    'landing.tools.subtitle': 'Diseñadas para guiarte en tu viaje hacia el bienestar.',
+
     'landing.features.title': 'Una Sinfonía de Herramientas para tu Bienestar',
     'landing.features.subtitle': 'Explora nuestras funciones diseñadas para equilibrar tu energía.',
     'landing.features.frequency_library.title': 'Biblioteca de Frecuencias',
