@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -103,14 +104,14 @@ export default function DashboardLayout({
                   <CollapsibleContent asChild>
                     <SidebarMenuSub>
                         <SidebarMenuItem>
-                            <Link href="/dashboard" asChild>
+                            <Link href="/dashboard">
                                 <SidebarMenuSubButton isActive={pathname === '/dashboard'}>
                                    <Home /> <span>{t('dashboard.sidebar.home')}</span>
                                 </SidebarMenuSubButton>
                             </Link>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                            <Link href="/education" asChild>
+                            <Link href="/education">
                                 <SidebarMenuSubButton isActive={pathname === '/education'}>
                                     <BookOpen /> <span>{t('dashboard.sidebar.education')}</span>
                                 </SidebarMenuSubButton>
