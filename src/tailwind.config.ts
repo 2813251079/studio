@@ -1,6 +1,6 @@
 import type {Config} from 'tailwindcss';
 
-export default {
+const config: Config = {
   darkMode: ['class'],
   content: [
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -21,7 +21,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-pt-sans)', 'sans-serif'],
+        sans: ['PT Sans', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -106,4 +106,6 @@ export default {
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
-} satisfies Config;
+};
+
+export default config;

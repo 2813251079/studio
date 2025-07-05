@@ -1,18 +1,10 @@
 import type {Metadata} from 'next';
-import { PT_Sans } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { translations } from '@/lib/translations';
 import { AuthProvider } from '@/hooks/use-auth';
-import { cn } from '@/lib/utils';
 
 const t = (key: any) => translations.es[key as any] || key;
-
-const ptSans = PT_Sans({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-pt-sans',
-});
 
 export const metadata: Metadata = {
   title: t('app.title'),
@@ -28,7 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark" style={{colorScheme: 'dark'}}>
-      <body className={cn("antialiased font-medium font-sans", ptSans.variable)}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+      </head>
+      <body className="antialiased font-medium font-sans">
         <AuthProvider>
           {children}
           <Toaster />
