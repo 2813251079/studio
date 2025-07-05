@@ -26,23 +26,23 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     {/* Guitar Headstock */}
     <g transform="translate(39, 15)">
         {/* Vertical neck/headstock */}
-        <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="hsl(var(--muted-foreground))" />
-        <rect x="-5" y="40" width="10" height="50" fill="hsl(var(--muted-foreground))" />
+        <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="black" />
+        <rect x="-5" y="40" width="10" height="50" fill="black" />
         
         {/* Pegs */}
-        <circle cx="-10" cy="10" r="3" fill="hsl(var(--muted-foreground))"/>
+        <circle cx="-10" cy="10" r="3" fill="black"/>
         <circle cx="-10" cy="10" r="1" fill="hsl(var(--background))"/>
-        <circle cx="-10" cy="25" r="3" fill="hsl(var(--muted-foreground))"/>
+        <circle cx="-10" cy="25" r="3" fill="black"/>
         <circle cx="-10" cy="25" r="1" fill="hsl(var(--background))"/>
         
-        <circle cx="10" cy="10" r="3" fill="hsl(var(--muted-foreground))"/>
+        <circle cx="10" cy="10" r="3" fill="black"/>
         <circle cx="10" cy="10" r="1" fill="hsl(var(--background))"/>
-        <circle cx="10" cy="25" r="3" fill="hsl(var(--muted-foreground))"/>
+        <circle cx="10" cy="25" r="3" fill="black"/>
         <circle cx="10" cy="25" r="1" fill="hsl(var(--background))"/>
     </g>
 
     {/* Pentagram and F-Clef */}
-    <g transform="translate(44, 52) scale(1.1)">
+    <g transform="translate(7, 52) scale(1.1)">
         <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
@@ -55,15 +55,15 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           {/* F-Clef shape */}
           <path
             d="M12,24 C 25,10 25,45 12,45"
-            stroke="#20B2AA"
+            stroke="#008080"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="12" cy="24" r="5" fill="#20B2AA" />
+          <circle cx="12" cy="24" r="5" fill="#008080" />
           {/* Two dots for the F-clef */}
-          <circle cx="30" cy="20" r="3" fill="#20B2AA" />
-          <circle cx="30" cy="28" r="3" fill="#20B2AA" />
+          <circle cx="30" cy="20" r="3" fill="#008080" />
+          <circle cx="30" cy="28" r="3" fill="#008080" />
         </g>
     </g>
   </svg>
