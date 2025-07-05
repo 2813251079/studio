@@ -42,7 +42,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Pentagram and F-Clef */}
-    <g transform="translate(7, 52) scale(1.1)">
+    <g transform="translate(15, 52) scale(1.1)">
         <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
