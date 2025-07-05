@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -35,8 +36,8 @@ export default function OpenConditionPage() {
           
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-12">
             <Card className="flex flex-col overflow-hidden shadow-lg transition-transform hover:-translate-y-2">
-                <CardHeader>
-                    <Image src="https://placehold.co/600x400.png" alt={t('open_condition.main.image_alt')} width={600} height={400} className="w-full object-cover rounded-t-lg" data-ai-hint="person job interview" />
+                <CardHeader className="p-0">
+                    <Image src="https://placehold.co/600x400.png" alt={t('open_condition.main.image_alt')} width={600} height={400} className="w-full h-auto object-cover rounded-t-lg" data-ai-hint="person job interview" />
                 </CardHeader>
                 <CardContent className="p-6 flex-grow flex flex-col">
                     <h2 className="text-3xl font-bold mb-4">{t('open_condition.main.title')}</h2>
@@ -53,8 +54,8 @@ export default function OpenConditionPage() {
             </Card>
 
             <Card className="flex flex-col overflow-hidden shadow-lg transition-transform hover:-translate-y-2">
-                <CardHeader>
-                    <Image src="https://placehold.co/600x400.png" alt={t('open_condition.kids.image_alt')} width={600} height={400} className="w-full object-cover rounded-t-lg" data-ai-hint="child playing tablet" />
+                <CardHeader className="p-0">
+                    <Image src="https://placehold.co/600x400.png" alt={t('open_condition.kids.image_alt')} width={600} height={400} className="w-full h-auto object-cover rounded-t-lg" data-ai-hint="child playing tablet" />
                 </CardHeader>
                 <CardContent className="p-6 flex-grow flex flex-col">
                     <h2 className="text-3xl font-bold mb-4">{t('open_condition.kids.title')}</h2>
