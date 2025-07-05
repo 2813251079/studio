@@ -18,6 +18,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { useAuth } from "@/hooks/use-auth";
 import { auth } from "@/lib/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useEffect } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -31,7 +32,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const { isFirebaseConfigured } = useAuth();
+  const { user, loading, isFirebaseConfigured } = useAuth();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -40,6 +41,13 @@ export default function LoginPage() {
       password: "",
     },
   });
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.replace('/dashboard');
+    }
+  }, [user, loading, router]);
+
 
   const { isSubmitting } = form.formState;
 
@@ -75,6 +83,14 @@ export default function LoginPage() {
       });
     }
   };
+
+  if (loading || user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-4">

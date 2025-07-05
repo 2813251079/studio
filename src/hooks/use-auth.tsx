@@ -62,13 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {loading ? (
-        <div className="flex items-center justify-center min-h-screen">
-          <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        </div>
-      ) : (
-        children
-      )}
+        {children}
     </AuthContext.Provider>
   );
 }
@@ -79,25 +73,4 @@ export function useAuth() {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}
-
-export function useRequireAuth(redirectUrl = '/auth/login') {
-  const { user, loading } = useAuth();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (loading) {
-      return;
-    }
-    
-    if (!user) {
-      if (pathname !== redirectUrl) {
-          sessionStorage.setItem('redirectAfterLogin', pathname);
-      }
-      router.replace(redirectUrl);
-    }
-  }, [user, loading, router, redirectUrl, pathname]);
-
-  return { user, loading };
 }
