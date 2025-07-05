@@ -86,7 +86,10 @@ function DashboardHeader() {
         <nav className="hidden md:flex items-center gap-2">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="text-xl">{t('app.title')}</Button>
+                    <Button variant="ghost" className="text-xl flex items-center gap-2">
+                       <Logo className="w-8 h-8" />
+                       <span>{t('app.title')}</span>
+                    </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                     <DropdownMenuLabel>{t('dashboard.sidebar.home')}</DropdownMenuLabel>
