@@ -4,13 +4,14 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { translations } from '@/lib/translations';
 import { AuthProvider } from '@/hooks/use-auth';
+import { cn } from '@/lib/utils';
 
 const t = (key: any) => translations.es[key as any] || key;
 
 const ptSans = PT_Sans({
   subsets: ['latin'],
   weight: ['400', '700'],
-  variable: '--font-body',
+  variable: '--font-pt-sans',
 });
 
 export const metadata: Metadata = {
@@ -26,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${ptSans.variable} dark`} style={{colorScheme: 'dark'}}>
-      <body className="font-body antialiased font-medium">
+    <html lang="es" className="dark" style={{colorScheme: 'dark'}}>
+      <body className={cn("antialiased font-medium font-sans", ptSans.variable)}>
         <AuthProvider>
           {children}
           <Toaster />
