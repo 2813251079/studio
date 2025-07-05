@@ -128,7 +128,7 @@ export default function VoiceCommander() {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button onClick={toggleListening} variant="ghost" size="icon" className={cn(isListening && 'text-destructive animate-pulse')}>
+          <Button onClick={toggleListening} variant="outline" size="icon" className={cn(isListening && 'text-destructive animate-pulse')}>
             {isListening ? <MicOff /> : <Mic />}
           </Button>
         </TooltipTrigger>

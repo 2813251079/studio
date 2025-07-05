@@ -43,7 +43,6 @@ const features = [
     { href: '/dashboard/facial-wellness', title: t('dashboard.sidebar.facial_wellness'), icon: <Smile /> },
     { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), icon: <BookOpen /> },
     { href: '/education', title: t('dashboard.sidebar.healing_frequencies'), icon: <BrainCircuit /> },
-    { href: '/pricing', title: t('landing.header.downloads'), icon: <Download /> },
 ];
 
 function DashboardHeader() {
@@ -86,7 +85,7 @@ function DashboardHeader() {
             <nav className="hidden md:flex items-center gap-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="text-xl flex items-center gap-2 md:ml-2">
+                        <Button variant="ghost" className="text-xl flex items-center gap-2">
                            <Logo className="w-10 h-10" />
                            <span>{t('app.title')}</span>
                         </Button>
@@ -126,7 +125,16 @@ function DashboardHeader() {
                 </Button>
             </div>
 
-            {isFirebaseConfigured && <VoiceCommander />}
+            <div className="hidden md:flex items-center gap-4">
+                <Button asChild>
+                    <Link href="/pricing">
+                        <Download className="mr-2"/>
+                        {t('landing.header.downloads')}
+                    </Link>
+                </Button>
+                {isFirebaseConfigured && <VoiceCommander />}
+            </div>
+            
             {isFirebaseConfigured && user && (
               <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -174,6 +182,10 @@ function DashboardHeader() {
                             <span>{feature.title}</span>
                         </Link>
                      ))}
+                      <Link href="/pricing" className="flex items-center gap-3 text-lg" onClick={() => setMobileMenuOpen(false)}>
+                        <Download />
+                        <span>{t('landing.header.downloads')}</span>
+                      </Link>
                     <div className="flex items-center justify-center gap-4 pt-4">
                       <Button asChild variant="ghost" size="icon">
                           <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
