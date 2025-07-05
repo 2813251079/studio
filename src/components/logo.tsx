@@ -16,7 +16,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </defs>
     
     {/* Guitar Body */}
-    <g transform="translate(62, 67) scale(0.35) translate(-150, -235)">
+    <g transform="translate(64, 67) scale(0.35) translate(-150, -235)">
       <path
         d="M 150 305 C 80 320, 70 260, 105 220 C 120 195, 180 195, 195 220 C 230 260, 220 320, 150 305 Z"
         fill="url(#sunsetGradient)"
@@ -51,7 +51,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           <path d="M 0 32 H 55" />
         </g>
 
-        <g transform="translate(8, 0)">
+        <g transform="translate(10, 0)">
           {/* F-Clef shape */}
           <path
             d="M12,24 C 25,10 25,45 12,45"
