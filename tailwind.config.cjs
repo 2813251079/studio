@@ -1,13 +1,12 @@
 /** @type {import('tailwindcss').Config} */
-const config = {
+module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
-  prefix: "",
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     container: {
       center: true,
@@ -17,9 +16,6 @@ const config = {
       },
     },
     extend: {
-      fontFamily: {
-         sans: ["var(--font-sans)"],
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -76,7 +72,5 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-}
-
-module.exports = config;
+  plugins: [require("tailwindcss-animate")],
+};
