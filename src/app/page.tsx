@@ -80,7 +80,7 @@ export default function Home() {
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.tools.title')}</h2>
                 <p className="mt-4 text-lg text-muted-foreground">{t('landing.tools.subtitle')}</p>
             </div>
-             <div className="flex flex-wrap items-center justify-center gap-12">
+             <div className="flex flex-wrap items-center justify-end gap-12">
                 {features.filter(f => f.href !== '/pricing').map((feature) => (
                     <Link key={feature.href} href={feature.href} className="group">
                         <div className="flex h-72 w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
