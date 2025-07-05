@@ -21,7 +21,7 @@ export default function PricingPage() {
           </div>
           
           <Card className="max-w-4xl mx-auto overflow-hidden">
-            <div className="grid md:grid-cols-2">
+            <div className="grid md:grid-cols-2 md:items-center">
                 <div className="p-8 md:p-12 text-center md:text-left order-2 md:order-1">
                     <h2 className="text-3xl font-bold mb-4">{t('downloads.get_app.title')}</h2>
                     <p className="text-muted-foreground mb-8">{t('downloads.get_app.description')}</p>
@@ -41,8 +41,8 @@ export default function PricingPage() {
                     </div>
                     <p className="text-sm text-muted-foreground mt-8">{t('downloads.free_with_in_app')}</p>
                 </div>
-                <div className="relative h-64 md:h-full w-full order-1 md:order-2">
-                    <Image src="https://placehold.co/600x600.png" alt="App en una tableta" fill={true} className="object-cover" data-ai-hint="tablet app" />
+                <div className="relative h-64 w-full order-1 md:order-2 md:h-auto md:aspect-square">
+                    <Image src="https://placehold.co/600x600.png" alt="App en una tableta" fill className="object-cover" data-ai-hint="tablet app" />
                 </div>
             </div>
           </Card>
