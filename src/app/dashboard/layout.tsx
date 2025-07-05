@@ -73,32 +73,7 @@ function DashboardHeader() {
   
   return (
     <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
-        <nav className="hidden md:flex items-center gap-2">
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="text-xl flex items-center gap-2">
-                       <Logo className="w-6 h-6" />
-                       <span>{t('app.title')}</span>
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>{t('dashboard.sidebar.home')}</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                        {features.map((feature) => (
-                             <DropdownMenuItem key={feature.href} asChild>
-                                <Link href={feature.href} className="flex items-center gap-2">
-                                    {feature.icon}
-                                    <span>{feature.title}</span>
-                                </Link>
-                            </DropdownMenuItem>
-                        ))}
-                    </DropdownMenuGroup>
-                </DropdownMenuContent>
-            </DropdownMenu>
-        </nav>
-
+      <div className="container flex h-24 max-w-screen-2xl items-center justify-between md:justify-end">
         <Link 
             href="/dashboard" 
             aria-label={t('dashboard.sidebar.home')}
@@ -108,6 +83,31 @@ function DashboardHeader() {
         </Link>
         
         <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-2">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="text-xl flex items-center gap-2">
+                           <Logo className="w-8 h-8" />
+                           <span>{t('app.title')}</span>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                        <DropdownMenuLabel>{t('dashboard.sidebar.home')}</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                            {features.map((feature) => (
+                                 <DropdownMenuItem key={feature.href} asChild>
+                                    <Link href={feature.href} className="flex items-center gap-2">
+                                        {feature.icon}
+                                        <span>{feature.title}</span>
+                                    </Link>
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </nav>
+
             <div className="hidden md:flex items-center gap-2">
                 <Button asChild variant="ghost" size="icon">
                     <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
