@@ -42,8 +42,8 @@ export default function PricingPage() {
                     </div>
                     <p className="text-sm text-muted-foreground mt-8">{t('downloads.free_with_in_app')}</p>
                 </div>
-                <div className="relative w-full order-1 md:order-2 aspect-[3/2]">
-                    <Image src="https://placehold.co/600x400.png" alt="App en una tableta" fill className="object-cover" data-ai-hint="tablet app" />
+                <div className="w-full order-1 md:order-2">
+                    <Image src="https://placehold.co/600x400.png" alt="App en una tableta" width={600} height={400} className="w-full h-auto object-cover" data-ai-hint="tablet app" />
                 </div>
             </div>
           </Card>
