@@ -32,7 +32,7 @@ export default function DashboardPage() {
             </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-end gap-12 max-w-5xl mx-auto">
+        <div className="flex flex-wrap items-center justify-center gap-12 max-w-5xl mx-auto">
             {features.map((feature) => (
                 <Link key={feature.href} href={feature.href} className="group">
                     <div className="flex h-72 w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
