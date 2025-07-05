@@ -126,9 +126,9 @@ function DashboardHeader() {
             </div>
 
             <div className="hidden md:flex items-center gap-4">
-                <Button asChild>
+                <Button asChild size="sm">
                     <Link href="/pricing">
-                        <Download className="mr-2"/>
+                        <Download className="mr-2 h-4 w-4"/>
                         {t('landing.header.downloads')}
                     </Link>
                 </Button>
