@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
  
 @layer base {
   :root {
-    --background: 210 17% 95%;
+    --background: 200 14% 94%;
     --foreground: 220 25% 8%;
     --card: 0 0% 100%;
     --card-foreground: 220 25% 8%;
@@ -58,9 +60,7 @@
     --chart-4: 320 65% 60%;
     --chart-5: 140 75% 55%;
   }
-}
- 
-@layer base {
+
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
