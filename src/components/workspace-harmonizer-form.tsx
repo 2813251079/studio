@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -59,6 +60,13 @@ export default function WorkspaceHarmonizerForm() {
       formRef.current?.reset();
     }
   }, [state, toast]);
+
+  const placeholderImages = [
+    { alt: t('workspace_harmonizer.intentions.focus'), hint: 'focus study' },
+    { alt: t('workspace_harmonizer.intentions.relax'), hint: 'calm beach' },
+    { alt: t('workspace_harmonizer.intentions.creativity'), hint: 'creative paint' },
+    { alt: t('workspace_harmonizer.intentions.energy'), hint: 'energy sunrise' },
+  ];
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -172,10 +180,17 @@ export default function WorkspaceHarmonizerForm() {
               </CardHeader>
               <CardContent>
                   <div className="grid grid-cols-2 gap-4">
-                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.focus')} className="rounded-lg transition-transform duration-300 hover:scale-105" data-ai-hint="focus study" />
-                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.relax')} className="rounded-lg transition-transform duration-300 hover:scale-105" data-ai-hint="calm beach" />
-                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.creativity')} className="rounded-lg transition-transform duration-300 hover:scale-105" data-ai-hint="creative paint" />
-                      <Image src="https://placehold.co/400x400.png" width={400} height={400} alt={t('workspace_harmonizer.intentions.energy')} className="rounded-lg transition-transform duration-300 hover:scale-105" data-ai-hint="energy sunrise" />
+                      {placeholderImages.map((image, index) => (
+                          <div key={index} className="relative aspect-square w-full overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105">
+                              <Image 
+                                  src="https://placehold.co/400x400.png" 
+                                  alt={image.alt} 
+                                  fill
+                                  className="object-cover"
+                                  data-ai-hint={image.hint} 
+                              />
+                          </div>
+                      ))}
                   </div>
               </CardContent>
             </Card>

@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -21,8 +22,8 @@ export default function PricingPage() {
           </div>
           
           <Card className="max-w-4xl mx-auto overflow-hidden">
-            <div className="grid md:grid-cols-2 md:items-center">
-                <div className="p-8 md:p-12 text-center md:text-left order-2 md:order-1">
+            <div className="grid md:grid-cols-2 md:items-stretch">
+                <div className="p-8 md:p-12 text-center md:text-left order-2 md:order-1 flex flex-col justify-center">
                     <h2 className="text-3xl font-bold mb-4">{t('downloads.get_app.title')}</h2>
                     <p className="text-muted-foreground mb-8">{t('downloads.get_app.description')}</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -41,7 +42,7 @@ export default function PricingPage() {
                     </div>
                     <p className="text-sm text-muted-foreground mt-8">{t('downloads.free_with_in_app')}</p>
                 </div>
-                <div className="relative h-64 w-full order-1 md:order-2 md:h-auto md:aspect-square">
+                <div className="relative min-h-[300px] w-full order-1 md:order-2">
                     <Image src="https://placehold.co/600x600.png" alt="App en una tableta" fill className="object-cover" data-ai-hint="tablet app" />
                 </div>
             </div>
