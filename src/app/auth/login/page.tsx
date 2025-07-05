@@ -41,7 +41,7 @@ export default function LoginPage() {
     },
   });
 
-  const { isSubmitting, setFocus } = form.formState;
+  const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: LoginFormValues) => {
     if (!isFirebaseConfigured) return;
@@ -64,7 +64,7 @@ export default function LoginPage() {
         errorMessage = "El correo electrónico o la contraseña no son correctos.";
         form.setError("email", { type: "manual", message: " " });
         form.setError("password", { type: "manual", message: " " });
-        setTimeout(() => setFocus('email'), 0);
+        setTimeout(() => form.setFocus('email'), 0);
       } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
         errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
       }
