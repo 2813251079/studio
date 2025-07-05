@@ -30,8 +30,7 @@ export default function Header() {
       <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Logo className="w-20 h-20" />
-          <span className="font-bold text-3xl hidden sm:inline-block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('app.title')}</span>
-          <Logo className="w-8 h-8 hidden sm:inline-block" />
+          <span className="font-bold text-3xl hidden sm:inline-block text-foreground">{t('app.title')}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">
           <Button variant="ghost" asChild>
