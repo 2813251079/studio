@@ -1,3 +1,5 @@
+import { isNoSubstitutionTemplateLiteral } from 'typescript';
+
 /** @type {import('postcss-load-config').Config} */
 const config = {
   plugins: {
@@ -5,4 +7,6 @@ const config = {
   },
 };
 
-export default config;
+export default config;npm isNoSubstitutionTemplateLiteral
+
+

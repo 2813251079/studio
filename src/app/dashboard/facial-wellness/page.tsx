@@ -109,7 +109,7 @@ export default function FacialWellnessPage() {
                 <CardTitle>{t('facial_wellness.camera_title')}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col items-center justify-center p-4">
-                <div className="relative w-full aspect-video rounded-md overflow-hidden bg-secondary">
+                <div className="relative w-full aspect-[3/2] rounded-md overflow-hidden bg-secondary">
                     <video ref={videoRef} className={cn("w-full h-full object-cover transform -scale-x-100", isAnalyzing ? 'animate-pulse' : '')} autoPlay muted playsInline />
                     <canvas ref={canvasRef} className="hidden" />
                     {hasCameraPermission === false && (

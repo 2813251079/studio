@@ -1,5 +1,13 @@
 {
   "projects": {
-    "default": "gen-lang-client-0532231213"
+    "default": const firebaseConfig = {
+  apiKey: "AIzaSyAVS6YAtIHica96_0sA3lV8vrWv5qqZjmk",
+  authDomain: "workspace-symphony-70n4i.firebaseapp.com",
+  projectId: "workspace-symphony-70n4i",
+  storageBucket: "workspace-symphony-70n4i.firebasestorage.app",
+  messagingSenderId:"1:288399007235:web:1b03a3f3b6232c9c24f836" 
+  appId: "1:288399007235:web:1b03a3f3b6232c9c24f836"
+};
+
   }
 }

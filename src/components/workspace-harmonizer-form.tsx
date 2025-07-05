@@ -137,7 +137,7 @@ export default function WorkspaceHarmonizerForm() {
             </CardHeader>
             <CardContent className="space-y-6">
                 {state.data.imageUrl && (
-                    <div className="aspect-video relative w-full overflow-hidden rounded-lg">
+                    <div className="aspect-[3/2] relative w-full overflow-hidden rounded-lg">
                         <Image src={state.data.imageUrl} alt={t('workspace_harmonizer.result.image_alt')} fill={true} className="object-cover transition-all duration-500 hover:scale-110" data-ai-hint="abstract spiritual" />
                     </div>
                 )}
@@ -181,9 +181,9 @@ export default function WorkspaceHarmonizerForm() {
               <CardContent>
                   <div className="grid grid-cols-2 gap-4">
                       {placeholderImages.map((image, index) => (
-                          <div key={index} className="relative aspect-square w-full overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105">
+                          <div key={index} className="relative aspect-[3/2] w-full overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105">
                               <Image 
-                                  src="https://placehold.co/400x400.png" 
+                                  src="https://placehold.co/600x400.png" 
                                   alt={image.alt} 
                                   fill
                                   className="object-cover"
