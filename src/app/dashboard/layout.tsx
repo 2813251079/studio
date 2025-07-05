@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit, Smile } from 'lucide-react';
+import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit, Smile, Download } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 import SpotifyIcon from '@/components/spotify-icon';
@@ -43,7 +43,7 @@ const features = [
     { href: '/dashboard/facial-wellness', title: t('dashboard.sidebar.facial_wellness'), icon: <Smile /> },
     { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), icon: <BookOpen /> },
     { href: '/education', title: t('dashboard.sidebar.healing_frequencies'), icon: <BrainCircuit /> },
-    { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), icon: <Star /> },
+    { href: '/pricing', title: t('landing.header.downloads'), icon: <Download /> },
 ];
 
 function DashboardHeader() {

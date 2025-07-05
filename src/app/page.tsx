@@ -3,7 +3,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, BrainCircuit, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star } from "lucide-react";
+import { ArrowRight, BrainCircuit, Waves, Wind, Video, Puzzle, SlidersHorizontal, Download } from "lucide-react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -47,9 +47,9 @@ export default function Home() {
     },
     {
       href: '/pricing',
-      title: t('dashboard.sidebar.coming_soon'),
-      description: t('coming_soon.description'),
-      icon: <Star className="h-8 w-8 text-primary" />,
+      title: t('landing.header.downloads'),
+      description: t('downloads.subtitle'),
+      icon: <Download className="h-8 w-8 text-primary" />,
     },
   ];
 
@@ -97,10 +97,10 @@ export default function Home() {
         
         <section className="container py-20 md:py-32 text-center">
            <div className="max-w-2xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('pricing.title')}</h2>
-              <p className="mt-4 text-lg text-muted-foreground">{t('pricing.subtitle')}</p>
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('downloads.title')}</h2>
+              <p className="mt-4 text-lg text-muted-foreground">{t('downloads.subtitle')}</p>
               <Button size="lg" variant="outline" className="mt-8" asChild>
-                  <Link href="/pricing">Ver Planes de Precios</Link>
+                  <Link href="/pricing">{t('landing.header.downloads')}</Link>
               </Button>
            </div>
         </section>

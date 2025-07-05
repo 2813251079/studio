@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Brain, BookOpen, BrainCircuit, Smile } from "lucide-react";
+import { Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Brain, BookOpen, BrainCircuit, Smile, Download } from "lucide-react";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -16,7 +16,7 @@ const features = [
     { href: '/dashboard/facial-wellness', title: t('dashboard.sidebar.facial_wellness'), description: t('facial_wellness.subtitle'), icon: <Smile className="h-10 w-10 text-primary" /> },
     { href: '/dashboard/education', title: t('dashboard.sidebar.education_db'), description: t('education_page.description'), icon: <BookOpen className="h-10 w-10 text-accent" /> },
     { href: '/education', title: t('dashboard.sidebar.healing_frequencies'), description: t('healing_frequencies.subtitle'), icon: <BrainCircuit className="h-10 w-10 text-primary" /> },
-    { href: '/pricing', title: t('dashboard.sidebar.coming_soon'), description: t('coming_soon.description'), icon: <Star className="h-10 w-10 text-accent" /> },
+    { href: '/pricing', title: t('landing.header.downloads'), description: t('downloads.subtitle'), icon: <Download className="h-10 w-10 text-accent" /> },
 ];
 
 export default function DashboardPage() {

@@ -52,6 +52,9 @@ export default function Header() {
                 <YoutubeIcon className="h-7 w-7" />
             </Link>
           </Button>
+          <Button variant="outline" asChild>
+            <Link href="/pricing">{t('landing.header.downloads')}</Link>
+          </Button>
           <Button asChild>
             <Link href="/auth/register">{t('landing.header.get_started')}</Link>
           </Button>
@@ -71,6 +74,9 @@ export default function Header() {
               <nav className="flex flex-col gap-6 pt-10">
                 <Button asChild>
                   <Link href="/auth/register" onClick={() => setOpen(false)}>{t('landing.header.get_started')}</Link>
+                </Button>
+                <Button variant="outline" asChild>
+                    <Link href="/pricing" onClick={() => setOpen(false)}>{t('landing.header.downloads')}</Link>
                 </Button>
                 <Button variant="outline" asChild>
                   <Link href="/auth/login" onClick={() => setOpen(false)}>{t('landing.header.login')}</Link>

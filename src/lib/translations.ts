@@ -6,6 +6,7 @@ export const translations = {
     
     'landing.header.features': 'Características',
     'landing.header.pricing': 'Precios',
+    'landing.header.downloads': 'Descargas',
     'landing.header.education': 'Educación',
     'landing.header.login': 'Ingresar',
     'landing.header.get_started': 'Comenzar Gratis',
@@ -69,6 +70,14 @@ export const translations = {
     'pricing.custom.feature4': 'Soporte y ajustes personalizados',
     'pricing.custom.cta_email': 'Contactar por Email',
     'pricing.custom.cta_instagram': 'Mensaje en Instagram',
+
+    'downloads.title': 'Descarga Open Music Academy',
+    'downloads.subtitle': 'Accede desde cualquier dispositivo. Nuestra tecnología se adapta para brindarte la mejor experiencia en tabletas, teléfonos y ordenadores.',
+    'downloads.get_app.title': 'Lleva la Armonía Contigo',
+    'downloads.get_app.description': 'Diseñada para la inmersión en tabletas, pero totalmente funcional en cualquier dispositivo. Explora, crea y relájate donde sea que estés.',
+    'downloads.cta_ios': 'Descargar en la App Store',
+    'downloads.cta_android': 'Obtener en Google Play',
+    'downloads.free_with_in_app': 'Descarga gratuita con compras opcionales dentro de la aplicación.',
 
     'login.title': 'Bienvenido de Nuevo',
     'login.subtitle': 'Ingresa para continuar tu viaje sónico.',
