@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Brain, BookOpen, BrainCircuit, Smile, Download } from "lucide-react";
+import { Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Brain, BookOpen, BrainCircuit, Smile, Download, HeartHandshake } from "lucide-react";
 import { translations } from "@/lib/translations";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -11,6 +11,7 @@ const features = [
     { href: '/dashboard/audio-enhancer', title: t('dashboard.sidebar.workspace_harmonizer'), description: t('workspace_harmonizer.subtitle'), icon: <Wind className="h-10 w-10 text-accent" /> },
     { href: '/dashboard/video-harmonizer', title: t('dashboard.sidebar.video_harmonizer'), description: t('video_harmonizer.subtitle'), icon: <Video className="h-10 w-10 text-primary" /> },
     { href: '/dashboard/inclusive-games', title: t('dashboard.sidebar.inclusive_games'), description: t('inclusive_games.subtitle'), icon: <Puzzle className="h-10 w-10 text-accent" /> },
+    { href: '/open-condition', title: t('dashboard.sidebar.open_condition'), description: t('open_condition.description'), icon: <HeartHandshake className="h-10 w-10 text-primary" /> },
     { href: '/dashboard/production', title: t('dashboard.sidebar.music_production'), description: t('music_production.subtitle'), icon: <SlidersHorizontal className="h-10 w-10 text-primary" /> },
     { href: '/dashboard/tuner', title: t('dashboard.sidebar.tuner'), description: t('tuner.subtitle'), icon: <Brain className="h-10 w-10 text-accent" />},
     { href: '/dashboard/facial-wellness', title: t('dashboard.sidebar.facial_wellness'), description: t('facial_wellness.subtitle'), icon: <Smile className="h-10 w-10 text-primary" /> },

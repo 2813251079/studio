@@ -3,7 +3,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, BrainCircuit, Waves, Wind, Video, Puzzle, SlidersHorizontal, Download } from "lucide-react";
+import { ArrowRight, BrainCircuit, Waves, Wind, Video, Puzzle, SlidersHorizontal, Download, HeartHandshake } from "lucide-react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -32,6 +32,12 @@ export default function Home() {
       title: t('dashboard.sidebar.inclusive_games'),
       description: t('inclusive_games.subtitle'),
       icon: <Puzzle className="h-8 w-8 text-accent" />,
+    },
+     { 
+      href: '/open-condition', 
+      title: t('dashboard.sidebar.open_condition'), 
+      description: t('open_condition.description'), 
+      icon: <HeartHandshake className="h-8 w-8 text-primary" /> 
     },
     {
       href: '/dashboard/production',
