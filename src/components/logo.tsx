@@ -26,23 +26,23 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     {/* Guitar Headstock */}
     <g transform="translate(39, 15)">
         {/* Vertical neck/headstock */}
-        <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="black" />
-        <rect x="-5" y="40" width="10" height="50" fill="black" />
+        <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="hsl(var(--muted-foreground))" />
+        <rect x="-5" y="40" width="10" height="50" fill="hsl(var(--muted-foreground))" />
         
         {/* Pegs */}
-        <circle cx="-10" cy="10" r="3" fill="black"/>
+        <circle cx="-10" cy="10" r="3" fill="hsl(var(--muted-foreground))"/>
         <circle cx="-10" cy="10" r="1" fill="hsl(var(--background))"/>
-        <circle cx="-10" cy="25" r="3" fill="black"/>
+        <circle cx="-10" cy="25" r="3" fill="hsl(var(--muted-foreground))"/>
         <circle cx="-10" cy="25" r="1" fill="hsl(var(--background))"/>
         
-        <circle cx="10" cy="10" r="3" fill="black"/>
+        <circle cx="10" cy="10" r="3" fill="hsl(var(--muted-foreground))"/>
         <circle cx="10" cy="10" r="1" fill="hsl(var(--background))"/>
-        <circle cx="10" cy="25" r="3" fill="black"/>
+        <circle cx="10" cy="25" r="3" fill="hsl(var(--muted-foreground))"/>
         <circle cx="10" cy="25" r="1" fill="hsl(var(--background))"/>
     </g>
 
     {/* Pentagram and F-Clef */}
-    <g transform="translate(15, 52) scale(1.1)">
+    <g transform="translate(25, 52) scale(1.1)">
         <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
