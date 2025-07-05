@@ -1,16 +1,9 @@
 import Link from "next/link";
-import Logo from "@/components/logo";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
-import { ArrowRight, BrainCircuit, Combine, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Layers } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { ArrowRight, BrainCircuit, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star } from "lucide-react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -41,16 +34,22 @@ export default function Home() {
       icon: <Puzzle className="h-8 w-8 text-accent" />,
     },
     {
-      href: '/pricing',
-      title: t('dashboard.sidebar.coming_soon'),
-      description: t('coming_soon.description'),
-      icon: <Star className="h-8 w-8 text-accent" />,
-    },
-    {
       href: '/dashboard/production',
       title: t('dashboard.sidebar.music_production'),
       description: t('music_production.subtitle'),
       icon: <SlidersHorizontal className="h-8 w-8 text-primary" />,
+    },
+    {
+      href: '/education',
+      title: t('landing.info_section.title'),
+      description: t('healing_frequencies.subtitle'),
+      icon: <BrainCircuit className="h-8 w-8 text-accent" />,
+    },
+    {
+      href: '/pricing',
+      title: t('dashboard.sidebar.coming_soon'),
+      description: t('coming_soon.description'),
+      icon: <Star className="h-8 w-8 text-primary" />,
     },
   ];
 
@@ -82,7 +81,7 @@ export default function Home() {
                 <p className="mt-4 text-lg text-muted-foreground">{t('landing.tools.subtitle')}</p>
             </div>
              <div className="flex flex-wrap items-center justify-start gap-12">
-                {features.slice(0, -1).map((feature) => ( // Show all but last one
+                {features.filter(f => f.href !== '/pricing').map((feature) => (
                     <Link key={feature.href} href={feature.href} className="group">
                         <div className="flex h-72 w-72 flex-col items-center justify-center rounded-full bg-secondary p-6 text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:bg-card group-hover:shadow-2xl group-hover:shadow-primary/10">
                            <div className="mb-4 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-background p-4 transition-colors group-hover:bg-secondary">
@@ -93,66 +92,6 @@ export default function Home() {
                         </div>
                     </Link>
                 ))}
-            </div>
-        </section>
-
-        <section id="education" className="container py-20 md:py-32 bg-secondary rounded-3xl">
-            <div className="text-center max-w-4xl mx-auto">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.info_section.title')}</h2>
-                <div className="mt-6 space-y-4 text-lg text-muted-foreground">
-                    <p>{t('landing.what_is.p1')}</p>
-                    <p>{t('landing.what_is.p2')}</p>
-                </div>
-                
-                <div className="mt-20">
-                    <h3 className="text-3xl md:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.education.concepts_title')}</h3>
-                    <Accordion type="single" collapsible className="w-full text-left">
-                        <AccordionItem value="item-1">
-                            <AccordionTrigger className="text-xl hover:no-underline">
-                            <div className="flex items-center gap-4">
-                                <Logo className="w-8 h-8" />
-                                <span>{t('landing.sound_universe.solfeggio.title')}</span>
-                            </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground text-lg">
-                            {t('landing.sound_universe.solfeggio.description')}
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-2">
-                            <AccordionTrigger className="text-xl hover:no-underline">
-                            <div className="flex items-center gap-4">
-                                <BrainCircuit className="h-6 w-6 text-primary" />
-                                <span>{t('landing.sound_universe.binaural.title')}</span>
-                            </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground text-lg">
-                            {t('landing.sound_universe.binaural.description')}
-                            </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-3">
-                            <AccordionTrigger className="text-xl hover:no-underline">
-                            <div className="flex items-center gap-4">
-                                <Combine className="h-6 w-6 text-primary" />
-                                <span>{t('landing.sound_universe.synesthesia.title')}</span>
-                            </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground text-lg">
-                            {t('landing.sound_universe.synesthesia.description')}
-                            </AccordionContent>
-                        </AccordionItem>
-                         <AccordionItem value="item-4">
-                            <AccordionTrigger className="text-xl hover:no-underline">
-                            <div className="flex items-center gap-4">
-                                <Layers className="h-6 w-6 text-primary" />
-                                <span>{t('landing.sound_universe.consciousness.title')}</span>
-                            </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground text-lg">
-                                <div dangerouslySetInnerHTML={{ __html: t('landing.sound_universe.consciousness.description') }} />
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                </div>
             </div>
         </section>
         
