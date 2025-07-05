@@ -97,62 +97,62 @@ export default function Home() {
         </section>
 
         <section id="education" className="container py-20 md:py-32 bg-secondary rounded-3xl">
-            <div className="text-center max-w-3xl mx-auto">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.what_is.title')}</h2>
+            <div className="text-center max-w-4xl mx-auto">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.info_section.title')}</h2>
                 <div className="mt-6 space-y-4 text-lg text-muted-foreground">
                     <p>{t('landing.what_is.p1')}</p>
                     <p>{t('landing.what_is.p2')}</p>
                 </div>
-            </div>
-            
-            <div className="max-w-4xl mx-auto mt-20">
-                <h3 className="text-3xl md:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.education.concepts_title')}</h3>
-                <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger className="text-xl hover:no-underline">
-                        <div className="flex items-center gap-4">
-                            <Logo className="w-8 h-8" />
-                            <span>{t('landing.sound_universe.solfeggio.title')}</span>
-                        </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-lg">
-                        {t('landing.sound_universe.solfeggio.description')}
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-2">
-                        <AccordionTrigger className="text-xl hover:no-underline">
-                        <div className="flex items-center gap-4">
-                            <BrainCircuit className="h-6 w-6 text-primary" />
-                            <span>{t('landing.sound_universe.binaural.title')}</span>
-                        </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-lg">
-                        {t('landing.sound_universe.binaural.description')}
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="item-3">
-                        <AccordionTrigger className="text-xl hover:no-underline">
-                        <div className="flex items-center gap-4">
-                            <Combine className="h-6 w-6 text-primary" />
-                            <span>{t('landing.sound_universe.synesthesia.title')}</span>
-                        </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-lg">
-                        {t('landing.sound_universe.synesthesia.description')}
-                        </AccordionContent>
-                    </AccordionItem>
-                     <AccordionItem value="item-4">
-                        <AccordionTrigger className="text-xl hover:no-underline">
-                        <div className="flex items-center gap-4">
-                            <Layers className="h-6 w-6 text-primary" />
-                            <span>{t('landing.sound_universe.consciousness.title')}</span>
-                        </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-lg">
-                            <div dangerouslySetInnerHTML={{ __html: t('landing.sound_universe.consciousness.description') }} />
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
+                
+                <div className="mt-20">
+                    <h3 className="text-3xl md:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('landing.education.concepts_title')}</h3>
+                    <Accordion type="single" collapsible className="w-full text-left">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger className="text-xl hover:no-underline">
+                            <div className="flex items-center gap-4">
+                                <Logo className="w-8 h-8" />
+                                <span>{t('landing.sound_universe.solfeggio.title')}</span>
+                            </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-muted-foreground text-lg">
+                            {t('landing.sound_universe.solfeggio.description')}
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger className="text-xl hover:no-underline">
+                            <div className="flex items-center gap-4">
+                                <BrainCircuit className="h-6 w-6 text-primary" />
+                                <span>{t('landing.sound_universe.binaural.title')}</span>
+                            </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-muted-foreground text-lg">
+                            {t('landing.sound_universe.binaural.description')}
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-3">
+                            <AccordionTrigger className="text-xl hover:no-underline">
+                            <div className="flex items-center gap-4">
+                                <Combine className="h-6 w-6 text-primary" />
+                                <span>{t('landing.sound_universe.synesthesia.title')}</span>
+                            </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-muted-foreground text-lg">
+                            {t('landing.sound_universe.synesthesia.description')}
+                            </AccordionContent>
+                        </AccordionItem>
+                         <AccordionItem value="item-4">
+                            <AccordionTrigger className="text-xl hover:no-underline">
+                            <div className="flex items-center gap-4">
+                                <Layers className="h-6 w-6 text-primary" />
+                                <span>{t('landing.sound_universe.consciousness.title')}</span>
+                            </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="text-muted-foreground text-lg">
+                                <div dangerouslySetInnerHTML={{ __html: t('landing.sound_universe.consciousness.description') }} />
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
             </div>
         </section>
         
