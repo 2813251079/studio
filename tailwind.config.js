@@ -1,3 +1,2 @@
-// This file is deprecated. The configuration has been moved to tailwind.config.cjs
-// to resolve a build issue with module resolution.
+// This file is intentionally left blank. The configuration is in tailwind.config.cjs.
 module.exports = {};
