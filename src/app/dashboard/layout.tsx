@@ -73,11 +73,11 @@ function DashboardHeader() {
   
   return (
     <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-24 max-w-screen-2xl items-center justify-between md:justify-end">
+      <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
         <Link 
             href="/dashboard" 
             aria-label={t('dashboard.sidebar.home')}
-            className="w-20 h-20 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95 md:absolute md:left-1/2 md:-translate-x-1/2"
+            className="w-20 h-20 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95"
         >
             <Logo className="w-full h-full" />
         </Link>
