@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useTransition } from 'react';
 import { useFormState } from 'react-dom';
 import Link from 'next/link';
 import { getFacialAnalysis } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { translations } from '@/lib/translations';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, Camera, AlertTriangle, Wand2, Bot, Smile, BarChart, ArrowRight, Heart } from 'lucide-react';
@@ -21,8 +21,8 @@ const initialState = {
 
 export default function FacialWellnessPage() {
   const [state, formAction] = useFormState(getFacialAnalysis, initialState);
+  const [isPending, startTransition] = useTransition();
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { toast } = useToast();
@@ -56,31 +56,26 @@ export default function FacialWellnessPage() {
 
   const handleAnalyzeClick = () => {
     if (!videoRef.current || !canvasRef.current) return;
-    setIsAnalyzing(true);
 
     const video = videoRef.current;
     const canvas = canvasRef.current;
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     const context = canvas.getContext('2d');
+    
+    // The video is visually flipped with CSS, but the underlying data is not.
+    // We draw the original, unflipped video data to the canvas for analysis.
     context?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
     
     const imageData = canvas.toDataURL('image/jpeg');
     const formData = new FormData();
     formData.append('imageData', imageData);
 
-    // use a timeout to show loading state before submitting the form
-    setTimeout(() => {
+    startTransition(() => {
         formAction(formData);
-    }, 500)
+    });
   };
   
-  useEffect(() => {
-    if (state.data || state.error) {
-        setIsAnalyzing(false);
-    }
-  }, [state]);
-
   const getActivityLink = (activity: string, target: string) => {
     const pages: { [key: string]: string } = {
         'frequency': '/dashboard/frequencies',
@@ -109,11 +104,26 @@ export default function FacialWellnessPage() {
                 <CardTitle>{t('facial_wellness.camera_title')}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col items-center justify-center p-4">
-                <div className="relative w-full aspect-[3/2] rounded-md overflow-hidden bg-secondary">
-                    <video ref={videoRef} className={cn("w-full h-full object-cover transform -scale-x-100", isAnalyzing ? 'animate-pulse' : '')} autoPlay muted playsInline />
+                <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-secondary">
+                    <video 
+                      ref={videoRef} 
+                      className={cn(
+                        "w-full h-full object-cover transform -scale-x-100", 
+                        isPending ? 'animate-pulse' : ''
+                      )} 
+                      autoPlay 
+                      muted 
+                      playsInline 
+                    />
                     <canvas ref={canvasRef} className="hidden" />
+                    {hasCameraPermission === null && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-secondary/80">
+                           <Loader2 className="h-12 w-12 text-primary animate-spin mb-4" />
+                           <p className="text-muted-foreground">Iniciando cámara...</p>
+                        </div>
+                    )}
                     {hasCameraPermission === false && (
-                         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-secondary/80">
                             <AlertTriangle className="h-12 w-12 text-destructive mb-4" />
                             <h3 className="font-bold">{t('facial_wellness.camera_access_required')}</h3>
                             <p className="text-sm text-muted-foreground">{t('facial_wellness.camera_access_description')}</p>
@@ -121,9 +131,9 @@ export default function FacialWellnessPage() {
                     )}
                 </div>
             </CardContent>
-             <CardContent className="flex justify-center">
-                 <Button onClick={handleAnalyzeClick} disabled={!hasCameraPermission || isAnalyzing} size="lg">
-                    {isAnalyzing ? (
+            <CardFooter className="flex justify-center p-6">
+                 <Button onClick={handleAnalyzeClick} disabled={!hasCameraPermission || isPending} size="lg">
+                    {isPending ? (
                          <>
                             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                             {t('facial_wellness.analyzing')}
@@ -135,18 +145,18 @@ export default function FacialWellnessPage() {
                          </>
                     )}
                  </Button>
-            </CardContent>
+            </CardFooter>
         </Card>
         
         <div className="space-y-4">
-            {isAnalyzing && !state.data && !state.error && (
-                <Card className="flex h-full flex-col items-center justify-center p-8 text-center">
+            {isPending && (
+                <Card className="flex h-full min-h-[400px] flex-col items-center justify-center p-8 text-center">
                     <Loader2 className="h-12 w-12 text-primary animate-spin mb-4" />
                     <p className="text-muted-foreground text-lg">{t('facial_wellness.analyzing')}</p>
                 </Card>
             )}
 
-            {state.error && (
+            {state.error && !isPending && (
                 <Alert variant="destructive">
                     <AlertTriangle className="h-4 w-4" />
                     <AlertTitle>{t('error.toast.title')}</AlertTitle>
@@ -154,7 +164,7 @@ export default function FacialWellnessPage() {
                 </Alert>
             )}
 
-            {state.data && (
+            {state.data && !isPending && (
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-xl">
@@ -185,7 +195,7 @@ export default function FacialWellnessPage() {
                 </Card>
             )}
             
-            {!isAnalyzing && !state.data && !state.error && (
+            {!isPending && !state.data && (
                 <Card className="flex h-full min-h-[400px] flex-col items-center justify-center p-8 text-center border-dashed">
                     <Camera className="h-12 w-12 text-muted-foreground mb-4" />
                     <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('facial_wellness.placeholder_title')}</h3>
