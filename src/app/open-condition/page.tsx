@@ -34,7 +34,7 @@ export default function OpenConditionPage() {
             <p className="mt-4 text-xl text-muted-foreground">{t('open_condition.subtitle')}</p>
           </div>
           
-          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-12 lg:items-stretch">
             <Card className="flex flex-col overflow-hidden shadow-lg transition-transform hover:-translate-y-2">
                 <div className="relative w-full aspect-[3/2]">
                     <Image src="https://placehold.co/600x400.png" alt={t('open_condition.main.image_alt')} fill className="object-cover" data-ai-hint="person job interview" />
