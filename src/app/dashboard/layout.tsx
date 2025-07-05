@@ -74,20 +74,12 @@ function DashboardHeader() {
   return (
     <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
-        <Link 
-            href="/dashboard" 
-            aria-label={t('dashboard.sidebar.home')}
-            className="w-20 h-20 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95"
-        >
-            <Logo className="w-full h-full" />
-        </Link>
-        
         <nav className="hidden md:flex items-center gap-2">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="text-xl flex items-center gap-2">
-                       <span>{t('app.title')}</span>
                        <Logo className="w-10 h-10" />
+                       <span>{t('app.title')}</span>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
@@ -123,6 +115,14 @@ function DashboardHeader() {
             </Button>
         </nav>
 
+        <Link 
+            href="/dashboard" 
+            aria-label={t('dashboard.sidebar.home')}
+            className="w-20 h-20 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95 md:absolute md:left-1/2 md:-translate-x-1/2"
+        >
+            <Logo className="w-full h-full" />
+        </Link>
+        
         <div className="flex items-center gap-4">
             {isFirebaseConfigured && <VoiceCommander />}
             {isFirebaseConfigured && user && (
