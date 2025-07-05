@@ -86,8 +86,8 @@ function DashboardHeader() {
             <nav className="hidden md:flex items-center gap-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="text-xl flex items-center gap-2">
-                           <Logo className="w-8 h-8" />
+                        <Button variant="ghost" className="text-xl flex items-center gap-2 md:ml-2">
+                           <Logo className="w-10 h-10" />
                            <span>{t('app.title')}</span>
                         </Button>
                     </DropdownMenuTrigger>
