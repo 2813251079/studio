@@ -97,22 +97,6 @@ function DashboardHeader() {
                     </DropdownMenuGroup>
                 </DropdownMenuContent>
             </DropdownMenu>
-
-            <Button asChild variant="ghost" size="icon">
-                <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <InstagramIcon className="h-7 w-7" />
-                </Link>
-            </Button>
-            <Button asChild variant="ghost" size="icon">
-                <Link href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify">
-                    <SpotifyIcon className="h-7 w-7" />
-                </Link>
-            </Button>
-            <Button asChild variant="ghost" size="icon">
-                <Link href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="Youtube">
-                    <YoutubeIcon className="h-7 w-7" />
-                </Link>
-            </Button>
         </nav>
 
         <Link 
@@ -124,6 +108,24 @@ function DashboardHeader() {
         </Link>
         
         <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-2">
+                <Button asChild variant="ghost" size="icon">
+                    <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <InstagramIcon className="h-7 w-7" />
+                    </Link>
+                </Button>
+                <Button asChild variant="ghost" size="icon">
+                    <Link href={spotifyUrl} target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                        <SpotifyIcon className="h-7 w-7" />
+                    </Link>
+                </Button>
+                <Button asChild variant="ghost" size="icon">
+                    <Link href={youtubeUrl} target="_blank" rel="noopener noreferrer" aria-label="Youtube">
+                        <YoutubeIcon className="h-7 w-7" />
+                    </Link>
+                </Button>
+            </div>
+
             {isFirebaseConfigured && <VoiceCommander />}
             {isFirebaseConfigured && user && (
               <DropdownMenu>
