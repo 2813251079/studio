@@ -1,2 +1,2 @@
 // This file is deprecated. The configuration has been moved to tailwind.config.cjs
-// to resolve a build issue.
+// at the project root to resolve a build issue.
