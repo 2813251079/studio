@@ -3,6 +3,13 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { translations } from '@/lib/translations';
 import { AuthProvider } from '@/hooks/use-auth';
+import { PT_Sans } from 'next/font/google';
+
+const pt_sans = PT_Sans({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-pt-sans',
+});
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -19,11 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className={pt_sans.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased font-sans">
         <AuthProvider>
