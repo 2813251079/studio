@@ -9,7 +9,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 import wav from 'wav';
 
 const VideoHarmonizerInputSchema = z.object({
@@ -21,6 +21,7 @@ const VideoHarmonizerOutputSchema = z.object({
   analysis: z.object({
     sceneDescription: z.string().describe("A cinematic description of the generated visual scene."),
     soundscapeDescription: z.string().describe("A description of the accompanying musical soundscape."),
+    soundscapeVocalization: z.string().describe("A short text of non-linguistic vocalizations (e.g., 'Ooommm', 'Aaaahhhh', humming sounds) that the TTS model can generate to create an abstract, continuous, and relaxing soundscape. It should not contain descriptive words."),
   }),
   imageUrl: z.string().describe("A data URI of a generated image representing the scene."),
   soundscapeUrl: z.string().describe("A data URI of a generated soundscape audio file."),
@@ -43,6 +44,7 @@ const analysisPrompt = ai.definePrompt({
     Basado en esta información, genera lo siguiente:
     1.  **Descripción de la Escena:** Describe la escena visualmente, como si fuera un fotograma de una película. Detalla la iluminación, los colores, la composición y la atmósfera.
     2.  **Descripción del Paisaje Sonoro:** Describe la música o el paisaje sonoro que acompaña a la escena. Menciona instrumentos, tempo, melodía y cómo evoca la emoción deseada.
+    3.  **soundscapeVocalization:** Basado en la descripción del paisaje sonoro, crea un texto corto de vocalizaciones no lingüísticas (ej. 'Ooommm', 'Aaaahhhh', sonidos de tarareo) que un modelo de texto-a-voz pueda generar para crear una banda sonora abstracta y evocadora. No debe contener palabras descriptivas, solo sonidos.
     
     Sé evocador y poético. Tu objetivo es que el usuario pueda "ver" la escena y "escuchar" la música con tu descripción.`,
 });
@@ -144,7 +146,7 @@ const videoHarmonizerFlow = ai.defineFlow(
     }
 
     const imagePrompt = `Una escena cinematográfica: ${analysis.sceneDescription}.`;
-    const soundscapePrompt = `Crea la banda sonora para esta escena: ${analysis.sceneDescription}. El paisaje sonoro debe sonar así: ${analysis.soundscapeDescription}. El audio debe ser puramente instrumental o ambiental, sin palabras. Usa sonidos que evoquen la descripción para crear una atmósfera inmersiva.`;
+    const soundscapePrompt = analysis.soundscapeVocalization;
     
     const [imageUrl, soundscapeUrl] = await Promise.all([
       imageGenerationFlow(imagePrompt),

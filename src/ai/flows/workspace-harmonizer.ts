@@ -9,7 +9,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 import wav from 'wav';
 
 const WorkspaceHarmonizerInputSchema = z.object({
@@ -23,6 +23,7 @@ const WorkspaceHarmonizerOutputSchema = z.object({
     keyElements: z.string().describe("Key disharmonious elements identified from the user's description."),
     strategy: z.string().describe("The proposed harmonization strategy, describing the soundscape to be created."),
     resonance: z.string().describe("The expected emotional and mental resonance of the harmonized space."),
+    soundscapeVocalization: z.string().describe("A short text of non-linguistic vocalizations (e.g., 'Ooommm', 'Aaaahhhh', humming sounds) that the TTS model can generate to create an abstract, continuous, and relaxing soundscape. It should not contain descriptive words."),
   }),
   imageUrl: z.string().describe("A data URI of a generated image representing the harmonized soundscape."),
   soundscapeUrl: z.string().describe("A data URI of a generated soundscape audio file."),
@@ -47,6 +48,7 @@ const analysisPrompt = ai.definePrompt({
     1.  **Elementos Clave de Disonancia:** Identifica los principales puntos de estrés, distracción o desequilibrio en la descripción del usuario.
     2.  **Estrategia de Armonización Propuesta:** Describe de forma evocadora el paisaje sonoro que crearías. Menciona tipos de sonidos (ej. tonos binaurales, sonidos de la naturaleza, frecuencias Solfeggio específicas), su tempo, y cómo contrarrestarán la disonancia.
     3.  **Resonancia Emocional Esperada:** Explica el estado mental y emocional que el usuario puede esperar alcanzar con este paisaje sonoro (ej. calma profunda, concentración láser, flujo creativo).
+    4.  **soundscapeVocalization:** Basado en la estrategia, crea un texto corto de vocalizaciones no lingüísticas (ej. 'Ooommm', 'Aaaahhhh', sonidos de tarareo) que el modelo de texto-a-voz pueda generar. Debe ser un sonido abstracto, continuo y relajante, sin palabras descriptivas.
     
     Sé técnico pero también poético en tus descripciones. El objetivo es que el usuario sienta el cambio antes de escucharlo.`,
 });
@@ -148,7 +150,7 @@ const workspaceHarmonizerFlow = ai.defineFlow(
     }
 
     const imagePrompt = `Un paisaje sonoro para ${input.intention} que transforma un estado de '${input.description}' en un ambiente de '${analysis.resonance}' usando ${analysis.strategy}.`;
-    const soundscapePrompt = `Crea un paisaje sonoro abstracto y relajante que represente lo siguiente: ${analysis.strategy}. No utilices palabras. Usa únicamente sonidos vocales suaves, zumbidos, tarareos y texturas sonoras que induzcan un estado de ${analysis.resonance}. El sonido debe ser continuo y envolvente, ideal para la intención de '${input.intention}'.`;
+    const soundscapePrompt = analysis.soundscapeVocalization;
     
     const [imageUrl, soundscapeUrl] = await Promise.all([
       imageGenerationFlow(imagePrompt),
