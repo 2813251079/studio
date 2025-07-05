@@ -22,7 +22,7 @@ import SpotifyIcon from '@/components/spotify-icon';
 import InstagramIcon from '@/components/instagram-icon';
 import YoutubeIcon from '@/components/youtube-icon';
 import VoiceCommander from '@/components/voice-commander';
-import { useRequireAuth, useAuth } from '@/hooks/use-auth';
+import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -135,7 +135,7 @@ function DashboardHeader() {
                 {isFirebaseConfigured && <VoiceCommander />}
             </div>
             
-            {isFirebaseConfigured && user && (
+            {isFirebaseConfigured && user ? (
               <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                       <Button variant="ghost" className="relative h-10 w-10 rounded-full">
@@ -161,6 +161,10 @@ function DashboardHeader() {
                       </DropdownMenuItem>
                   </DropdownMenuContent>
               </DropdownMenu>
+            ) : (
+               <Button asChild>
+                  <Link href="/auth/login">{t('landing.header.login')}</Link>
+               </Button>
             )}
             <div className="md:hidden">
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -219,7 +223,6 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  useRequireAuth();
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
