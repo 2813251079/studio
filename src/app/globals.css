@@ -4,19 +4,19 @@
 
 @layer base {
   :root {
-    --background: 210 17% 95%; /* #ECEFF1 */
+    --background: 210 17% 95%;
     --foreground: 220 25% 8%;
     --card: 0 0% 100%;
     --card-foreground: 220 25% 8%;
     --popover: 0 0% 100%;
     --popover-foreground: 220 25% 8%;
-    --primary: 207 86% 68%; /* #64B5F6 */
+    --primary: 207 86% 68%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 17% 94%;
     --secondary-foreground: 220 25% 25%;
     --muted: 210 17% 94%;
     --muted-foreground: 220 15% 45%;
-    --accent: 174 45% 51%; /* #4DB6AC */
+    --accent: 174 45% 51%;
     --accent-foreground: 174 50% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -58,7 +58,9 @@
     --chart-4: 320 65% 60%;
     --chart-5: 140 75% 55%;
   }
-
+}
+ 
+@layer base {
   body {
     @apply bg-background text-foreground;
   }
