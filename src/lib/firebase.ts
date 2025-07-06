@@ -3,12 +3,12 @@ import { initializeApp, getApp, getApps, type FirebaseApp } from "firebase/app";
 import { getAuth, type Auth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAVS6YAtIHica96_0sA3lV8vrWv5qqZjmk",
-  authDomain: "workspace-symphony-70n4i.firebaseapp.com",
-  projectId: "workspace-symphony-70n4i",
-  storageBucket: "workspace-symphony-70n4i.firebasestorage.app",
-  messagingSenderId: "288399007235",
-  appId: "1:288399007235:web:d0a44e507558ca4624f836"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
 let app: FirebaseApp | undefined;
@@ -16,6 +16,15 @@ let auth: Auth | undefined;
 let isFirebaseConfigured: boolean;
 
 try {
+    // Check that all required environment variables are set
+    if (
+        !firebaseConfig.apiKey ||
+        !firebaseConfig.authDomain ||
+        !firebase.Config.projectId
+    ) {
+        throw new Error("Missing Firebase configuration. Please check your .env file.");
+    }
+
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     auth = getAuth(app);
     isFirebaseConfigured = true;
