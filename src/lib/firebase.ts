@@ -11,19 +11,19 @@ const firebaseConfig = {
   appId: "1:288399007235:web:d0a44e507558ca4624f836"
 };
 
-let app: FirebaseApp;
-let auth: Auth;
-
-// Since the credentials are now hardcoded, we can assume Firebase is always configured.
-// This simplifies the logic and removes potential issues with environment variable loading.
-export const isFirebaseConfigured = true;
+let app: FirebaseApp | undefined;
+let auth: Auth | undefined;
+let isFirebaseConfigured: boolean;
 
 try {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     auth = getAuth(app);
+    isFirebaseConfigured = true;
 } catch (e) {
-    console.error("Failed to initialize Firebase", e);
-    // In a real-world scenario, you might want to handle this error more gracefully.
+    console.error("Failed to initialize Firebase. Auth features will be disabled.", e);
+    app = undefined;
+    auth = undefined;
+    isFirebaseConfigured = false;
 }
 
-export { app, auth };
+export { app, auth, isFirebaseConfigured };

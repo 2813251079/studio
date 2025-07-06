@@ -27,7 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!isFirebaseConfigured) {
+    if (!isFirebaseConfigured || !auth) {
       setLoading(false);
       return;
     }
@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
-    if (!isFirebaseConfigured) return;
+    if (!isFirebaseConfigured || !auth) return;
     try {
       await signOut(auth);
     } catch (error) {
