@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit, Smile, Download, HeartHandshake, Loader2 } from 'lucide-react';
+import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit, Smile, Download, HeartHandshake, Loader2, Palette } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 import SpotifyIcon from '@/components/spotify-icon';
@@ -37,6 +37,7 @@ const features = [
     { href: '/dashboard/frequencies', title: t('dashboard.sidebar.frequencies'), icon: <Waves /> },
     { href: '/dashboard/audio-enhancer', title: t('dashboard.sidebar.workspace_harmonizer'), icon: <Wind /> },
     { href: '/dashboard/video-harmonizer', title: t('dashboard.sidebar.video_harmonizer'), icon: <Video /> },
+    { href: '/dashboard/ai-creator', title: t('dashboard.sidebar.ai_creator'), icon: <Palette /> },
     { href: '/dashboard/inclusive-games', title: t('dashboard.sidebar.inclusive_games'), icon: <Puzzle /> },
     { href: '/open-condition', title: t('dashboard.sidebar.open_condition'), icon: <HeartHandshake /> },
     { href: '/dashboard/production', title: t('dashboard.sidebar.music_production'), icon: <SlidersHorizontal /> },

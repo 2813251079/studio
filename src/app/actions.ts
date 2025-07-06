@@ -9,6 +9,7 @@ import { talkToCompanion } from '@/ai/flows/emotional-companion-flow';
 import { translations } from '@/lib/translations';
 import { knowledgeBaseFlow, KnowledgeBaseOutput } from '@/ai/flows/knowledge-base-flow';
 import { facialAnalysis, FacialAnalysisOutput } from '@/ai/flows/facial-analysis-flow';
+import { creativeStudio, CreativeStudioOutput } from '@/ai/flows/creative-studio-flow';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -192,6 +193,43 @@ export async function getFacialAnalysis(
 
   try {
     const result = await facialAnalysis(validatedField.data);
+    return { data: result };
+  } catch (e) {
+    console.error(e);
+    return { error: t('error.ai') };
+  }
+}
+
+const creativeStudioValidationSchema = z.object({
+  concept: z.string().min(5, 'Por favor, describe tu concepto con al menos 5 caracteres.'),
+});
+
+type CreativeStudioState = {
+  data?: CreativeStudioOutput;
+  error?: string;
+  fieldErrors?: {
+    concept?: string[];
+  };
+};
+
+export async function getCreativeStudioResult(
+  prevState: CreativeStudioState,
+  formData: FormData
+): Promise<CreativeStudioState> {
+  
+  const validatedFields = creativeStudioValidationSchema.safeParse({
+    concept: formData.get('concept'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      error: 'Error de validación.',
+      fieldErrors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+  
+  try {
+    const result = await creativeStudio(validatedFields.data);
     return { data: result };
   } catch (e) {
     console.error(e);
