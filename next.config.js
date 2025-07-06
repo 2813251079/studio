@@ -12,7 +12,7 @@ const nextConfig = {
   },
   experimental: {
   },
-  allowedDevOrigins: ["*.cloudworkstations.dev"],
+  allowedDevOrigins: ["https://*.cloudworkstations.dev"],
 };
 
 module.exports = nextConfig;
