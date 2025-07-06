@@ -55,15 +55,15 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           {/* F-Clef shape */}
           <path
             d="M12,24 C 25,10 25,45 12,45"
-            stroke="hsl(var(--primary))"
+            stroke="#48D1CC"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="12" cy="24" r="5" fill="hsl(var(--primary))" />
+          <circle cx="12" cy="24" r="5" fill="#48D1CC" />
           {/* Two dots for the F-clef */}
-          <circle cx="30" cy="20" r="3" fill="hsl(var(--primary))" />
-          <circle cx="30" cy="28" r="3" fill="hsl(var(--primary))" />
+          <circle cx="30" cy="20" r="3" fill="#48D1CC" />
+          <circle cx="30" cy="28" r="3" fill="#48D1CC" />
         </g>
     </g>
   </svg>
