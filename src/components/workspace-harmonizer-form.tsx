@@ -183,7 +183,7 @@ export default function WorkspaceHarmonizerForm() {
                       {placeholderImages.map((image, index) => (
                           <div key={index} className="w-full overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105">
                               <Image 
-                                  src="https://placehold.co/600x400.png" 
+                                  src="https://picsum.photos/600/400" 
                                   alt={image.alt} 
                                   width={600}
                                   height={400}
