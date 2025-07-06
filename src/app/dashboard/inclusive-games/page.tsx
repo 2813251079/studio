@@ -1,9 +1,11 @@
 
 'use client';
 
-import { useState, useEffect, type ReactNode, useRef } from 'react';
+import { useState, useEffect, type ReactNode, useRef, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Volume2, XCircle, Hand, GlassWater, Smile, Frown, ToyBrick, Music, BookOpen, Utensils, Bed, Angry, Home, School, Bath, HelpCircle, Ban, Shirt, Sparkles, CheckSquare, Square, Undo2 } from 'lucide-react';
 import { translations } from "@/lib/translations";
 import VisualRoutinePlanner from '@/components/visual-routine-planner';
@@ -180,8 +182,13 @@ function VisualCommunicator() {
   );
 }
 
+function InclusiveGamesPageContent() {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
+  
+  const availableTabs = ['communicator', 'planner', 'simon', 'puzzle', 'companion'];
+  const defaultTab = tab && availableTabs.includes(tab) ? tab : 'communicator';
 
-export default function InclusiveGamesPage() {
   return (
     <div className="space-y-8">
       <div>
@@ -189,57 +196,85 @@ export default function InclusiveGamesPage() {
         <p className="text-muted-foreground">{t('inclusive_games.subtitle')}</p>
       </div>
       
-      <div className="space-y-12">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('inclusive_games.communicator.title')}</CardTitle>
-            <CardDescription>{t('inclusive_games.communicator.subtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <VisualCommunicator />
-          </CardContent>
-        </Card>
+      <Tabs defaultValue={defaultTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2">
+            <TabsTrigger value="communicator">{t('inclusive_games.tabs.communicator')}</TabsTrigger>
+            <TabsTrigger value="planner">{t('inclusive_games.tabs.planner')}</TabsTrigger>
+            <TabsTrigger value="simon">{t('inclusive_games.tabs.simon')}</TabsTrigger>
+            <TabsTrigger value="puzzle">{t('inclusive_games.tabs.puzzle')}</TabsTrigger>
+            <TabsTrigger value="companion">{t('inclusive_games.tabs.companion')}</TabsTrigger>
+        </TabsList>
         
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('inclusive_games.planner.title')}</CardTitle>
-            <CardDescription>{t('inclusive_games.planner.subtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <VisualRoutinePlanner pictograms={availablePictograms} t={t} />
-          </CardContent>
-        </Card>
+        <TabsContent value="communicator">
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>{t('inclusive_games.communicator.title')}</CardTitle>
+                <CardDescription>{t('inclusive_games.communicator.subtitle')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <VisualCommunicator />
+              </CardContent>
+            </Card>
+        </TabsContent>
+        
+        <TabsContent value="planner">
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>{t('inclusive_games.planner.title')}</CardTitle>
+                <CardDescription>{t('inclusive_games.planner.subtitle')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <VisualRoutinePlanner pictograms={availablePictograms} t={t} />
+              </CardContent>
+            </Card>
+        </TabsContent>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('simon_game.title')}</CardTitle>
-            <CardDescription>{t('simon_game.subtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <SimonGame />
-          </CardContent>
-        </Card>
+        <TabsContent value="simon">
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>{t('simon_game.title')}</CardTitle>
+                <CardDescription>{t('simon_game.subtitle')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <SimonGame />
+              </CardContent>
+            </Card>
+        </TabsContent>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('inclusive_games.puzzle.title')}</CardTitle>
-            <CardDescription>{t('inclusive_games.puzzle.subtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ShapePuzzle />
-          </CardContent>
-        </Card>
+        <TabsContent value="puzzle">
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>{t('inclusive_games.puzzle.title')}</CardTitle>
+                <CardDescription>{t('inclusive_games.puzzle.subtitle')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ShapePuzzle />
+              </CardContent>
+            </Card>
+        </TabsContent>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('inclusive_games.companion.page_title')}</CardTitle>
-            <CardDescription>{t('inclusive_games.companion.subtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <EmotionalCompanion />
-          </CardContent>
-        </Card>
-      </div>
+        <TabsContent value="companion">
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>{t('inclusive_games.companion.page_title')}</CardTitle>
+                <CardDescription>{t('inclusive_games.companion.subtitle')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <EmotionalCompanion />
+              </CardContent>
+            </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
+
+export default function InclusiveGamesPage() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <InclusiveGamesPageContent />
+    </Suspense>
+  );
+}
+
+    
