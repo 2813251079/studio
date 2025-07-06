@@ -57,10 +57,12 @@ const imageGenerationFlow = ai.defineFlow(
     inputSchema: z.string(),
     outputSchema: z.string(),
   },
-  async (prompt) => {
+  async (visualPrompt) => {
+    const finalPrompt = `Una obra de arte digital de calidad "Triple-A", cinematográfica, increíblemente detallada y evocadora. Estilo fotorrealista con toques de fantasía épica, iluminación dramática. Sin texto. La escena es: ${visualPrompt}`;
+    
     const { media } = await ai.generate({
       model: 'googleai/gemini-2.0-flash-preview-image-generation',
-      prompt: prompt,
+      prompt: finalPrompt,
       config: {
         responseModalities: ['TEXT', 'IMAGE'],
       },
