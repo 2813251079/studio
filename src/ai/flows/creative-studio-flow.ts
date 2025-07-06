@@ -108,7 +108,9 @@ const soundscapeGenerationFlow = ai.defineFlow(
     inputSchema: z.string(),
     outputSchema: z.string(),
   },
-  async (prompt) => {
+  async (vocalization) => {
+    const ttsPrompt = `Genera una composición sonora abstracta y de alta calidad usando las siguientes vocalizaciones como guía. El resultado debe ser un audio musical y evocador, no una simple lectura de los sonidos: ${vocalization}`;
+    
     const { media } = await ai.generate({
       model: 'googleai/gemini-2.5-flash-preview-tts',
       config: {
@@ -119,7 +121,7 @@ const soundscapeGenerationFlow = ai.defineFlow(
           },
         },
       },
-      prompt,
+      prompt: ttsPrompt,
     });
 
     if (!media || !media.url) {
