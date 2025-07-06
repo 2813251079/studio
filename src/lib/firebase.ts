@@ -20,7 +20,7 @@ try {
     if (
         !firebaseConfig.apiKey ||
         !firebaseConfig.authDomain ||
-        !firebase.Config.projectId
+        !firebaseConfig.projectId
     ) {
         throw new Error("Missing Firebase configuration. Please check your .env file.");
     }
