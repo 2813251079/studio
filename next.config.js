@@ -11,8 +11,8 @@ const nextConfig = {
     ],
   },
   experimental: {
-    allowedDevOrigins: ["*.cloudworkstations.dev"],
   },
+  allowedDevOrigins: ["*.cloudworkstations.dev"],
 };
 
 module.exports = nextConfig;
