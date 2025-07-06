@@ -1,9 +1,10 @@
+
 'use client';
 
 import Link from 'next/link';
 import Logo from '@/components/logo';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit, Smile, Download, HeartHandshake } from 'lucide-react';
+import { UserCircle, LogOut, Waves, Wind, Video, Puzzle, SlidersHorizontal, Star, Menu, Brain, BookOpen, BrainCircuit, Smile, Download, HeartHandshake, Loader2 } from 'lucide-react';
 import { translations } from '@/lib/translations';
 import { Button } from '@/components/ui/button';
 import SpotifyIcon from '@/components/spotify-icon';
@@ -223,11 +224,38 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { user, loading, isFirebaseConfigured } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <DashboardHeader />
-      <main className="flex-1 container py-8">{children}</main>
-    </div>
-  );
+  useEffect(() => {
+    // Only redirect if Firebase is configured and we're done loading and there's no user.
+    if (!loading && !user && isFirebaseConfigured) {
+      sessionStorage.setItem('redirectAfterLogin', pathname);
+      router.replace('/auth/login');
+    }
+  }, [user, loading, router, pathname, isFirebaseConfigured]);
+
+  // Show a loader while we're determining the auth state.
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  // If we have a user, or if Firebase isn't configured, show the dashboard.
+  // The header will correctly show either the user avatar or a login button.
+  if (user || !isFirebaseConfigured) {
+    return (
+      <div className="flex flex-col min-h-screen bg-background">
+        <DashboardHeader />
+        <main className="flex-1 container py-8">{children}</main>
+      </div>
+    );
+  }
+
+  // This will be shown briefly before redirect if Firebase is configured but user is not logged in.
+  return null;
 }
