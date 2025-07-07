@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from "next/link";
@@ -66,43 +65,36 @@ export default function LoginPage() {
       return;
     }
 
+    let emailToAuth = values.identifier;
     const identifierLower = values.identifier.toLowerCase();
-    const isOwnerLogin = 
-        identifierLower === 'manuel diaz allende' || 
-        values.identifier === '+56983361119' || 
-        identifierLower === 'eloallende.openmusicacademy@gmail.com';
+    
+    const isOwnerAlias = identifierLower === 'manuel diaz allende' || values.identifier === '+56983361119';
+    if (isOwnerAlias) {
+        emailToAuth = 'eloallende.openmusicacademy@gmail.com';
+    }
 
-    if (isOwnerLogin) {
-      // Handle owner login specifically
-      try {
-        await signInWithEmailAndPassword(auth, 'eloallende.openmusicacademy@gmail.com', values.password);
-        toast({ title: "¡Bienvenido, propietario!", description: "Has iniciado sesión correctamente." });
-
-        const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-        sessionStorage.removeItem('redirectAfterLogin');
-        router.replace(redirectUrl);
-      } catch (error: any) {
-        setLoginError({
-            title: "Error de Acceso Propietario",
-            description: "La cuenta de propietario debe crearse manualmente en la consola de Firebase o la contraseña es incorrecta."
+    try {
+        await signInWithEmailAndPassword(auth, emailToAuth, values.password);
+        
+        toast({ 
+            title: "¡Bienvenido!", 
+            description: "Has iniciado sesión correctamente." 
         });
-        form.setError("identifier", { type: "manual", message: " " });
-        form.setError("password", { type: "manual", message: " " });
-      }
-    } else {
-      // Handle regular user login
-      try {
-        await signInWithEmailAndPassword(auth, values.identifier, values.password);
-        toast({ title: "¡Bienvenido de nuevo!", description: "Has iniciado sesión correctamente." });
 
         const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
         sessionStorage.removeItem('redirectAfterLogin');
         router.replace(redirectUrl);
 
-      } catch (error: any) {
-            let errorTitle = "Error de inicio de sesión";
-            let errorMessage = "El identificador o la contraseña no son correctos.";
+    } catch (error: any) {
+        let errorTitle = "Error de inicio de sesión";
+        let errorMessage = "El identificador o la contraseña no son correctos.";
 
+        const isAttemptingOwnerLogin = emailToAuth.toLowerCase() === 'eloallende.openmusicacademy@gmail.com';
+
+        if (isAttemptingOwnerLogin) {
+             errorTitle = "Error de Acceso Propietario";
+             errorMessage = "La cuenta de propietario debe crearse manualmente en la consola de Firebase o la contraseña es incorrecta.";
+        } else {
             switch (error.code) {
                 case 'auth/user-not-found':
                 case 'auth/wrong-password':
@@ -120,10 +112,11 @@ export default function LoginPage() {
                     errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
                     break;
                 default:
+                    // Keep the generic message for other errors
                     break;
             }
-             setLoginError({ title: errorTitle, description: errorMessage });
         }
+        setLoginError({ title: errorTitle, description: errorMessage });
     }
   };
 
