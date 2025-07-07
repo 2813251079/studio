@@ -78,9 +78,8 @@ export default function LoginPage() {
         await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
         handleSuccess("¡Bienvenido, propietario!", "Has iniciado sesión correctamente.");
       } catch (signInError: any) {
-        // If sign-in fails, it could be user-not-found or wrong-password.
-        // The most robust way is to try creating the account. If it already exists,
-        // we know the password was wrong.
+        // If sign-in fails, it might be because the user doesn't exist.
+        // Let's try to create it. `auth/invalid-credential` covers both user-not-found and wrong-password.
         if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
           try {
             const userCredential = await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
@@ -89,24 +88,27 @@ export default function LoginPage() {
             }
             handleSuccess("¡Cuenta de propietario creada!", "Has iniciado sesión correctamente.");
           } catch (creationError: any) {
-            // If creation fails because email is in use, it means the password for the existing owner account is wrong.
+            let errorTitle = "Error de Creación de Cuenta";
+            let errorDescription = `No se pudo crear la cuenta de propietario. ${creationError.message}`;
+
             if (creationError.code === 'auth/email-already-in-use') {
-              toast({
-                variant: 'destructive',
-                title: "Error de Acceso Propietario",
-                description: "La contraseña para la cuenta de propietario es incorrecta. Por favor, contacta al soporte para restablecerla.",
-              });
-            } else {
-              // Handle other creation errors.
-              toast({
-                variant: 'destructive',
-                title: "Error de Creación de Cuenta",
-                description: `No se pudo crear la cuenta de propietario. ${creationError.message}`,
-              });
+              // This is the key state: sign-in failed, and creation failed because the user exists.
+              // This can only mean the password provided for the initial sign-in attempt was wrong.
+              errorTitle = "Error de Acceso Propietario";
+              errorDescription = "La contraseña para la cuenta de propietario es incorrecta. Por favor, verifica la contraseña.";
+            } else if (creationError.code === 'auth/weak-password') {
+              errorTitle = "Contraseña Débil";
+              errorDescription = "La contraseña de propietario no cumple los requisitos de seguridad. Por favor, contacta al soporte.";
             }
+
+            toast({
+              variant: 'destructive',
+              title: errorTitle,
+              description: errorDescription,
+            });
           }
         } else {
-          // Handle other sign-in errors.
+          // Handle other unexpected sign-in errors.
           toast({
             variant: 'destructive',
             title: "Error de Inicio de Sesión",
