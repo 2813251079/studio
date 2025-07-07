@@ -91,7 +91,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     >
       <tspan x="55" dy="0" fill="hsl(var(--primary))">Open</tspan>
       <tspan x="55" dy="10" fill="hsl(var(--primary))">Music</tspan>
-      <tspan x="55" dy="10" fill="hsl(var(--accent))">Academy</tspan>
+      <tspan x="55" dy="10" fill="hsl(var(--primary))">Academy</tspan>
     </text>
   </svg>
 );
