@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -11,7 +12,7 @@ import YoutubeIcon from "@/components/youtube-icon";
 const t = (key: any) => translations.es[key as any] || key;
 
 export default function Footer() {
-  const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite";
+  const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==";
   const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=c7fb8f473f324663";
   const youtubeUrl = "https://www.youtube.com/results?search_query=frecuencias+musicales+sanadoras+y+curativas";
 
@@ -20,7 +21,7 @@ export default function Footer() {
       <div className="container flex flex-col items-center justify-between gap-6 py-10 md:h-24 md:flex-row md:py-0">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-4 md:px-0">
           <Link href="/">
-            <Logo className="w-24 h-24" />
+            <Logo className="w-40 h-40" />
           </Link>
           <div className="flex flex-col gap-2 text-center md:text-left">
             <p className="text-sm leading-loose text-muted-foreground">

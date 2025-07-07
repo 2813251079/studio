@@ -28,7 +28,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const t = (key: any) => translations.es[key as any] || key;
 
-const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite";
+const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==";
 const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=c7fb8f473f324663";
 const youtubeUrl = "https://www.youtube.com/results?search_query=frecuencias+musicales+sanadoras+y+curativas";
 
@@ -78,7 +78,7 @@ function DashboardHeader() {
         <Link 
             href="/dashboard" 
             aria-label={t('dashboard.sidebar.home')}
-            className="w-28 h-28 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95 md:ml-16"
+            className="w-40 h-40 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95 md:ml-16"
         >
             <Logo className="w-full h-full" />
         </Link>

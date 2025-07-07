@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -20,7 +21,7 @@ import YoutubeIcon from "@/components/youtube-icon";
 const t = (key: any) => translations.es[key as any] || key;
 
 export default function Header() {
-  const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==&utm_source=ig_contact_invite";
+  const instagramUrl = "https://www.instagram.com/openmusicfrecuencias?igsh=MWRqa2RhOTJsdWRuYg==";
   const spotifyUrl = "https://open.spotify.com/user/31lfxkbb22o76w43fy7xjl5z4osy?si=c7fb8f473f324663";
   const youtubeUrl = "https://www.youtube.com/results?search_query=frecuencias+musicales+sanadoras+y+curativas";
   const [open, setOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="group flex items-center gap-2">
-          <Logo className="w-24 h-24" />
+          <Logo className="w-40 h-40" />
           <span className="font-bold text-3xl hidden sm:inline-block text-foreground transition-colors group-hover:text-accent">{t('app.title')}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">
