@@ -78,9 +78,10 @@ export default function LoginPage() {
         await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
         handleSuccess("¡Bienvenido, propietario!", "Has iniciado sesión correctamente.");
       } catch (signInError: any) {
-        // If sign-in fails, check if the error is due to user not found or wrong credentials.
+        // If sign-in fails, it could be user-not-found or wrong-password.
+        // The most robust way is to try creating the account. If it already exists,
+        // we know the password was wrong.
         if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
-          // Attempt to create the owner account.
           try {
             const userCredential = await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
             if (userCredential.user) {
@@ -88,7 +89,7 @@ export default function LoginPage() {
             }
             handleSuccess("¡Cuenta de propietario creada!", "Has iniciado sesión correctamente.");
           } catch (creationError: any) {
-            // If creation fails because email is in use, it means the password is wrong for the existing owner account.
+            // If creation fails because email is in use, it means the password for the existing owner account is wrong.
             if (creationError.code === 'auth/email-already-in-use') {
               toast({
                 variant: 'destructive',
