@@ -13,6 +13,11 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <stop offset="0%" stopColor="#FDB813" />
         <stop offset="100%" stopColor="#F65B36" />
       </radialGradient>
+      <linearGradient id="textGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="hsl(var(--accent))" />
+        <stop offset="50%" stopColor="hsl(var(--primary))" />
+        <stop offset="100%" stopColor="#FDB813" />
+      </linearGradient>
     </defs>
     
     {/* Guitar Body */}
@@ -24,7 +29,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Guitar Headstock & Neck */}
-    <g transform="translate(37, 0)">
+    <g transform="translate(37, 10)">
         {/* Headstock */}
         <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--primary))" />
         {/* Neck */}
@@ -56,7 +61,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Pentagram and F-Clef */}
-    <g transform="translate(44, 54) scale(1.1)">
+    <g transform="translate(44, 64) scale(1.1)">
         <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
@@ -87,7 +92,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       fontFamily="PT Sans, sans-serif"
       fontSize="8"
       fontWeight="bold"
-      fill="hsl(var(--foreground))"
+      fill="url(#textGradient)"
     >
       <tspan x="55" dy="0">Open</tspan>
       <tspan x="55" dy="10">MusIc</tspan>
