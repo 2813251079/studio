@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -23,7 +24,7 @@ import { useEffect, useState } from "react";
 const t = (key: any) => translations.es[key as any] || key;
 
 const loginSchema = z.object({
-  email: z.string().email("Por favor, introduce un correo electrónico válido."),
+  identifier: z.string().min(1, "Por favor, introduce tu email, teléfono o nombre."),
   password: z.string().min(1, "La contraseña no puede estar vacía."),
 });
 
@@ -39,7 +40,7 @@ export default function LoginPage() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
@@ -54,7 +55,7 @@ export default function LoginPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: LoginFormValues) => {
-    setLoginError(null); // Clear previous errors on a new submission attempt
+    setLoginError(null);
 
     if (!isFirebaseConfigured || !auth) {
       toast({
@@ -65,12 +66,22 @@ export default function LoginPage() {
       return;
     }
 
-    const isOwnerAccount = values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com';
+    let emailForAuth = values.identifier;
+    const identifierLower = values.identifier.toLowerCase();
+    
+    const isOwnerAttempt = 
+        identifierLower === 'manuel diaz allende' || 
+        values.identifier === '+56983361119' || 
+        identifierLower === 'eloallende.openmusicacademy@gmail.com';
+
+    if (identifierLower === 'manuel diaz allende' || values.identifier === '+56983361119') {
+      emailForAuth = 'eloallende.openmusicacademy@gmail.com';
+    }
 
     try {
-        await signInWithEmailAndPassword(auth, values.email, values.password);
+        await signInWithEmailAndPassword(auth, emailForAuth, values.password);
         
-        const title = isOwnerAccount ? "¡Bienvenido, propietario!" : "¡Bienvenido de nuevo!";
+        const title = isOwnerAttempt ? "¡Bienvenido, propietario!" : "¡Bienvenido de nuevo!";
         toast({ title: title, description: "Has iniciado sesión correctamente." });
 
         const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
@@ -78,35 +89,34 @@ export default function LoginPage() {
         router.replace(redirectUrl);
 
     } catch (error: any) {
-        if (isOwnerAccount) {
-            // For owner account, if login fails for any reason, show the manual creation error.
-            // This is because client-side creation is restricted and login could fail for multiple reasons (not found, wrong password).
-            // The simplest, most secure path is to direct the owner to the Firebase console.
+        if (isOwnerAttempt) {
             setLoginError({
                 title: "Error de Acceso Propietario",
-                description: "La cuenta de propietario debe ser creada manualmente en la consola de Firebase. Contacta al administrador."
+                description: "La cuenta de propietario debe ser creada manualmente en la consola de Firebase o la contraseña es incorrecta."
             });
-             form.setError("email", { type: "manual", message: " " });
+             form.setError("identifier", { type: "manual", message: " " });
              form.setError("password", { type: "manual", message: " " });
         } else {
-            // Handle general login errors for non-owner accounts
             let errorTitle = "Error de inicio de sesión";
-            let errorMessage = "El correo electrónico o la contraseña no son correctos.";
+            let errorMessage = "El identificador o la contraseña no son correctos.";
 
             switch (error.code) {
                 case 'auth/user-not-found':
                 case 'auth/wrong-password':
                 case 'auth/invalid-credential':
-                     errorMessage = "El correo electrónico o la contraseña no son correctos.";
-                     form.setError("email", { type: "manual", message: " " });
+                     errorMessage = "El identificador o la contraseña no son correctos.";
+                     form.setError("identifier", { type: "manual", message: " " });
                      form.setError("password", { type: "manual", message: " " });
+                    break;
+                case 'auth/invalid-email':
+                    errorMessage = "El formato del correo electrónico no es válido. Por favor, inténtalo de nuevo.";
+                    form.setError("identifier", { type: "manual", message: "Correo electrónico no válido." });
                     break;
                 case 'auth/invalid-api-key':
                 case 'auth/api-key-not-valid':
                     errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
                     break;
                 default:
-                    // Keep generic error for other cases
                     break;
             }
              setLoginError({ title: errorTitle, description: errorMessage });
@@ -157,12 +167,12 @@ export default function LoginPage() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="identifier"
                   render={({ field }) => (
                     <FormItem>
-                      <Label htmlFor="email">{t('login.email')}</Label>
+                      <Label htmlFor="identifier">Email, Teléfono o Nombre</Label>
                       <FormControl>
-                        <Input id="email" type="email" placeholder="m@ejemplo.com" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
+                        <Input id="identifier" placeholder="Tu identificador" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -55,12 +56,15 @@ export default function RegisterPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: RegisterFormValues) => {
-    // Check for special email first
-    if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
+    const emailLower = values.email.toLowerCase();
+    const nameLower = values.name.toLowerCase();
+
+    // Check for special owner identifiers
+    if (emailLower === 'eloallende.openmusicacademy@gmail.com' || nameLower === 'manuel diaz allende') {
       toast({
         variant: 'destructive',
-        title: "Cuenta Especial",
-        description: "Esta cuenta es de propietario y no puede ser registrada. Por favor, utiliza la página de inicio de sesión.",
+        title: "Cuenta de Propietario",
+        description: "Este identificador está reservado. Por favor, utiliza la página de inicio de sesión.",
       });
       return;
     }
@@ -80,13 +84,8 @@ export default function RegisterPage() {
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
       
       if (userCredential.user) {
-        // This is a separate async action, but we don't need to block redirection on it.
-        // We'll update the profile in the background. The auth listener will handle the UI update.
-        updateProfile(userCredential.user, {
+        await updateProfile(userCredential.user, {
             displayName: values.name
-        }).catch(err => {
-            // Log if profile update fails, but don't block the user.
-            console.error("Failed to update profile:", err);
         });
       }
 
