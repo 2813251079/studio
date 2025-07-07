@@ -91,7 +91,7 @@ export default function LoginPage() {
           console.error("Special user creation/login failed:", creationError);
           let errorMessage = "No se pudo iniciar sesión. Contacta al administrador si el problema persiste.";
            if (creationError.code === 'auth/email-already-in-use') {
-              errorMessage = "La contraseña de la cuenta especial parece ser incorrecta. Por favor, contacta al administrador.";
+              errorMessage = "La contraseña de la cuenta especial es incorrecta. Por favor, contacta al administrador para restablecerla.";
            }
           toast({
             variant: 'destructive',

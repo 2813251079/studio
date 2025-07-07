@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -54,6 +55,15 @@ export default function RegisterPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: RegisterFormValues) => {
+    if (values.email === 'eloallende.openmusicacademy@gmail.com') {
+      toast({
+        variant: 'destructive',
+        title: "Cuenta Especial",
+        description: "Esta cuenta es de propietario y no puede ser registrada. Por favor, utiliza la página de inicio de sesión.",
+      });
+      return;
+    }
+
     if (!isFirebaseConfigured) return;
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
