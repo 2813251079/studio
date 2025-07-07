@@ -66,10 +66,10 @@ export default function Home() {
       <main className="flex-1">
         <section className="container flex items-center text-left min-h-[calc(100vh-6rem)] py-20 md:py-32">
           <div className="max-w-3xl">
-            <h2 className="mb-2 text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h2 className="mb-2 text-4xl font-bold bg-gradient-to-r from-[#2ca064] via-[#F65B36] to-[#FDB813] bg-clip-text text-transparent">
               Open Music Academy
             </h2>
-            <p className="mb-6 text-2xl font-mono text-muted-foreground">(f=1/T hz)</p>
+            <p className="mb-6 text-2xl font-mono bg-gradient-to-r from-[#2ca064] via-[#F65B36] to-[#FDB813] bg-clip-text text-transparent">(f=1/T hz)</p>
             <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               {t('landing.hero.title_new')}
             </h1>
