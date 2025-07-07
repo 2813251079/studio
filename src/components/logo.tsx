@@ -42,16 +42,16 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
 
         {/* Pegs */}
         <g fill="#000">
-            <circle cx="-10" cy="10" r="3"/>
-            <circle cx="-10" cy="25" r="3"/>
-            <circle cx="10" cy="20" r="3"/>
-            <circle cx="10" cy="35" r="3"/>
+            <circle cx="-10" cy="15" r="3"/>
+            <circle cx="-10" cy="30" r="3"/>
+            <circle cx="10" cy="15" r="3"/>
+            <circle cx="10" cy="30" r="3"/>
         </g>
         <g fill="hsl(var(--background))">
-            <circle cx="-10" cy="10" r="1"/>
-            <circle cx="-10" cy="25" r="1"/>
-            <circle cx="10" cy="20" r="1"/>
-            <circle cx="10" cy="35" r="1"/>
+            <circle cx="-10" cy="15" r="1"/>
+            <circle cx="-10" cy="30" r="1"/>
+            <circle cx="10" cy="15" r="1"/>
+            <circle cx="10" cy="30" r="1"/>
         </g>
     </g>
 
