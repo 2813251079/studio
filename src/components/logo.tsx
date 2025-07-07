@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
   <svg
-    viewBox="0 0 120 120"
+    viewBox="0 0 150 120"
     xmlns="http://www.w3.org/2000/svg"
     className={cn("h-auto", className)}
     {...props}
@@ -24,7 +24,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Guitar Headstock & Neck */}
-    <g transform="translate(37, 5)">
+    <g transform="translate(37, 0)">
         {/* Headstock */}
         <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--primary))" />
         {/* Neck */}
@@ -80,6 +80,19 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           <circle cx="28" cy="4" r="3" fill="hsl(var(--accent))" />
         </g>
     </g>
+    
+    <text
+      x="55"
+      y="18"
+      fontFamily="PT Sans, sans-serif"
+      fontSize="8"
+      fontWeight="bold"
+      fill="hsl(var(--foreground))"
+    >
+      <tspan x="55" dy="0">Open</tspan>
+      <tspan x="55" dy="10">MusIc</tspan>
+      <tspan x="55" dy="10">Academy</tspan>
+    </text>
   </svg>
 );
 
