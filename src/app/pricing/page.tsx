@@ -42,8 +42,8 @@ export default function PricingPage() {
                     </div>
                     <p className="text-sm text-muted-foreground mt-8">{t('downloads.free_with_in_app')}</p>
                 </div>
-                <div className="w-full order-1 md:order-2">
-                    <Image src="https://picsum.photos/600/400" alt="App en una tableta" width={600} height={400} className="w-full h-auto object-cover" data-ai-hint="tablet app" />
+                <div className="w-full order-1 md:order-2 flex items-center justify-center bg-secondary">
+                    <Image src="/logo-maitencillo.png" alt="Logo de Open Music Academy Maitencillo" width={500} height={500} className="w-full max-w-[500px] h-auto object-contain p-8" />
                 </div>
             </div>
           </Card>
