@@ -73,47 +73,50 @@ export default function LoginPage() {
     if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
       const ownerEmail = 'eloallende.openmusicacademy@gmail.com';
       const ownerPassword = 'Micke.berta.charly';
-
+      
+      let signInError: any;
       try {
         await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
         handleSuccess("¡Bienvenido, propietario!", "Has iniciado sesión correctamente.");
-      } catch (signInError: any) {
-        // If sign-in fails, it could be because the user doesn't exist. Try creating it.
-        if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
+        return;
+      } catch (error) {
+        signInError = error;
+      }
+
+      // If sign-in failed, maybe user doesn't exist. Let's try to create it.
+      if (signInError?.code === 'auth/user-not-found' || signInError?.code === 'auth/invalid-credential') {
           try {
             const userCredential = await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
             if (userCredential.user) {
-                await updateProfile(userCredential.user, {
-                    displayName: "Propietario"
-                });
+              await updateProfile(userCredential.user, { displayName: "Propietario" });
             }
             handleSuccess("¡Cuenta de propietario creada!", "Has iniciado sesión correctamente.");
+            return;
           } catch (creationError: any) {
-            // If creation fails because the email is in use, it means the original password was wrong.
+            // Handle creation errors
+            let creationErrorMessage = "No se pudo crear o acceder a la cuenta de propietario.";
             if (creationError.code === 'auth/email-already-in-use') {
-              toast({
-                variant: 'destructive',
-                title: "Error de Contraseña",
-                description: "La contraseña para la cuenta de propietario es incorrecta. Por favor, contacta al administrador para restablecerla.",
-              });
+              creationErrorMessage = "La contraseña para la cuenta de propietario es incorrecta. Por favor, contacta al soporte para restablecerla.";
+            } else if (creationError.code === 'auth/weak-password') {
+              creationErrorMessage = "La contraseña de propietario es demasiado débil según las reglas de Firebase.";
             } else {
-              // Handle other creation errors
-              toast({
-                variant: 'destructive',
-                title: "Error Inesperado",
-                description: `No se pudo crear o acceder a la cuenta de propietario. ${creationError.message}`,
-              });
+              creationErrorMessage = `${creationErrorMessage} ${creationError.message}`;
             }
+            toast({
+              variant: 'destructive',
+              title: "Error de Acceso Propietario",
+              description: creationErrorMessage,
+            });
+            return;
           }
-        } else {
-          // Handle other sign-in errors for the owner account
-          toast({
-            variant: 'destructive',
-            title: "Error de Inicio de Sesión",
-            description: `Ha ocurrido un error inesperado. ${signInError.message}`,
-          });
-        }
       }
+
+      // If sign-in failed for another reason
+      toast({
+        variant: 'destructive',
+        title: "Error de Inicio de Sesión",
+        description: `Ha ocurrido un error inesperado. ${signInError.message}`,
+      });
       return; // End special user logic
     }
 
@@ -128,7 +131,6 @@ export default function LoginPage() {
         errorMessage = "El correo electrónico o la contraseña no son correctos.";
         form.setError("email", { type: "manual", message: " " });
         form.setError("password", { type: "manual", message: " " });
-        setTimeout(() => form.setFocus('email'), 0);
       } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
         errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
       }
