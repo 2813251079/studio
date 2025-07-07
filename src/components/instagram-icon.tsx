@@ -2,25 +2,50 @@ import * as React from 'react';
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
-    width="24"
-    height="24"
+    xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     {...props}
   >
     <defs>
-      <radialGradient id="insta-gradient-logo-fix" cx="30%" cy="107%" r="150%">
-        <stop offset="0%" stopColor="#fdf497" />
-        <stop offset="5%" stopColor="#fdf497" />
-        <stop offset="45%" stopColor="#fd5949" />
-        <stop offset="60%" stopColor="#d6249f" />
-        <stop offset="90%" stopColor="#285AEB" />
+      <radialGradient
+        id="instagram-gradient"
+        gradientUnits="objectBoundingBox"
+        cx="0.3"
+        cy="1.07"
+        r="1.5"
+      >
+        <stop offset="0" stopColor="#fdf497" />
+        <stop offset="0.1" stopColor="#fdf497" />
+        <stop offset="0.45" stopColor="#fd5949" />
+        <stop offset="0.6" stopColor="#d6249f" />
+        <stop offset="0.9" stopColor="#285AEB" />
       </radialGradient>
     </defs>
-    <rect width="24" height="24" rx="6" ry="6" fill="url(#insta-gradient-logo-fix)" />
-    <g fill="none" stroke="white" strokeWidth="1.5">
-        <rect x="4" y="4" width="16" height="16" rx="4" ry="4" />
-        <circle cx="12" cy="12" r="4" />
-        <circle cx="16.5" cy="7.5" r="1" fill="white" stroke="none"/>
+    <g>
+      <rect
+        width="24"
+        height="24"
+        rx="6"
+        ry="6"
+        fill="url(#instagram-gradient)"
+      />
+      <path
+        fill="none"
+        stroke="#fff"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M16.5 4.5h-9A3 3 0 004.5 7.5v9a3 3 0 003 3h9a3 3 0 003-3v-9a3 3 0 00-3-3z"
+      />
+      <path
+        fill="none"
+        stroke="#fff"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z"
+      />
+      <circle fill="#fff" cx="16.75" cy="7.25" r="1.25" />
     </g>
   </svg>
 );
