@@ -70,7 +70,7 @@ export default function LoginPage() {
       if ((error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') && values.email === 'eloallende.openmusicacademy@gmail.com') {
         // ...try to create the account automatically.
         try {
-          await createUserWithEmailAndPassword(auth, values.email, values.password);
+          await createUserWithEmailAndPassword(auth, values.email, '281325');
           toast({
             title: "¡Cuenta especial creada!",
             description: "Has iniciado sesión correctamente.",
