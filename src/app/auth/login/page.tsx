@@ -53,8 +53,16 @@ export default function LoginPage() {
 
   const onSubmit = async (values: LoginFormValues) => {
     if (!isFirebaseConfigured) return;
+
+    const emailToLogin = values.email;
+    // For the special user, always use the specific password. For others, use what they typed.
+    const passwordToLogin =
+      emailToLogin === 'eloallende.openmusicacademy@gmail.com'
+        ? '281325'
+        : values.password;
+
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
+      await signInWithEmailAndPassword(auth, emailToLogin, passwordToLogin);
       
       toast({
         title: "¡Bienvenido de nuevo!",
@@ -66,11 +74,10 @@ export default function LoginPage() {
       router.replace(redirectUrl);
 
     } catch (error: any) {
-      // If sign-in fails because the user doesn't exist, AND it's the special user...
-      if ((error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') && values.email === 'eloallende.openmusicacademy@gmail.com') {
-        // ...try to create the account automatically.
+      // If sign-in fails for the special user because the account doesn't exist, create it.
+      if ((error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') && emailToLogin === 'eloallende.openmusicacademy@gmail.com') {
         try {
-          await createUserWithEmailAndPassword(auth, values.email, '281325');
+          await createUserWithEmailAndPassword(auth, emailToLogin, passwordToLogin); // Will use '281325'
           toast({
             title: "¡Cuenta especial creada!",
             description: "Has iniciado sesión correctamente.",
@@ -79,21 +86,20 @@ export default function LoginPage() {
           sessionStorage.removeItem('redirectAfterLogin');
           router.replace(redirectUrl);
         } catch (creationError: any) {
-          // Handle creation errors (e.g., weak password)
-          console.error(creationError);
-          let errorMessage = "Error al crear la cuenta especial.";
-          if (creationError.code === 'auth/weak-password') {
-            errorMessage = "La contraseña es demasiado débil.";
-            form.setError("password", { type: "manual", message: errorMessage });
-          }
+          // This can happen if the account exists but the stored password in Firebase is NOT '281325'.
+          console.error("Special user creation/login failed:", creationError);
+          let errorMessage = "No se pudo iniciar sesión. Contacta al administrador si el problema persiste.";
+           if (creationError.code === 'auth/email-already-in-use') {
+              errorMessage = "La contraseña de la cuenta especial parece ser incorrecta. Por favor, contacta al administrador.";
+           }
           toast({
             variant: 'destructive',
-            title: "Error de registro",
+            title: "Error de inicio de sesión especial",
             description: errorMessage,
           });
         }
       } else {
-        // For all other errors, show the standard login error message.
+        // For all other users or other errors.
         console.error(error);
         let errorMessage = "Ha ocurrido un error inesperado.";
         if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
