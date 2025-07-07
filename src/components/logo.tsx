@@ -19,12 +19,12 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <stop offset="100%" stopColor="#F65B36" />
       </radialGradient>
     </defs>
-    <g transform="translate(15, 6) scale(0.7)">
+    <g transform="translate(21, 5.5) scale(0.9)">
       {/* Guitar Body */}
       <circle cx="68" cy="78" r="25" fill="url(#sunsetGradient)" />
 
       {/* Guitar Headstock & Neck */}
-      <g transform="translate(37, 13)">
+      <g transform="translate(42, 17)">
           {/* Headstock */}
           <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--primary))" />
           {/* Neck */}
