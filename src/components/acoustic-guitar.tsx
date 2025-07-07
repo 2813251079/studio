@@ -118,6 +118,7 @@ export default function AcousticGuitar() {
   
   const fetchAndPlaySpeech = async (noteName: string) => {
     try {
+      if (!noteName) return;
       // Use a simpler name for TTS
       const simpleName = noteName.split(' ')[0];
       const result = await speakNoteAction(simpleName);

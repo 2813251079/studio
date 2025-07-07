@@ -88,7 +88,10 @@ export default function PianoKeyboard() {
 
   const fetchAndPlaySpeech = async (noteName: string) => {
     try {
-      const result = await speakNoteAction(noteName);
+      if (!noteName) return;
+      // The note names on piano don't have spaces, but this makes it consistent with the guitar component
+      const simpleName = noteName.split(' ')[0];
+      const result = await speakNoteAction(simpleName);
       if (result.data && speechAudioRef.current) {
         speechAudioRef.current.src = result.data;
         speechAudioRef.current.play().catch(e => console.error("Error playing speech audio:", e));
