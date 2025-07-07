@@ -14,9 +14,9 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <stop offset="100%" stopColor="#F65B36" />
       </radialGradient>
       <linearGradient id="textGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="hsl(var(--accent))" />
-        <stop offset="50%" stopColor="hsl(var(--primary))" />
-        <stop offset="100%" stopColor="#FDB813" />
+        <stop offset="0%" stopColor="hsl(var(--primary))" />
+        <stop offset="50%" stopColor="#FDB813" />
+        <stop offset="100%" stopColor="hsl(var(--accent))" />
       </linearGradient>
     </defs>
     
@@ -95,7 +95,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       fill="url(#textGradient)"
     >
       <tspan x="55" dy="0">Open</tspan>
-      <tspan x="55" dy="10">MusIc</tspan>
+      <tspan x="55" dy="10">Music</tspan>
       <tspan x="55" dy="10">Academy</tspan>
     </text>
   </svg>
