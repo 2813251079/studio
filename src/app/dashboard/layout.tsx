@@ -93,7 +93,7 @@ function DashboardHeader() {
         </Link>
         
         <div className="flex items-center gap-4">
-            <nav className="hidden md:flex items-center gap-2">
+            <nav className="hidden md:flex items-center gap-4">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="text-xl flex items-center gap-2">
@@ -116,9 +116,7 @@ function DashboardHeader() {
                         </DropdownMenuGroup>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            </nav>
 
-            <div className="hidden md:flex items-center gap-2">
                 <Button asChild variant="ghost" size="icon">
                     <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                         <InstagramIcon className="h-7 w-7" />
@@ -134,9 +132,7 @@ function DashboardHeader() {
                         <YoutubeIcon className="h-7 w-7" />
                     </Link>
                 </Button>
-            </div>
 
-            <div className="hidden md:flex items-center gap-4">
                 <Button variant="outline" size="sm" onClick={handleFrequencyButtonClick}>
                     F=1/T (hertz)
                 </Button>
@@ -147,7 +143,7 @@ function DashboardHeader() {
                     </Link>
                 </Button>
                 {isFirebaseConfigured && <VoiceCommander />}
-            </div>
+            </nav>
             
             {isFirebaseConfigured && user ? (
               <DropdownMenu>
