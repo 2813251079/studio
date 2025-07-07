@@ -19,7 +19,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <stop offset="100%" stopColor="#F65B36" />
       </radialGradient>
     </defs>
-    <g transform="translate(21, 10.5) scale(0.9)">
+    <g transform="translate(21, 14.5) scale(0.9)">
       {/* Guitar Body */}
       <circle cx="68" cy="78" r="25" fill="url(#sunsetGradient)" />
 
@@ -83,7 +83,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       
       <text
         x="55"
-        y="25"
+        y="30"
         fontFamily="PT Sans, sans-serif"
         fontSize="8"
         fontWeight="bold"
