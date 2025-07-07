@@ -98,7 +98,7 @@ function DashboardHeader() {
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="text-xl flex items-center gap-2">
                            <Logo className="w-24 h-24" />
-                           <span>F=1/T hz</span>
+                           <span>{t('app.title')}</span>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
@@ -189,7 +189,7 @@ function DashboardHeader() {
                     <SheetTitle>Menú</SheetTitle>
                   </SheetHeader>
                   <nav className="flex flex-col gap-4 pt-10">
-                     <Link href="/dashboard" className="font-bold text-lg mb-4" onClick={() => setMobileMenuOpen(false)}>F=1/T hz</Link>
+                     <Link href="/dashboard" className="font-bold text-lg mb-4" onClick={() => setMobileMenuOpen(false)}>{t('app.title')}</Link>
                      <Button
                         variant="outline"
                         onClick={() => {
