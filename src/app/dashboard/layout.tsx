@@ -140,7 +140,7 @@ function DashboardHeader() {
                 <Button variant="outline" size="sm" onClick={handleFrequencyButtonClick}>
                     F=1/T (hertz)
                 </Button>
-                <Button asChild size="sm">
+                <Button asChild size="sm" className="bg-green-600 hover:bg-green-700">
                     <Link href="/pricing">
                         <Download className="mr-2 h-4 w-4"/>
                         {t('landing.header.downloads')}
@@ -210,10 +210,12 @@ function DashboardHeader() {
                             <span>{feature.title}</span>
                         </Link>
                      ))}
-                      <Link href="/pricing" className="flex items-center gap-3 text-lg" onClick={() => setMobileMenuOpen(false)}>
-                        <Download />
-                        <span>{t('landing.header.downloads')}</span>
-                      </Link>
+                      <Button asChild className="bg-green-600 hover:bg-green-700 justify-start h-auto">
+                        <Link href="/pricing" className="flex items-center gap-3 text-lg py-1" onClick={() => setMobileMenuOpen(false)}>
+                          <Download />
+                          <span>{t('landing.header.downloads')}</span>
+                        </Link>
+                      </Button>
                     <div className="flex items-center justify-center gap-4 pt-4">
                       <Button asChild variant="ghost" size="icon">
                           <Link href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">

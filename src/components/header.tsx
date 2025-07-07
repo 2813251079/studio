@@ -52,10 +52,10 @@ export default function Header() {
                 <YoutubeIcon className="h-7 w-7" />
             </Link>
           </Button>
-          <Button variant="outline" asChild>
+          <Button asChild className="bg-green-600 hover:bg-green-700">
             <Link href="/pricing">{t('landing.header.downloads')}</Link>
           </Button>
-          <Button asChild>
+          <Button asChild className="bg-green-600 hover:bg-green-700">
             <Link href="/auth/register">{t('landing.header.get_started')}</Link>
           </Button>
         </nav>
@@ -72,10 +72,10 @@ export default function Header() {
                 <SheetTitle className="sr-only">Menú Principal</SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-6 pt-10">
-                <Button asChild>
+                <Button asChild className="bg-green-600 hover:bg-green-700">
                   <Link href="/auth/register" onClick={() => setOpen(false)}>{t('landing.header.get_started')}</Link>
                 </Button>
-                <Button variant="outline" asChild>
+                <Button asChild className="bg-green-600 hover:bg-green-700">
                     <Link href="/pricing" onClick={() => setOpen(false)}>{t('landing.header.downloads')}</Link>
                 </Button>
                 <Button variant="outline" asChild>

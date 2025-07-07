@@ -75,7 +75,7 @@ export default function Home() {
               {t('landing.hero.subtitle_new')}
             </p>
             <div className="flex justify-start gap-4 pt-6">
-              <Button size="lg" asChild>
+              <Button size="lg" asChild className="bg-green-600 hover:bg-green-700">
                 <Link href="/auth/register">
                   {t('landing.header.get_started')} <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
@@ -108,7 +108,7 @@ export default function Home() {
            <div className="max-w-2xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('downloads.title')}</h2>
               <p className="mt-4 text-lg text-muted-foreground">{t('downloads.subtitle')}</p>
-              <Button size="lg" variant="outline" className="mt-8" asChild>
+              <Button size="lg" className="mt-8 bg-green-600 hover:bg-green-700" asChild>
                   <Link href="/pricing">{t('landing.header.downloads')}</Link>
               </Button>
            </div>
