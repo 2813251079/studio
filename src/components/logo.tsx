@@ -9,22 +9,22 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <defs>
-      <radialGradient id="sunsetGradient" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#FDB813" />
-        <stop offset="100%" stopColor="#F65B36" />
-      </radialGradient>
       <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#F65B36" />
           <stop offset="50%" stopColor="#FDB813" />
           <stop offset="100%" stopColor="#2ca064" />
       </linearGradient>
+      <radialGradient id="sunsetGradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#FDB813" />
+        <stop offset="100%" stopColor="#F65B36" />
+      </radialGradient>
     </defs>
     <g transform="translate(15, 6) scale(0.7)">
       {/* Guitar Body */}
-      <circle cx="68" cy="70" r="25" fill="url(#sunsetGradient)" />
+      <circle cx="68" cy="75" r="25" fill="url(#sunsetGradient)" />
 
       {/* Guitar Headstock & Neck */}
-      <g transform="translate(37, 13)">
+      <g transform="translate(37, 23)">
           {/* Headstock */}
           <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--primary))" />
           {/* Neck */}
