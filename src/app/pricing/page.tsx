@@ -1,12 +1,12 @@
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Download } from 'lucide-react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import { translations } from '@/lib/translations';
+import Logo from '@/components/logo';
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -42,8 +42,8 @@ export default function PricingPage() {
                     </div>
                     <p className="text-sm text-muted-foreground mt-8">{t('downloads.free_with_in_app')}</p>
                 </div>
-                <div className="w-full order-1 md:order-2 flex items-center justify-center bg-secondary">
-                    <Image src="/logo-maitencillo.png" alt="Logo de Open Music Academy Maitencillo" width={500} height={500} className="w-full max-w-[500px] h-auto object-contain p-8" />
+                <div className="w-full order-1 md:order-2 flex items-center justify-center bg-secondary p-8">
+                    <Logo className="w-full max-w-[400px] h-auto" />
                 </div>
             </div>
           </Card>
