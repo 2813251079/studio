@@ -62,46 +62,42 @@ export default function LoginPage() {
       return;
     }
 
+    const handleSuccess = (title: string, description: string) => {
+      toast({ title, description });
+      const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+      sessionStorage.removeItem('redirectAfterLogin');
+      router.replace(redirectUrl);
+    };
+
     // --- Special Owner Account Logic ---
     if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
       const ownerEmail = 'eloallende.openmusicacademy@gmail.com';
       const ownerPassword = 'Micke.berta.charly';
-      
+
       try {
         await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
-        toast({
-          title: "¡Bienvenido, propietario!",
-          description: "Has iniciado sesión correctamente.",
-        });
-        const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-        sessionStorage.removeItem('redirectAfterLogin');
-        router.replace(redirectUrl);
+        handleSuccess("¡Bienvenido, propietario!", "Has iniciado sesión correctamente.");
       } catch (signInError: any) {
-        // If user does not exist, create it. `invalid-credential` can mean user not found.
+        // If sign-in fails, it could be because the user doesn't exist. Try creating it.
         if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
           try {
             await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
-            toast({
-              title: "¡Cuenta de propietario creada!",
-              description: "Has iniciado sesión correctamente.",
-            });
-            const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-            sessionStorage.removeItem('redirectAfterLogin');
-            router.replace(redirectUrl);
+            handleSuccess("¡Cuenta de propietario creada!", "Has iniciado sesión correctamente.");
           } catch (creationError: any) {
-            // This case handles if the user *already* exists but the password was wrong on the initial sign-in attempt.
+            // If creation fails because the email is in use, it means the original password was wrong.
             if (creationError.code === 'auth/email-already-in-use') {
-                 toast({
-                    variant: 'destructive',
-                    title: "Error de Contraseña",
-                    description: "La contraseña para la cuenta de propietario es incorrecta. Por favor, contacta al administrador para restablecerla.",
-                });
+              toast({
+                variant: 'destructive',
+                title: "Error de Contraseña",
+                description: "La contraseña para la cuenta de propietario es incorrecta. Por favor, contacta al administrador para restablecerla.",
+              });
             } else {
-                 toast({
-                    variant: 'destructive',
-                    title: "Error Inesperado",
-                    description: `No se pudo crear o acceder a la cuenta de propietario. ${creationError.message}`,
-                });
+              // Handle other creation errors
+              toast({
+                variant: 'destructive',
+                title: "Error Inesperado",
+                description: `No se pudo crear o acceder a la cuenta de propietario. ${creationError.message}`,
+              });
             }
           }
         } else {
@@ -113,19 +109,13 @@ export default function LoginPage() {
           });
         }
       }
-      return; // Stop execution for special user
+      return; // End special user logic
     }
 
     // --- Regular User Login Logic ---
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
-      toast({
-        title: "¡Bienvenido de nuevo!",
-        description: "Has iniciado sesión correctamente.",
-      });
-      const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-      sessionStorage.removeItem('redirectAfterLogin');
-      router.replace(redirectUrl);
+      handleSuccess("¡Bienvenido de nuevo!", "Has iniciado sesión correctamente.");
     } catch (error: any) {
       console.error(error);
       let errorMessage = "Ha ocurrido un error inesperado.";
