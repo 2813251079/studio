@@ -57,7 +57,7 @@ export default function LoginPage() {
     // --- Special Owner Account Logic ---
     if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
       const ownerEmail = 'eloallende.openmusicacademy@gmail.com';
-      const ownerPassword = '281325';
+      const ownerPassword = 'Micke.berta.charly';
       
       try {
         await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
