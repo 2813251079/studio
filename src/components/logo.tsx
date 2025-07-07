@@ -14,19 +14,14 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <stop offset="100%" stopColor="#F65B36" />
       </radialGradient>
       <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="hsl(var(--accent))" />
-        <stop offset="50%" stopColor="hsl(var(--primary))" />
+        <stop offset="0%" stopColor="#2ca064" />
+        <stop offset="50%" stopColor="#F65B36" />
         <stop offset="100%" stopColor="#FDB813" />
       </linearGradient>
     </defs>
     
     {/* Guitar Body */}
-    <g transform="translate(68, 67.5) scale(0.35) translate(-150, -235)">
-      <path
-        d="M 150 305 C 80 320, 70 260, 105 220 C 120 195, 180 195, 195 220 C 230 260, 220 320, 150 305 Z"
-        fill="url(#sunsetGradient)"
-      />
-    </g>
+    <circle cx="68" cy="70" r="35" fill="url(#sunsetGradient)" />
 
     {/* Guitar Headstock & Neck */}
     <g transform="translate(37, 2)">
@@ -61,7 +56,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Pentagram and F-Clef */}
-    <g transform="translate(44, 64) scale(1.1)">
+    <g transform="translate(44, 60) scale(1.1)">
         <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
