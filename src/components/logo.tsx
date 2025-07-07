@@ -23,26 +23,40 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       />
     </g>
 
-    {/* Guitar Headstock */}
+    {/* Guitar Headstock & Neck */}
     <g transform="translate(37, 15)">
-        {/* Vertical neck/headstock */}
-        <path d="M -5 0 L 5 0 L 5 40 C 15 50, -15 50, -5 40 Z" fill="hsl(var(--primary))" />
-        <rect x="-5" y="40" width="10" height="50" fill="hsl(var(--primary))" />
+        {/* Headstock */}
+        <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--accent))" />
+        {/* Neck */}
+        <rect x="-5" y="40" width="10" height="50" fill="hsl(var(--accent))" />
         
+        {/* Frets */}
+        <g fill="hsl(var(--border))">
+            <rect x="-5" y="48" width="10" height="1" />
+            <rect x="-5" y="55" width="10" height="1" />
+            <rect x="-5" y="62" width="10" height="1" />
+            <rect x="-5" y="69" width="10" height="1" />
+            <rect x="-5" y="76" width="10" height="1" />
+            <rect x="-5" y="83" width="10" height="1" />
+        </g>
+
         {/* Pegs */}
-        <circle cx="-10" cy="10" r="3" fill="#000"/>
-        <circle cx="-10" cy="10" r="1" fill="hsl(var(--background))"/>
-        <circle cx="-10" cy="25" r="3" fill="#000"/>
-        <circle cx="-10" cy="25" r="1" fill="hsl(var(--background))"/>
-        
-        <circle cx="10" cy="10" r="3" fill="#000"/>
-        <circle cx="10" cy="10" r="1" fill="hsl(var(--background))"/>
-        <circle cx="10" cy="25" r="3" fill="#000"/>
-        <circle cx="10" cy="25" r="1" fill="hsl(var(--background))"/>
+        <g fill="#000">
+            <circle cx="-10" cy="10" r="3"/>
+            <circle cx="-10" cy="25" r="3"/>
+            <circle cx="10" cy="20" r="3"/>
+            <circle cx="10" cy="35" r="3"/>
+        </g>
+        <g fill="hsl(var(--background))">
+            <circle cx="-10" cy="10" r="1"/>
+            <circle cx="-10" cy="25" r="1"/>
+            <circle cx="10" cy="20" r="1"/>
+            <circle cx="10" cy="35" r="1"/>
+        </g>
     </g>
 
     {/* Pentagram and F-Clef */}
-    <g transform="translate(47.5, 54) scale(1.1)">
+    <g transform="translate(44, 54) scale(1.1)">
         <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
           <path d="M 0 0 H 55" />
           <path d="M 0 8 H 55" />
@@ -52,18 +66,18 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         </g>
 
         <g transform="translate(10, 0)">
-          {/* F-Clef shape */}
+          {/* F-Clef shape, moved up to center on the top line */}
           <path
-            d="M12,24 C 25,10 25,45 12,45"
-            stroke="#48D1CC"
+            d="M12,0 C 25,-14 25,21 12,21"
+            stroke="hsl(var(--primary))"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="12" cy="24" r="5" fill="#48D1CC" />
-          {/* Two dots for the F-clef */}
-          <circle cx="30" cy="20" r="3" fill="#48D1CC" />
-          <circle cx="30" cy="28" r="3" fill="#48D1CC" />
+          <circle cx="12" cy="0" r="5" fill="hsl(var(--primary))" />
+          {/* Two dots for the F-clef, straddling the top line */}
+          <circle cx="28" cy="-4" r="3" fill="hsl(var(--primary))" />
+          <circle cx="28" cy="4" r="3" fill="hsl(var(--primary))" />
         </g>
     </g>
   </svg>
