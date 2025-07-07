@@ -55,6 +55,7 @@ export default function RegisterPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: RegisterFormValues) => {
+    // Check for special email first
     if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
       toast({
         variant: 'destructive',
@@ -64,6 +65,7 @@ export default function RegisterPage() {
       return;
     }
 
+    // Check if Firebase is configured
     if (!isFirebaseConfigured || !auth) {
       toast({
         variant: 'destructive',
@@ -73,19 +75,24 @@ export default function RegisterPage() {
       return;
     }
     
+    // Proceed with registration
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
       
-      // Update the user's profile with their name
       if (userCredential.user) {
-        await updateProfile(userCredential.user, {
+        // This is a separate async action, but we don't need to block redirection on it.
+        // We'll update the profile in the background. The auth listener will handle the UI update.
+        updateProfile(userCredential.user, {
             displayName: values.name
+        }).catch(err => {
+            // Log if profile update fails, but don't block the user.
+            console.error("Failed to update profile:", err);
         });
       }
 
       toast({
         title: "¡Cuenta creada!",
-        description: "Tu cuenta ha sido creada exitosamente.",
+        description: "Tu cuenta ha sido creada exitosamente. Redirigiendo...",
       });
 
       const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
@@ -93,17 +100,27 @@ export default function RegisterPage() {
       router.replace(redirectUrl);
 
     } catch (error: any) {
-      console.error(error);
-      let errorMessage = "Ha ocurrido un error inesperado.";
+      console.error("Registration Error:", error);
+      
+      let title = "Error de registro";
+      let errorMessage = "Ha ocurrido un error inesperado. Por favor, intenta de nuevo.";
+
       if (error.code === 'auth/email-already-in-use') {
-        errorMessage = "Este correo electrónico ya está registrado.";
-        form.setError("email", { type: "manual", message: errorMessage });
+        errorMessage = "Este correo electrónico ya está registrado. Por favor, intenta iniciar sesión.";
+        form.setError("email", { type: "manual", message: "Este correo ya está en uso." });
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = "El formato del correo electrónico no es válido.";
+        form.setError("email", { type: "manual", message: "Correo inválido." });
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = "La contraseña es demasiado débil. Debe tener al menos 6 caracteres.";
+        form.setError("password", { type: "manual", message: "Contraseña débil." });
       } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
         errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
       }
+
       toast({
         variant: 'destructive',
-        title: "Error de registro",
+        title: title,
         description: errorMessage,
       });
     }

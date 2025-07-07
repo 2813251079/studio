@@ -18,7 +18,7 @@ import { Loader2, AlertTriangle } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useAuth } from "@/hooks/use-auth";
 import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useEffect } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -81,7 +81,12 @@ export default function LoginPage() {
         // If sign-in fails, it could be because the user doesn't exist. Try creating it.
         if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
           try {
-            await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
+            const userCredential = await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
+            if (userCredential.user) {
+                await updateProfile(userCredential.user, {
+                    displayName: "Propietario"
+                });
+            }
             handleSuccess("¡Cuenta de propietario creada!", "Has iniciado sesión correctamente.");
           } catch (creationError: any) {
             // If creation fails because the email is in use, it means the original password was wrong.
