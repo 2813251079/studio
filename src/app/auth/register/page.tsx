@@ -55,7 +55,7 @@ export default function RegisterPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: RegisterFormValues) => {
-    if (values.email === 'eloallende.openmusicacademy@gmail.com') {
+    if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
       toast({
         variant: 'destructive',
         title: "Cuenta Especial",
@@ -64,7 +64,15 @@ export default function RegisterPage() {
       return;
     }
 
-    if (!isFirebaseConfigured) return;
+    if (!isFirebaseConfigured || !auth) {
+      toast({
+        variant: 'destructive',
+        title: "Servicio no disponible",
+        description: "La autenticación no está configurada. Por favor, contacta al administrador.",
+      });
+      return;
+    }
+    
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
       

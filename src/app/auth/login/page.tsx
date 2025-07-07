@@ -53,7 +53,14 @@ export default function LoginPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: LoginFormValues) => {
-    if (!isFirebaseConfigured) return;
+    if (!isFirebaseConfigured || !auth) {
+      toast({
+        variant: 'destructive',
+        title: "Servicio no disponible",
+        description: "La autenticación no está configurada. Por favor, contacta al administrador.",
+      });
+      return;
+    }
 
     // --- Special Owner Account Logic ---
     if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
