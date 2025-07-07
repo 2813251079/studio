@@ -1,10 +1,10 @@
+
 import Link from "next/link";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { translations } from "@/lib/translations";
 import { ArrowRight, BrainCircuit, Waves, Wind, Video, Puzzle, SlidersHorizontal, Download, HeartHandshake } from "lucide-react";
-import Logo from "@/components/logo";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -66,7 +66,6 @@ export default function Home() {
       <main className="flex-1">
         <section className="container flex items-center text-left min-h-[calc(100vh-6rem)] py-20 md:py-32">
           <div className="max-w-3xl">
-            <Logo className="w-64 h-64 -ml-4" />
             <h2 className="mb-2 text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Open Music Academy
             </h2>
