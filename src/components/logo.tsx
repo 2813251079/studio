@@ -26,9 +26,9 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     {/* Guitar Headstock & Neck */}
     <g transform="translate(37, 15)">
         {/* Headstock */}
-        <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--accent))" />
+        <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--primary))" />
         {/* Neck */}
-        <rect x="-5" y="40" width="10" height="50" fill="hsl(var(--accent))" />
+        <rect x="-5" y="40" width="10" height="50" fill="hsl(var(--primary))" />
         
         {/* Frets */}
         <g fill="hsl(var(--border))">
@@ -69,15 +69,15 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           {/* F-Clef shape, moved up to center on the top line */}
           <path
             d="M12,0 C 25,-14 25,21 12,21"
-            stroke="hsl(var(--primary))"
+            stroke="hsl(var(--accent))"
             strokeWidth="5"
             strokeLinecap="round"
             fill="none"
           />
-          <circle cx="12" cy="0" r="5" fill="hsl(var(--primary))" />
+          <circle cx="12" cy="0" r="5" fill="hsl(var(--accent))" />
           {/* Two dots for the F-clef, straddling the top line */}
-          <circle cx="28" cy="-4" r="3" fill="hsl(var(--primary))" />
-          <circle cx="28" cy="4" r="3" fill="hsl(var(--primary))" />
+          <circle cx="28" cy="-4" r="3" fill="hsl(var(--accent))" />
+          <circle cx="28" cy="4" r="3" fill="hsl(var(--accent))" />
         </g>
     </g>
   </svg>
