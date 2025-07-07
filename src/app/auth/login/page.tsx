@@ -61,11 +61,12 @@ export default function LoginPage() {
       });
       return;
     }
-    
+
+    const isOwnerAccount = values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com';
+
     try {
         await signInWithEmailAndPassword(auth, values.email, values.password);
         
-        const isOwnerAccount = values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com';
         const title = isOwnerAccount ? "¡Bienvenido, propietario!" : "¡Bienvenido de nuevo!";
         toast({ title: title, description: "Has iniciado sesión correctamente." });
 
@@ -74,36 +75,69 @@ export default function LoginPage() {
         router.replace(redirectUrl);
 
     } catch (error: any) {
-        console.error(error);
-        let errorTitle = "Error de inicio de sesión";
-        let errorMessage = "Ha ocurrido un error inesperado.";
+        // If login fails, and it's the owner account, and the user is not found, try to create it.
+        if (isOwnerAccount && (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential')) {
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+                if (userCredential.user) {
+                    await updateProfile(userCredential.user, { displayName: "Propietario" });
+                }
+                toast({ title: "¡Bienvenido, propietario!", description: "Cuenta de propietario creada e iniciada sesión correctamente." });
+                const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+                sessionStorage.removeItem('redirectAfterLogin');
+                router.replace(redirectUrl);
+            } catch (creationError: any) {
+                let errorTitle = "Error de inicio de sesión";
+                let errorMessage = "Ha ocurrido un error inesperado durante la creación de la cuenta de propietario.";
 
-        switch (error.code) {
-            case 'auth/user-not-found':
-            case 'auth/wrong-password':
-            case 'auth/invalid-credential':
-                 errorMessage = "El correo electrónico o la contraseña no son correctos.";
-                 form.setError("email", { type: "manual", message: " " });
-                 form.setError("password", { type: "manual", message: " " });
-                break;
-            case 'auth/invalid-api-key':
-            case 'auth/api-key-not-valid':
-                errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
-                break;
-            case 'auth/admin-restricted-operation':
-                errorTitle = "Error de Acceso Propietario";
-                errorMessage = "La cuenta de propietario debe ser creada manualmente en la consola de Firebase. Contacta al administrador.";
-                break;
-            default:
-                // Keep generic error for other cases
-                break;
+                if (creationError.code === 'auth/email-already-in-use') {
+                    // This means the initial login failed due to a wrong password because the account exists.
+                    errorMessage = "El correo electrónico o la contraseña no son correctos.";
+                } else if (creationError.code === 'auth/admin-restricted-operation') {
+                    errorTitle = "Error de Acceso Propietario";
+                    errorMessage = "La cuenta de propietario debe ser creada manualmente en la consola de Firebase. Contacta al administrador.";
+                }
+                
+                form.setError("email", { type: "manual", message: " " });
+                form.setError("password", { type: "manual", message: " " });
+                toast({
+                    variant: 'destructive',
+                    title: errorTitle,
+                    description: errorMessage,
+                });
+            }
+        } else {
+            // Handle general login errors for non-owner accounts or other error types
+            let errorTitle = "Error de inicio de sesión";
+            let errorMessage = "Ha ocurrido un error inesperado.";
+
+            switch (error.code) {
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                case 'auth/invalid-credential':
+                     errorMessage = "El correo electrónico o la contraseña no son correctos.";
+                     form.setError("email", { type: "manual", message: " " });
+                     form.setError("password", { type: "manual", message: " " });
+                    break;
+                case 'auth/invalid-api-key':
+                case 'auth/api-key-not-valid':
+                    errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
+                    break;
+                 case 'auth/admin-restricted-operation':
+                    errorTitle = "Error de Acceso Propietario";
+                    errorMessage = "La cuenta de propietario debe ser creada manualmente en la consola de Firebase. Contacta al administrador.";
+                    break;
+                default:
+                    // Keep generic error for other cases
+                    break;
+            }
+
+            toast({
+                variant: 'destructive',
+                title: errorTitle,
+                description: errorMessage,
+            });
         }
-
-        toast({
-            variant: 'destructive',
-            title: errorTitle,
-            description: errorMessage,
-        });
     }
   };
 
