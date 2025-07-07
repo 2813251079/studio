@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -130,7 +131,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-4">
       <Link href="/">
-        <Logo className="w-40 h-40" />
+        <Logo className="w-48 h-48" />
       </Link>
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
