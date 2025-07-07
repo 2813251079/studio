@@ -74,49 +74,45 @@ export default function LoginPage() {
       const ownerEmail = 'eloallende.openmusicacademy@gmail.com';
       const ownerPassword = 'Micke.berta.charly';
       
-      let signInError: any;
       try {
         await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
         handleSuccess("¡Bienvenido, propietario!", "Has iniciado sesión correctamente.");
-        return;
-      } catch (error) {
-        signInError = error;
-      }
-
-      // If sign-in failed, maybe user doesn't exist. Let's try to create it.
-      if (signInError?.code === 'auth/user-not-found' || signInError?.code === 'auth/invalid-credential') {
+      } catch (signInError: any) {
+        // If sign-in fails, check if the error is due to user not found or wrong credentials.
+        if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
+          // Attempt to create the owner account.
           try {
             const userCredential = await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
             if (userCredential.user) {
               await updateProfile(userCredential.user, { displayName: "Propietario" });
             }
             handleSuccess("¡Cuenta de propietario creada!", "Has iniciado sesión correctamente.");
-            return;
           } catch (creationError: any) {
-            // Handle creation errors
-            let creationErrorMessage = "No se pudo crear o acceder a la cuenta de propietario.";
+            // If creation fails because email is in use, it means the password is wrong for the existing owner account.
             if (creationError.code === 'auth/email-already-in-use') {
-              creationErrorMessage = "La contraseña para la cuenta de propietario es incorrecta. Por favor, contacta al soporte para restablecerla.";
-            } else if (creationError.code === 'auth/weak-password') {
-              creationErrorMessage = "La contraseña de propietario es demasiado débil según las reglas de Firebase.";
+              toast({
+                variant: 'destructive',
+                title: "Error de Acceso Propietario",
+                description: "La contraseña para la cuenta de propietario es incorrecta. Por favor, contacta al soporte para restablecerla.",
+              });
             } else {
-              creationErrorMessage = `${creationErrorMessage} ${creationError.message}`;
+              // Handle other creation errors.
+              toast({
+                variant: 'destructive',
+                title: "Error de Creación de Cuenta",
+                description: `No se pudo crear la cuenta de propietario. ${creationError.message}`,
+              });
             }
-            toast({
-              variant: 'destructive',
-              title: "Error de Acceso Propietario",
-              description: creationErrorMessage,
-            });
-            return;
           }
+        } else {
+          // Handle other sign-in errors.
+          toast({
+            variant: 'destructive',
+            title: "Error de Inicio de Sesión",
+            description: `Ha ocurrido un error inesperado. ${signInError.message}`,
+          });
+        }
       }
-
-      // If sign-in failed for another reason
-      toast({
-        variant: 'destructive',
-        title: "Error de Inicio de Sesión",
-        description: `Ha ocurrido un error inesperado. ${signInError.message}`,
-      });
       return; // End special user logic
     }
 
