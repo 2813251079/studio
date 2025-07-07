@@ -18,7 +18,7 @@ import { Loader2, AlertTriangle } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useAuth } from "@/hooks/use-auth";
 import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -77,44 +77,23 @@ export default function LoginPage() {
       try {
         await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
         handleSuccess("¡Bienvenido, propietario!", "Has iniciado sesión correctamente.");
-      } catch (signInError: any) {
-        // If sign-in fails, it might be because the user doesn't exist.
-        // Let's try to create it. `auth/invalid-credential` covers both user-not-found and wrong-password.
-        if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
-          try {
-            const userCredential = await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
-            if (userCredential.user) {
-              await updateProfile(userCredential.user, { displayName: "Propietario" });
-            }
-            handleSuccess("¡Cuenta de propietario creada!", "Has iniciado sesión correctamente.");
-          } catch (creationError: any) {
-            let errorTitle = "Error de Creación de Cuenta";
-            let errorDescription = `No se pudo crear la cuenta de propietario. ${creationError.message}`;
+      } catch (error: any) {
+        let errorTitle = "Error de Acceso Propietario";
+        let errorDescription = `Ha ocurrido un error inesperado. ${error.message}`;
 
-            if (creationError.code === 'auth/email-already-in-use') {
-              // This is the key state: sign-in failed, and creation failed because the user exists.
-              // This can only mean the password provided for the initial sign-in attempt was wrong.
-              errorTitle = "Error de Acceso Propietario";
-              errorDescription = "La contraseña para la cuenta de propietario es incorrecta. Por favor, verifica la contraseña.";
-            } else if (creationError.code === 'auth/weak-password') {
-              errorTitle = "Contraseña Débil";
-              errorDescription = "La contraseña de propietario no cumple los requisitos de seguridad. Por favor, contacta al soporte.";
-            }
-
-            toast({
-              variant: 'destructive',
-              title: errorTitle,
-              description: errorDescription,
-            });
-          }
-        } else {
-          // Handle other unexpected sign-in errors.
-          toast({
-            variant: 'destructive',
-            title: "Error de Inicio de Sesión",
-            description: `Ha ocurrido un error inesperado. ${signInError.message}`,
-          });
+        if (error.code === 'auth/user-not-found') {
+            errorDescription = "La cuenta de propietario no existe. Debe ser creada manualmente en la consola de Firebase antes del primer uso.";
+        } else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+            errorDescription = "La contraseña para la cuenta de propietario es incorrecta. Por favor, verifica la contraseña.";
+        } else if (error.code === 'auth/admin-restricted-operation') {
+             errorDescription = "Operación restringida. La cuenta de propietario debe crearse manualmente en la consola de Firebase.";
         }
+
+        toast({
+          variant: 'destructive',
+          title: errorTitle,
+          description: errorDescription,
+        });
       }
       return; // End special user logic
     }
