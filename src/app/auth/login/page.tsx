@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from "next/link";
@@ -62,59 +61,45 @@ export default function LoginPage() {
       return;
     }
 
-    const handleSuccess = (title: string, description: string) => {
-      toast({ title, description });
+    const isOwnerAccount = values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com';
+
+    try {
+      await signInWithEmailAndPassword(auth, values.email, values.password);
+      
+      const title = isOwnerAccount ? "¡Bienvenido, propietario!" : "¡Bienvenido de nuevo!";
+      toast({ title: title, description: "Has iniciado sesión correctamente." });
+
       const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
       sessionStorage.removeItem('redirectAfterLogin');
       router.replace(redirectUrl);
-    };
 
-    // --- Special Owner Account Logic ---
-    if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
-      const ownerEmail = 'eloallende.openmusicacademy@gmail.com';
-      const ownerPassword = 'Micke.berta.charly';
-      
-      try {
-        await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
-        handleSuccess("¡Bienvenido, propietario!", "Has iniciado sesión correctamente.");
-      } catch (error: any) {
-        let errorTitle = "Error de Acceso Propietario";
-        let errorDescription = `Ha ocurrido un error inesperado. ${error.message}`;
-
-        if (error.code === 'auth/user-not-found') {
-            errorDescription = "La cuenta de propietario no existe. Debe ser creada manualmente en la consola de Firebase antes del primer uso.";
-        } else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-            errorDescription = "La contraseña para la cuenta de propietario es incorrecta. Por favor, verifica la contraseña.";
-        } else if (error.code === 'auth/admin-restricted-operation') {
-             errorDescription = "Operación restringida. La cuenta de propietario debe crearse manualmente en la consola de Firebase.";
-        }
-
-        toast({
-          variant: 'destructive',
-          title: errorTitle,
-          description: errorDescription,
-        });
-      }
-      return; // End special user logic
-    }
-
-    // --- Regular User Login Logic ---
-    try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
-      handleSuccess("¡Bienvenido de nuevo!", "Has iniciado sesión correctamente.");
     } catch (error: any) {
       console.error(error);
+      let errorTitle = "Error de inicio de sesión";
       let errorMessage = "Ha ocurrido un error inesperado.";
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-        errorMessage = "El correo electrónico o la contraseña no son correctos.";
-        form.setError("email", { type: "manual", message: " " });
-        form.setError("password", { type: "manual", message: " " });
-      } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
+
+      if (isOwnerAccount) {
+        errorTitle = "Error de Acceso Propietario";
+        if (error.code === 'auth/user-not-found') {
+          errorMessage = "La cuenta de propietario no existe. Debe ser creada manualmente en la consola de Firebase.";
+        } else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+          errorMessage = "La contraseña para la cuenta de propietario es incorrecta. Por favor, verifica la contraseña.";
+        }
+      } else {
+         if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+          errorMessage = "El correo electrónico o la contraseña no son correctos.";
+          form.setError("email", { type: "manual", message: " " });
+          form.setError("password", { type: "manual", message: " " });
+        }
+      }
+      
+      if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
         errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
       }
+
       toast({
         variant: 'destructive',
-        title: "Error de inicio de sesión",
+        title: errorTitle,
         description: errorMessage,
       });
     }
