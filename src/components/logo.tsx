@@ -24,7 +24,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     </g>
 
     {/* Guitar Headstock & Neck */}
-    <g transform="translate(37, 10)">
+    <g transform="translate(37, 8)">
         {/* Headstock */}
         <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--primary))" />
         {/* Neck */}
