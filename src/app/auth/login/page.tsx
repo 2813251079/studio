@@ -55,68 +55,86 @@ export default function LoginPage() {
   const onSubmit = async (values: LoginFormValues) => {
     if (!isFirebaseConfigured) return;
 
-    const emailToLogin = values.email;
-    // For the special user, always use the specific password. For others, use what they typed.
-    const passwordToLogin =
-      emailToLogin === 'eloallende.openmusicacademy@gmail.com'
-        ? '281325'
-        : values.password;
-
-    try {
-      await signInWithEmailAndPassword(auth, emailToLogin, passwordToLogin);
+    // --- Special Owner Account Logic ---
+    if (values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com') {
+      const ownerEmail = 'eloallende.openmusicacademy@gmail.com';
+      const ownerPassword = '281325';
       
+      try {
+        await signInWithEmailAndPassword(auth, ownerEmail, ownerPassword);
+        toast({
+          title: "¡Bienvenido, propietario!",
+          description: "Has iniciado sesión correctamente.",
+        });
+        const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+        sessionStorage.removeItem('redirectAfterLogin');
+        router.replace(redirectUrl);
+      } catch (signInError: any) {
+        // If user does not exist, create it. `invalid-credential` can mean user not found.
+        if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
+          try {
+            await createUserWithEmailAndPassword(auth, ownerEmail, ownerPassword);
+            toast({
+              title: "¡Cuenta de propietario creada!",
+              description: "Has iniciado sesión correctamente.",
+            });
+            const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+            sessionStorage.removeItem('redirectAfterLogin');
+            router.replace(redirectUrl);
+          } catch (creationError: any) {
+            // This case handles if the user *already* exists but the password was wrong on the initial sign-in attempt.
+            if (creationError.code === 'auth/email-already-in-use') {
+                 toast({
+                    variant: 'destructive',
+                    title: "Error de Contraseña",
+                    description: "La contraseña para la cuenta de propietario es incorrecta. Por favor, contacta al administrador para restablecerla.",
+                });
+            } else {
+                 toast({
+                    variant: 'destructive',
+                    title: "Error Inesperado",
+                    description: `No se pudo crear o acceder a la cuenta de propietario. ${creationError.message}`,
+                });
+            }
+          }
+        } else {
+          // Handle other sign-in errors for the owner account
+          toast({
+            variant: 'destructive',
+            title: "Error de Inicio de Sesión",
+            description: `Ha ocurrido un error inesperado. ${signInError.message}`,
+          });
+        }
+      }
+      return; // Stop execution for special user
+    }
+
+    // --- Regular User Login Logic ---
+    try {
+      await signInWithEmailAndPassword(auth, values.email, values.password);
       toast({
         title: "¡Bienvenido de nuevo!",
         description: "Has iniciado sesión correctamente.",
       });
-
       const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
       sessionStorage.removeItem('redirectAfterLogin');
       router.replace(redirectUrl);
-
-    } catch (error: any) {
-      // If sign-in fails for the special user because the account doesn't exist, create it.
-      if ((error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') && emailToLogin === 'eloallende.openmusicacademy@gmail.com') {
-        try {
-          await createUserWithEmailAndPassword(auth, emailToLogin, passwordToLogin); // Will use '281325'
-          toast({
-            title: "¡Cuenta especial creada!",
-            description: "Has iniciado sesión correctamente.",
-          });
-          const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-          sessionStorage.removeItem('redirectAfterLogin');
-          router.replace(redirectUrl);
-        } catch (creationError: any) {
-          // This can happen if the account exists but the stored password in Firebase is NOT '281325'.
-          console.error("Special user creation/login failed:", creationError);
-          let errorMessage = "No se pudo iniciar sesión. Contacta al administrador si el problema persiste.";
-           if (creationError.code === 'auth/email-already-in-use') {
-              errorMessage = "La contraseña de la cuenta especial es incorrecta. Por favor, contacta al administrador para restablecerla.";
-           }
-          toast({
-            variant: 'destructive',
-            title: "Error de inicio de sesión especial",
-            description: errorMessage,
-          });
-        }
-      } else {
-        // For all other users or other errors.
-        console.error(error);
-        let errorMessage = "Ha ocurrido un error inesperado.";
-        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-          errorMessage = "El correo electrónico o la contraseña no son correctos.";
-          form.setError("email", { type: "manual", message: " " });
-          form.setError("password", { type: "manual", message: " " });
-          setTimeout(() => form.setFocus('email'), 0);
-        } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
-          errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
-        }
-        toast({
-          variant: 'destructive',
-          title: "Error de inicio de sesión",
-          description: errorMessage,
-        });
+    } catch (error: any)
+      console.error(error);
+      let errorMessage = "Ha ocurrido un error inesperado.";
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+        errorMessage = "El correo electrónico o la contraseña no son correctos.";
+        form.setError("email", { type: "manual", message: " " });
+        form.setError("password", { type: "manual", message: " " });
+        setTimeout(() => form.setFocus('email'), 0);
+      } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
+        errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
       }
+      toast({
+        variant: 'destructive',
+        title: "Error de inicio de sesión",
+        description: errorMessage,
+      });
     }
   };
 
