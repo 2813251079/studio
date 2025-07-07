@@ -50,6 +50,7 @@ const features = [
 function DashboardHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const { toast } = useToast();
   const { user, logout, isFirebaseConfigured } = useAuth();
 
@@ -70,6 +71,14 @@ function DashboardHeader() {
       return user.email.charAt(0).toUpperCase();
     }
     return <UserCircle />;
+  };
+
+  const handleFrequencyButtonClick = () => {
+    if (pathname === '/dashboard') {
+      router.back();
+    } else {
+      router.push('/dashboard');
+    }
   };
   
   return (
@@ -128,6 +137,9 @@ function DashboardHeader() {
             </div>
 
             <div className="hidden md:flex items-center gap-4">
+                <Button variant="outline" size="sm" onClick={handleFrequencyButtonClick}>
+                    F=1/T (hertz)
+                </Button>
                 <Button asChild size="sm">
                     <Link href="/pricing">
                         <Download className="mr-2 h-4 w-4"/>
@@ -182,6 +194,16 @@ function DashboardHeader() {
                   </SheetHeader>
                   <nav className="flex flex-col gap-4 pt-10">
                      <Link href="/dashboard" className="font-bold text-lg mb-4" onClick={() => setMobileMenuOpen(false)}>Open Music Academy</Link>
+                     <Button
+                        variant="outline"
+                        onClick={() => {
+                            handleFrequencyButtonClick();
+                            setMobileMenuOpen(false);
+                        }}
+                        className="flex items-center justify-center text-base gap-3"
+                     >
+                        F=1/T (hertz)
+                     </Button>
                      {features.map((feature) => (
                         <Link key={feature.href} href={feature.href} className="flex items-center gap-3 text-lg" onClick={() => setMobileMenuOpen(false)}>
                             {feature.icon}
