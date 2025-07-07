@@ -13,18 +13,18 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { translations } from "@/lib/translations";
-import { Loader2, AlertTriangle } from "lucide-react";
+import { Loader2, AlertTriangle, Eye, EyeOff } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useAuth } from "@/hooks/use-auth";
 import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useEffect } from "react";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useEffect, useState } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
 const loginSchema = z.object({
   email: z.string().email("Por favor, introduce un correo electrónico válido."),
-  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres."),
+  password: z.string().min(1, "La contraseña no puede estar vacía."),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -33,6 +33,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
   const { user, loading, isFirebaseConfigured } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -60,48 +61,49 @@ export default function LoginPage() {
       });
       return;
     }
-
-    const isOwnerAccount = values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com';
-
+    
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
-      
-      const title = isOwnerAccount ? "¡Bienvenido, propietario!" : "¡Bienvenido de nuevo!";
-      toast({ title: title, description: "Has iniciado sesión correctamente." });
+        await signInWithEmailAndPassword(auth, values.email, values.password);
+        
+        const isOwnerAccount = values.email.toLowerCase() === 'eloallende.openmusicacademy@gmail.com';
+        const title = isOwnerAccount ? "¡Bienvenido, propietario!" : "¡Bienvenido de nuevo!";
+        toast({ title: title, description: "Has iniciado sesión correctamente." });
 
-      const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-      sessionStorage.removeItem('redirectAfterLogin');
-      router.replace(redirectUrl);
+        const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+        sessionStorage.removeItem('redirectAfterLogin');
+        router.replace(redirectUrl);
 
     } catch (error: any) {
-      console.error(error);
-      let errorTitle = "Error de inicio de sesión";
-      let errorMessage = "Ha ocurrido un error inesperado.";
+        console.error(error);
+        let errorTitle = "Error de inicio de sesión";
+        let errorMessage = "Ha ocurrido un error inesperado.";
 
-      if (isOwnerAccount) {
-        errorTitle = "Error de Acceso Propietario";
-        if (error.code === 'auth/user-not-found') {
-          errorMessage = "La cuenta de propietario no existe. Debe ser creada manualmente en la consola de Firebase.";
-        } else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-          errorMessage = "La contraseña para la cuenta de propietario es incorrecta. Por favor, verifica la contraseña.";
+        switch (error.code) {
+            case 'auth/user-not-found':
+            case 'auth/wrong-password':
+            case 'auth/invalid-credential':
+                 errorMessage = "El correo electrónico o la contraseña no son correctos.";
+                 form.setError("email", { type: "manual", message: " " });
+                 form.setError("password", { type: "manual", message: " " });
+                break;
+            case 'auth/invalid-api-key':
+            case 'auth/api-key-not-valid':
+                errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
+                break;
+            case 'auth/admin-restricted-operation':
+                errorTitle = "Error de Acceso Propietario";
+                errorMessage = "La cuenta de propietario debe ser creada manualmente en la consola de Firebase. Contacta al administrador.";
+                break;
+            default:
+                // Keep generic error for other cases
+                break;
         }
-      } else {
-         if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-          errorMessage = "El correo electrónico o la contraseña no son correctos.";
-          form.setError("email", { type: "manual", message: " " });
-          form.setError("password", { type: "manual", message: " " });
-        }
-      }
-      
-      if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
-        errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
-      }
 
-      toast({
-        variant: 'destructive',
-        title: errorTitle,
-        description: errorMessage,
-      });
+        toast({
+            variant: 'destructive',
+            title: errorTitle,
+            description: errorMessage,
+        });
     }
   };
 
@@ -154,9 +156,29 @@ export default function LoginPage() {
                   render={({ field }) => (
                     <FormItem>
                       <Label htmlFor="password">{t('login.password')}</Label>
-                      <FormControl>
-                        <Input id="password" type="password" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
-                      </FormControl>
+                       <div className="relative">
+                        <FormControl>
+                          <Input 
+                            id="password" 
+                            type={showPassword ? "text" : "password"} 
+                            {...field} 
+                            disabled={isSubmitting || !isFirebaseConfigured} 
+                            className="pr-10"
+                          />
+                        </FormControl>
+                        <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 flex items-center pr-3"
+                          onClick={() => setShowPassword(!showPassword)}
+                          aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5 text-muted-foreground" />
+                          ) : (
+                            <Eye className="h-5 w-5 text-muted-foreground" />
+                          )}
+                        </button>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}

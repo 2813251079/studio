@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from "next/link";
@@ -14,12 +13,12 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { translations } from "@/lib/translations";
-import { Loader2, AlertTriangle } from "lucide-react";
+import { Loader2, AlertTriangle, Eye, EyeOff } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useAuth } from "@/hooks/use-auth";
 import { auth } from "@/lib/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
 
@@ -35,6 +34,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const { toast } = useToast();
   const { user, loading, isFirebaseConfigured } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
   
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -189,9 +189,29 @@ export default function RegisterPage() {
                   render={({ field }) => (
                     <FormItem>
                       <Label htmlFor="password">{t('register.password')}</Label>
-                      <FormControl>
-                        <Input id="password" type="password" {...field} disabled={isSubmitting || !isFirebaseConfigured} />
-                      </FormControl>
+                      <div className="relative">
+                        <FormControl>
+                           <Input 
+                            id="password" 
+                            type={showPassword ? "text" : "password"} 
+                            {...field} 
+                            disabled={isSubmitting || !isFirebaseConfigured} 
+                            className="pr-10"
+                          />
+                        </FormControl>
+                         <button
+                          type="button"
+                          className="absolute inset-y-0 right-0 flex items-center pr-3"
+                          onClick={() => setShowPassword(!showPassword)}
+                          aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5 text-muted-foreground" />
+                          ) : (
+                            <Eye className="h-5 w-5 text-muted-foreground" />
+                          )}
+                        </button>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
