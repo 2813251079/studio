@@ -119,7 +119,7 @@ export default function LoginPage() {
       const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
       sessionStorage.removeItem('redirectAfterLogin');
       router.replace(redirectUrl);
-    } catch (error: any)
+    } catch (error: any) {
       console.error(error);
       let errorMessage = "Ha ocurrido un error inesperado.";
       if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
