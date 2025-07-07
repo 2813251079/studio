@@ -17,7 +17,7 @@ import { Loader2, AlertTriangle } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useAuth } from "@/hooks/use-auth";
 import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useEffect } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -54,7 +54,7 @@ export default function LoginPage() {
   const onSubmit = async (values: LoginFormValues) => {
     if (!isFirebaseConfigured) return;
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      await signInWithEmailAndPassword(auth, values.email, values.password);
       
       toast({
         title: "¡Bienvenido de nuevo!",
@@ -66,21 +66,50 @@ export default function LoginPage() {
       router.replace(redirectUrl);
 
     } catch (error: any) {
-      console.error(error);
-      let errorMessage = "Ha ocurrido un error inesperado.";
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-        errorMessage = "El correo electrónico o la contraseña no son correctos.";
-        form.setError("email", { type: "manual", message: " " });
-        form.setError("password", { type: "manual", message: " " });
-        setTimeout(() => form.setFocus('email'), 0);
-      } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
-        errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
+      // If sign-in fails because the user doesn't exist, AND it's the special user...
+      if ((error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') && values.email === 'eloallende.openmusicacademy@gmail.com') {
+        // ...try to create the account automatically.
+        try {
+          await createUserWithEmailAndPassword(auth, values.email, values.password);
+          toast({
+            title: "¡Cuenta especial creada!",
+            description: "Has iniciado sesión correctamente.",
+          });
+          const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
+          sessionStorage.removeItem('redirectAfterLogin');
+          router.replace(redirectUrl);
+        } catch (creationError: any) {
+          // Handle creation errors (e.g., weak password)
+          console.error(creationError);
+          let errorMessage = "Error al crear la cuenta especial.";
+          if (creationError.code === 'auth/weak-password') {
+            errorMessage = "La contraseña es demasiado débil.";
+            form.setError("password", { type: "manual", message: errorMessage });
+          }
+          toast({
+            variant: 'destructive',
+            title: "Error de registro",
+            description: errorMessage,
+          });
+        }
+      } else {
+        // For all other errors, show the standard login error message.
+        console.error(error);
+        let errorMessage = "Ha ocurrido un error inesperado.";
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+          errorMessage = "El correo electrónico o la contraseña no son correctos.";
+          form.setError("email", { type: "manual", message: " " });
+          form.setError("password", { type: "manual", message: " " });
+          setTimeout(() => form.setFocus('email'), 0);
+        } else if (error.code === 'auth/invalid-api-key' || error.code === 'auth/api-key-not-valid') {
+          errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
+        }
+        toast({
+          variant: 'destructive',
+          title: "Error de inicio de sesión",
+          description: errorMessage,
+        });
       }
-      toast({
-        variant: 'destructive',
-        title: "Error de inicio de sesión",
-        description: errorMessage,
-      });
     }
   };
 
