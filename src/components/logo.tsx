@@ -15,16 +15,16 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       </radialGradient>
       <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#2ca064" />
-          <stop offset="50%" stopColor="#F65B36" />
-          <stop offset="100%" stopColor="#FDB813" />
+          <stop offset="50%" stopColor="#FDB813" />
+          <stop offset="100%" stopColor="#F65B36" />
       </linearGradient>
     </defs>
-    <g transform="translate(15, 6) scale(0.8)">
+    <g transform="translate(15, 6) scale(0.7)">
       {/* Guitar Body */}
-      <circle cx="68" cy="70" r="30" fill="url(#sunsetGradient)" />
+      <circle cx="68" cy="70" r="25" fill="url(#sunsetGradient)" />
 
       {/* Guitar Headstock & Neck */}
-      <g transform="translate(37, -10)">
+      <g transform="translate(37, 4)">
           {/* Headstock */}
           <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--primary))" />
           {/* Neck */}
@@ -43,20 +43,20 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
           {/* Pegs */}
           <g fill="#000">
               <circle cx="-10" cy="15" r="3"/>
-              <circle cx="-10" cy="30" r="3"/>
               <circle cx="10" cy="15" r="3"/>
+              <circle cx="-10" cy="30" r="3"/>
               <circle cx="10" cy="30" r="3"/>
           </g>
           <g fill="hsl(var(--background))">
               <circle cx="-10" cy="15" r="1"/>
-              <circle cx="-10" cy="30" r="1"/>
               <circle cx="10" cy="15" r="1"/>
+              <circle cx="-10" cy="30" r="1"/>
               <circle cx="10" cy="30" r="1"/>
           </g>
       </g>
 
       {/* Pentagram and F-Clef */}
-      <g transform="translate(44, 60) scale(1.1)">
+      <g transform="translate(44, 64) scale(1.1)">
           <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
             <path d="M 0 0 H 55" />
             <path d="M 0 8 H 55" />
