@@ -14,9 +14,9 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
         <stop offset="100%" stopColor="#F65B36" />
       </radialGradient>
       <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#2ca064" />
+          <stop offset="0%" stopColor="#F65B36" />
           <stop offset="50%" stopColor="#FDB813" />
-          <stop offset="100%" stopColor="#F65B36" />
+          <stop offset="100%" stopColor="#2ca064" />
       </linearGradient>
     </defs>
     <g transform="translate(15, 6) scale(0.7)">
@@ -24,7 +24,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       <circle cx="68" cy="70" r="25" fill="url(#sunsetGradient)" />
 
       {/* Guitar Headstock & Neck */}
-      <g transform="translate(37, 4)">
+      <g transform="translate(37, -8)">
           {/* Headstock */}
           <path d="M 5 0 L -5 0 L -5 40 C -15 50, 5 55, 5 40 Z" fill="hsl(var(--primary))" />
           {/* Neck */}
@@ -56,7 +56,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       </g>
 
       {/* Pentagram and F-Clef */}
-      <g transform="translate(44, 64) scale(1.1)">
+      <g transform="translate(44, 68) scale(1.1)">
           <g stroke="hsl(var(--muted-foreground))" strokeWidth="1.5">
             <path d="M 0 0 H 55" />
             <path d="M 0 8 H 55" />
