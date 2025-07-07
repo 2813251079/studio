@@ -2,19 +2,13 @@ import * as React from 'react';
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="url(#insta-gradient)"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
     {...props}
   >
     <defs>
-      <radialGradient id="insta-gradient" cx="30%" cy="107%" r="150%">
+      <radialGradient id="insta-gradient-logo-fix" cx="30%" cy="107%" r="150%">
         <stop offset="0%" stopColor="#fdf497" />
         <stop offset="5%" stopColor="#fdf497" />
         <stop offset="45%" stopColor="#fd5949" />
@@ -22,9 +16,13 @@ const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
         <stop offset="90%" stopColor="#285AEB" />
       </radialGradient>
     </defs>
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" strokeWidth="2.5" />
+    <rect width="24" height="24" rx="6" ry="6" fill="url(#insta-gradient-logo-fix)" />
+    <g fill="none" stroke="white" strokeWidth="1.5">
+        <rect x="4" y="4" width="16" height="16" rx="4" ry="4" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="16.5" cy="7.5" r="1" fill="white" stroke="none"/>
+    </g>
   </svg>
 );
+
 export default InstagramIcon;
