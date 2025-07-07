@@ -17,7 +17,7 @@ import { Loader2, AlertTriangle, Eye, EyeOff } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useAuth } from "@/hooks/use-auth";
 import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 const t = (key: any) => translations.es[key as any] || key;
@@ -34,6 +34,7 @@ export default function LoginPage() {
   const { toast } = useToast();
   const { user, loading, isFirebaseConfigured } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState<{ title: string; description: string } | null>(null);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -53,6 +54,8 @@ export default function LoginPage() {
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: LoginFormValues) => {
+    setLoginError(null); // Clear previous errors on a new submission attempt
+
     if (!isFirebaseConfigured || !auth) {
       toast({
         variant: 'destructive',
@@ -75,41 +78,20 @@ export default function LoginPage() {
         router.replace(redirectUrl);
 
     } catch (error: any) {
-        // If login fails, and it's the owner account, and the user is not found, try to create it.
-        if (isOwnerAccount && (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential')) {
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
-                if (userCredential.user) {
-                    await updateProfile(userCredential.user, { displayName: "Propietario" });
-                }
-                toast({ title: "¡Bienvenido, propietario!", description: "Cuenta de propietario creada e iniciada sesión correctamente." });
-                const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/dashboard';
-                sessionStorage.removeItem('redirectAfterLogin');
-                router.replace(redirectUrl);
-            } catch (creationError: any) {
-                let errorTitle = "Error de inicio de sesión";
-                let errorMessage = "Ha ocurrido un error inesperado durante la creación de la cuenta de propietario.";
-
-                if (creationError.code === 'auth/email-already-in-use') {
-                    // This means the initial login failed due to a wrong password because the account exists.
-                    errorMessage = "El correo electrónico o la contraseña no son correctos.";
-                } else if (creationError.code === 'auth/admin-restricted-operation') {
-                    errorTitle = "Error de Acceso Propietario";
-                    errorMessage = "La cuenta de propietario debe ser creada manualmente en la consola de Firebase. Contacta al administrador.";
-                }
-                
-                form.setError("email", { type: "manual", message: " " });
-                form.setError("password", { type: "manual", message: " " });
-                toast({
-                    variant: 'destructive',
-                    title: errorTitle,
-                    description: errorMessage,
-                });
-            }
+        if (isOwnerAccount) {
+            // For owner account, if login fails for any reason, show the manual creation error.
+            // This is because client-side creation is restricted and login could fail for multiple reasons (not found, wrong password).
+            // The simplest, most secure path is to direct the owner to the Firebase console.
+            setLoginError({
+                title: "Error de Acceso Propietario",
+                description: "La cuenta de propietario debe ser creada manualmente en la consola de Firebase. Contacta al administrador."
+            });
+             form.setError("email", { type: "manual", message: " " });
+             form.setError("password", { type: "manual", message: " " });
         } else {
-            // Handle general login errors for non-owner accounts or other error types
+            // Handle general login errors for non-owner accounts
             let errorTitle = "Error de inicio de sesión";
-            let errorMessage = "Ha ocurrido un error inesperado.";
+            let errorMessage = "El correo electrónico o la contraseña no son correctos.";
 
             switch (error.code) {
                 case 'auth/user-not-found':
@@ -123,20 +105,11 @@ export default function LoginPage() {
                 case 'auth/api-key-not-valid':
                     errorMessage = "La clave de API de Firebase no es válida. Por favor, contacta al administrador.";
                     break;
-                 case 'auth/admin-restricted-operation':
-                    errorTitle = "Error de Acceso Propietario";
-                    errorMessage = "La cuenta de propietario debe ser creada manualmente en la consola de Firebase. Contacta al administrador.";
-                    break;
                 default:
                     // Keep generic error for other cases
                     break;
             }
-
-            toast({
-                variant: 'destructive',
-                title: errorTitle,
-                description: errorMessage,
-            });
+             setLoginError({ title: errorTitle, description: errorMessage });
         }
     }
   };
@@ -154,13 +127,24 @@ export default function LoginPage() {
       <Link href="/">
         <Logo className="w-48 h-48" />
       </Link>
+      
+      {loginError && (
+        <div className="w-full max-w-sm">
+            <Alert variant="destructive">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>{loginError.title}</AlertTitle>
+                <AlertDescription>{loginError.description}</AlertDescription>
+            </Alert>
+        </div>
+       )}
+
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
           <CardTitle className="text-2xl text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('login.title')}</CardTitle>
           <CardDescription className="text-center">{t('login.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-          {!isFirebaseConfigured && (
+          {!isFirebaseConfigured && !loginError && (
               <Alert variant="destructive" className="mb-4">
                 <AlertTriangle className="h-4 w-4" />
                 <AlertTitle>Servicio no disponible</AlertTitle>
