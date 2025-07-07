@@ -29,7 +29,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-24 max-w-screen-2xl items-center justify-between">
         <Link href="/" className="group flex items-center gap-2">
-          <Logo className="w-20 h-20" />
+          <Logo className="w-24 h-24" />
           <span className="font-bold text-3xl hidden sm:inline-block text-foreground transition-colors group-hover:text-accent">{t('app.title')}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">

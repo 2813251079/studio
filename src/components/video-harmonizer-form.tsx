@@ -92,7 +92,7 @@ export default function VideoHarmonizerForm() {
         {useFormStatus().pending && (
            <Card className="flex h-full flex-col items-center justify-center p-8 text-center">
                 <div className="animate-pulse mb-4">
-                    <Logo className="w-24 h-24" />
+                    <Logo className="w-28 h-28" />
                 </div>
                 <p className="text-muted-foreground text-lg">{t('video_harmonizer.result.loading')}</p>
            </Card>

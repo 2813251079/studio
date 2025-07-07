@@ -78,7 +78,7 @@ function DashboardHeader() {
         <Link 
             href="/dashboard" 
             aria-label={t('dashboard.sidebar.home')}
-            className="w-24 h-24 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95 md:ml-16"
+            className="w-28 h-28 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95 md:ml-16"
         >
             <Logo className="w-full h-full" />
         </Link>
@@ -88,7 +88,7 @@ function DashboardHeader() {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="text-xl flex items-center gap-2">
-                           <Logo className="w-10 h-10" />
+                           <Logo className="w-12 h-12" />
                            <span>{t('app.title')}</span>
                         </Button>
                     </DropdownMenuTrigger>

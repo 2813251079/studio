@@ -43,7 +43,7 @@ export default function PricingPage() {
                     <p className="text-sm text-muted-foreground mt-8">{t('downloads.free_with_in_app')}</p>
                 </div>
                 <div className="w-full order-1 md:order-2 flex items-center justify-center bg-secondary p-8">
-                    <Logo className="w-full max-w-[400px] h-auto" />
+                    <Logo className="w-full max-w-[450px] h-auto" />
                 </div>
             </div>
           </Card>

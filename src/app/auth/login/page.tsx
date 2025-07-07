@@ -95,7 +95,7 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-4">
       <Link href="/">
-        <Logo className="w-32 h-32" />
+        <Logo className="w-40 h-40" />
       </Link>
       <Card className="w-full max-w-sm mx-4">
         <CardHeader>
