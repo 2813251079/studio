@@ -83,7 +83,7 @@ const Logo = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
       
       <text
         x="55"
-        y="18"
+        y="22"
         fontFamily="PT Sans, sans-serif"
         fontSize="8"
         fontWeight="bold"

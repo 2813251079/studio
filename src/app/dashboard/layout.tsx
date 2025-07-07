@@ -78,7 +78,7 @@ function DashboardHeader() {
         <Link 
             href="/dashboard" 
             aria-label={t('dashboard.sidebar.home')}
-            className="w-40 h-40 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95 md:ml-16"
+            className="w-48 h-48 flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-110 active:scale-95 md:ml-16"
         >
             <Logo className="w-full h-full" />
         </Link>
